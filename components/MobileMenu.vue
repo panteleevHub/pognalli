@@ -1,0 +1,91 @@
+<template>
+  <div :class="isMenuOpened ? 'mobile-menu mobile-menu--opened' : 'mobile-menu'">
+    <div class="mobile-menu__top">
+      <NuxtLink to="/">
+        <Logo :isMenuOpened="isMenuOpened" />
+      </NuxtLink>
+      <button
+        @click="isMenuOpened = !isMenuOpened"
+        class="mobile-menu__toggle"
+        type="button"
+        aria-label="Открыть меню"
+      >
+      </button>
+    </div>
+    <div v-if="isMenuOpened" class="mobile-menu__bottom">
+      <AppNavigation />
+      <UserNavigation :isFull="false" />
+      <address class="mobile-menu__contacts">
+        <a class="mobile-menu__contact mobile-menu__contact--phone" href="tel:88005558628">8 800 555-86-28</a>
+        <a class="mobile-menu__contact mobile-menu__contact--mail" href="mailto:mail@htmlacademy.ru">mail@htmlacademy.ru</a>
+      </address>
+      <Socials place="header" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+const isMenuOpened = ref(false);
+</script>
+
+<style lang="scss" scoped>
+.mobile-menu {
+  padding: 0 25px;
+  background-color: $dark-blue;
+}
+
+.mobile-menu--opened {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: $white;
+}
+
+.mobile-menu__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.mobile-menu__toggle {
+  display: block;
+  width: 25px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  background-image: url('@/assets/img/menu-open.svg');
+}
+
+.mobile-menu--opened .mobile-menu__toggle {
+  width: 19px;
+  height: 19px;
+  background-image: url('@/assets/img/menu-close.svg');
+}
+
+.mobile-menu__contacts {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 50px 0 40px;
+}
+
+.mobile-menu__contact {
+  display: flex;
+  min-height: 45px;
+  padding-left: 60px;
+  line-height: 18px;
+  color: $special-blue;
+  align-items: center;
+}
+
+.mobile-menu__contact--phone {
+  background: 0 center url('@/assets/img/phone-icon.svg') no-repeat;
+}
+
+.mobile-menu__contact--mail {
+  background: 0 center url('@/assets/img/mail-icon.svg') no-repeat;
+}
+</style>

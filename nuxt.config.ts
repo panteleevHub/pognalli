@@ -1,8 +1,8 @@
 export default defineNuxtConfig({
-  css: [
-    '~/assets/scss/fonts.scss',
-    '~/assets/scss/global.scss'
-  ],
+css: [
+  '@/assets/scss/fonts.scss',
+  '@/assets/scss/global.scss',
+],
   vite: {
     css: {
       preprocessorOptions: {
