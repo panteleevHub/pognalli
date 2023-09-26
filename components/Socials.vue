@@ -31,13 +31,21 @@ const { place } = defineProps({
 
 .socials--header {
   width: 135px;
-  margin: 0 auto;
+
+  @media (min-width: $tablet-width) {
+    width: 186px;
+  }
 }
 
 .socials__item a {
   display: block;
   width: 45px;
   height: 45px;
+
+  @media (min-width: $tablet-width) {
+    width: 62px;
+    height: 62px;
+  }
 }
 
 .socials__item a {
@@ -51,13 +59,25 @@ const { place } = defineProps({
 
 .socials__item--fb a {
   background-image: url('@/assets/img/fb-icon-mobile.svg');
+
+  @media (min-width: $tablet-width) {
+    background-image: url('@/assets/img/fb-icon-tablet.svg');
+  }
 }
 
 .socials__item--vk a {
   background-image: url('@/assets/img/vk-icon-mobile.svg');
+
+  @media (min-width: $tablet-width) {
+    background-image: url('@/assets/img/vk-icon-tablet.svg');
+  }
 }
 
 .socials__item--inst a {
   background-image: url('@/assets/img/inst-icon-mobile.svg');
+
+  @media (min-width: $tablet-width) {
+    background-image: url('@/assets/img/inst-icon-tablet.svg');
+  }
 }
 </style>

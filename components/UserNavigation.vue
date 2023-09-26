@@ -8,7 +8,7 @@
         <a href="#"></a>
       </li>
     </ul>
-    <a class="user-nav__authorization" href="#">Авторизация</a>
+    <a class="user-nav__authorization user-nav__authorization--full" href="#">Авторизация</a>
   </div>
 </template>
 
@@ -30,14 +30,19 @@ const { isFull } = defineProps({
   display: block;
   max-width: 300px;
   margin: 0 auto;
-  padding: 10px 15px 10px;
+  padding: 15px;
   font-size: 17px;
-  line-height: 30px;
+  line-height: 20px;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
   color: $basic-blue;
   background-color: $basic-yellow;
   border-radius: 25px;
+
+  @media (min-width: $tablet-width) {
+    min-width: 188px;
+    font-size: 20px;
+  }
 }
 </style>

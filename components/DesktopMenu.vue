@@ -1,6 +1,6 @@
 <template>
   <div class="desktop-menu">
-    <Logo />
+    <Logo :isMenuOpened="true" />
     <AppNavigation />
     <UserNavigation :isFull="true" />
   </div>
