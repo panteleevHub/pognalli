@@ -37,3 +37,8 @@ a {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}

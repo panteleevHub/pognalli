@@ -1,26 +1,28 @@
 <template>
-  <div :class="isMenuOpened ? 'mobile-menu mobile-menu--opened' : 'mobile-menu'">
-    <div class="mobile-menu__top">
-      <NuxtLink to="/">
-        <Logo :isMenuOpened="isMenuOpened" />
-      </NuxtLink>
-      <button
-        @click="isMenuOpened = !isMenuOpened"
-        class="mobile-menu__toggle"
-        type="button"
-        aria-label="Открыть меню"
-      >
-      </button>
-      <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--top" />
-    </div>
-    <div v-if="isMenuOpened" class="mobile-menu__bottom">
-      <AppNavigation />
-      <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--bottom" />
-      <address class="mobile-menu__contacts">
-        <a class="mobile-menu__contact mobile-menu__contact--phone" href="tel:88005558628">8 800 555-86-28</a>
-        <a class="mobile-menu__contact mobile-menu__contact--mail" href="mailto:mail@htmlacademy.ru">mail@htmlacademy.ru</a>
-      </address>
-      <Socials place="header" class="mobile-menu__socials" />
+  <div>
+    <div :class="isMenuOpened ? 'mobile-menu mobile-menu--opened' : 'mobile-menu'">
+      <div class="mobile-menu__top">
+        <NuxtLink to="/">
+          <Logo :isMenuOpened="isMenuOpened" />
+        </NuxtLink>
+        <button
+          @click="isMenuOpened = !isMenuOpened"
+          class="mobile-menu__toggle"
+          type="button"
+          aria-label="Открыть меню"
+        >
+        </button>
+        <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--top" />
+      </div>
+      <div v-if="isMenuOpened" class="mobile-menu__bottom">
+        <AppNavigation />
+        <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--bottom" />
+        <address class="mobile-menu__contacts">
+          <a class="mobile-menu__contact mobile-menu__contact--phone" href="tel:88005558628">8 800 555-86-28</a>
+          <a class="mobile-menu__contact mobile-menu__contact--mail" href="mailto:mail@htmlacademy.ru">mail@htmlacademy.ru</a>
+        </address>
+        <Socials place="header" class="mobile-menu__socials" />
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +34,6 @@ const isMenuOpened = ref(false);
 <style lang="scss" scoped>
 .mobile-menu {
   padding: 0 25px;
-  background-color: $dark-blue;
 
   @media (min-width: $tablet-width) {
     padding: 0 40px;

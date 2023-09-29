@@ -1,7 +1,9 @@
 <template>
   <header class="header">
-    <DesktopMenu class="header__desktop-menu" />
-    <MobileMenu class="header__mobile-menu" />
+    <div class="container">
+      <DesktopMenu class="header__desktop-menu" />
+      <MobileMenu class="header__mobile-menu" />
+    </div>
   </header>
 </template>
 
@@ -10,6 +12,10 @@
 </script>
 
 <style lang="scss" scoped>
+.header {
+  background-color: $dark-blue;
+}
+
 .header__desktop-menu {
   display: none;
 
