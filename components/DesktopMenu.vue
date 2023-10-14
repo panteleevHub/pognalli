@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="desktop-menu">
-      <Logo :isMenuOpened="true" />
+      <Logo :isInHeader="true" />
       <AppNavigation />
       <UserNavigation :isFull="true" />
     </div>
@@ -18,6 +18,6 @@
   align-items: center;
   grid-template-columns: auto 1fr auto;
   column-gap: 40px;
-  padding: 47px 60px 11px;
+  padding: 47px 0 11px;
 }
 </style>

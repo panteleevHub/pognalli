@@ -24,18 +24,16 @@ const { place } = defineProps({
 <style lang="scss" scoped>
 .socials {
   @include reset-list;
+  width: 135px;
   display: flex;
   flex-wrap: wrap;
   row-gap: 15px;
-}
-
-.socials--header {
-  width: 135px;
 
   @media (min-width: $tablet-width) {
     width: 186px;
   }
 }
+
 
 .socials__item a {
   display: block;

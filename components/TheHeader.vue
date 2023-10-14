@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <div class="container">
+    <div class="header__container container">
       <DesktopMenu class="header__desktop-menu" />
       <MobileMenu class="header__mobile-menu" />
     </div>
@@ -14,6 +14,10 @@
 <style lang="scss" scoped>
 .header {
   background-color: $dark-blue;
+}
+
+.header__container {
+  position: relative;
 }
 
 .header__desktop-menu {

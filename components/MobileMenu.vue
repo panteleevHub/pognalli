@@ -3,7 +3,7 @@
     <div :class="isMenuOpened ? 'mobile-menu mobile-menu--opened' : 'mobile-menu'">
       <div class="mobile-menu__top">
         <NuxtLink to="/">
-          <Logo :isMenuOpened="isMenuOpened" />
+          <Logo :isMenuOpened="isMenuOpened" :isInHeader="true" />
         </NuxtLink>
         <button
           @click="isMenuOpened = !isMenuOpened"
@@ -32,21 +32,18 @@ const isMenuOpened = ref(false);
 </script>
 
 <style lang="scss" scoped>
-.mobile-menu {
-  padding: 0 25px;
-
-  @media (min-width: $tablet-width) {
-    padding: 0 40px;
-  }
-}
-
 .mobile-menu--opened {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
+  padding: 0 25px;
   background-color: $white;
+
+  @media (min-width: $tablet-width) {
+    padding: 0 40px;
+  }
 }
 
 .mobile-menu__top {
