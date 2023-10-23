@@ -73,4 +73,12 @@ const { isFull } = defineProps({
     font-size: 20px;
   }
 }
+
+.user-nav__authorization--full {
+  @media (max-width: $pre-tablet-width) {
+    min-width: 190px;
+    padding: 10px;
+    margin: 0;
+  }
+}
 </style>

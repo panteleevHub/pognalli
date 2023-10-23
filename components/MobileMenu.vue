@@ -47,9 +47,7 @@ const isMenuOpened = ref(false);
 }
 
 .mobile-menu__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-base;
   padding: 20px 0;
 
   @media (min-width: $tablet-width) {
@@ -58,7 +56,12 @@ const isMenuOpened = ref(false);
 }
 
 .mobile-menu__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   @media (min-width: $tablet-width) {
+    display: block;
     padding: 0 57px;
   }
 }
@@ -89,6 +92,7 @@ const isMenuOpened = ref(false);
 
 .mobile-menu__authorization--bottom {
   display: block;
+  min-width: 270px;
 
   @media (min-width: $tablet-width) {
     display: none;
@@ -96,8 +100,7 @@ const isMenuOpened = ref(false);
 }
 
 .mobile-menu__contacts {
-  max-width: 300px;
-  margin: 0 auto;
+  min-width: 270px;
   padding: 50px 0 28px;
 
   @media (min-width: $tablet-width) {
@@ -110,22 +113,39 @@ const isMenuOpened = ref(false);
   display: flex;
   min-height: 45px;
   padding-left: 60px;
+  font-size: 16px;
   line-height: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
   color: $special-blue;
   align-items: center;
+
+  @media (min-width: $tablet-width) {
+    min-height: 68px;
+    font-size: 28px;
+    line-height: 28px;
+    padding-left: 90px;
+  }
 }
 
 .mobile-menu__contact--phone {
   background: 0 center url('@/assets/img/phone-icon.svg') no-repeat;
+
+  @media (min-width: $tablet-width) {
+    background-size: 68px 68px;
+  }
 }
 
 .mobile-menu__contact--mail {
   background: 0 center url('@/assets/img/mail-icon.svg') no-repeat;
+  
+  @media (min-width: $tablet-width) {
+    background-size: 68px 68px;
+  }
 }
 
 .mobile-menu__socials {
   padding-bottom: 28px;
-  margin: 0 auto;
 
   @media (min-width: $tablet-width) {
     padding-bottom: 72px;

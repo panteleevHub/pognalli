@@ -30,8 +30,15 @@ $special-orange-light: #ffa530;
   list-style: none;
 }
 
+@mixin flex-base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 // Viewports
 
+$pre-tablet-width: 767px;
 $tablet-width: 768px;
 $pre-desktop-width: 1439px;
 $desktop-width: 1440px;

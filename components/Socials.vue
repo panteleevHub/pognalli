@@ -24,7 +24,6 @@ const { place } = defineProps({
 <style lang="scss" scoped>
 .socials {
   @include reset-list;
-  width: 135px;
   display: flex;
   flex-wrap: wrap;
   row-gap: 15px;

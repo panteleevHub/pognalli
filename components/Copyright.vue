@@ -11,10 +11,8 @@
 
 <style lang="scss" scoped>
 .copyright {
+  @include flex-base;
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   padding: 15px 0 18px;
 

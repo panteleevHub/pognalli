@@ -13,7 +13,7 @@
 
 <style lang="scss" scoped>
 .header {
-  background-color: $dark-blue;
+  background-color: $basic-blue;
 }
 
 .header__container {
