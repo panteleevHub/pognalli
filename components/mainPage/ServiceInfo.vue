@@ -7,7 +7,7 @@
         <p class="service-info__excerpt">А если найдете кого-то близкого по духу — <br class="service-info__break">скорее зовите в совместный трип!</p>
       </div>
       <a class="service-info__more button" href="#">Подробнее</a>
-      </div>
+    </div>
   </section>
 </template>
 
