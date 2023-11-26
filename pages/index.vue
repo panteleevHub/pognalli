@@ -4,6 +4,7 @@
     <MainPagePromo />
     <MainPageServiceInfo />
     <MainPageDirections />
+    <MainPageCompanions />
   </main>
 </template>
 

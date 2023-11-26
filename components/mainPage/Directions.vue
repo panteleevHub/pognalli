@@ -200,14 +200,16 @@ const directions = [
 }
 
 .directions__list::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 141px;
-  height: 141px;
-  background-color: $light-grey;
-  border-radius: 20px;
+  @media (min-width: $tablet-width) {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 141px;
+    height: 141px;
+    background-color: $light-grey;
+    border-radius: 20px; 
+  }
 }
 
 .directions__more {
