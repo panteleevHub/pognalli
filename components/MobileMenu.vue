@@ -56,9 +56,7 @@ const isMenuOpened = ref(false);
 }
 
 .mobile-menu__bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-column-center;
 
   @media (min-width: $tablet-width) {
     display: block;

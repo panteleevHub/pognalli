@@ -73,9 +73,7 @@
 }
 
 .promo__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-column-center;
 
   @media (min-width: $desktop-width) {
     flex-direction: row;
@@ -201,7 +199,7 @@
   border-radius: 10px 10px 0 0;
 
   @media (min-width: $tablet-width) {
-    flex-direction: column;
+    @include flex-column;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 15px 0;

@@ -107,9 +107,7 @@ const directions = [
 
 <style lang="scss" scoped>
 .directions__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-column-center;
   padding-top: 70px;
   padding-bottom: 35px;
 
@@ -181,8 +179,7 @@ const directions = [
 
   @media (min-width: $tablet-width) {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     width: 100%;
     row-gap: 10px;
     padding: 38px 35px;
@@ -284,8 +281,7 @@ const directions = [
   padding: 25px;
 
   @media (min-width: $tablet-width) {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     row-gap: 5px;
     top: 0;
     left: 20px;

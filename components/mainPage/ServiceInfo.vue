@@ -63,8 +63,7 @@
 }
 
 .service-info__text {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   row-gap: 20px;
   color: $white;
 

@@ -4,11 +4,14 @@
       <div class="companions__text">
         <h2 class="companions__title section-title">Попутчики</h2>
         <p class="companions__desc">Все мы индивидуальны и у каждого свой взгляд на идеальный отдых. Одному нужен пляж и коктейль, а другому маршрут для хайкинга.</p>
-        <p class="companions__excerpt">Теперь можно легко найти единомышленников!</p>
+        <p class="companions__excerpt">Теперь можно легко<br class="companions__excerpt-break"> найти единомышленников!</p>
       </div>
       <ul class="companions__list">
         <li v-for="{name, avatar, countries, tags, transport, level} in companions" class="companions__item">
-          <img :src="avatar.mobile" width="270" height="270" alt="Аватар пользователя">
+          <picture class="companions__avatar">
+            <source media="(min-width: 768px)" :srcset="avatar.desktop">
+            <img :src="avatar.mobile" width="270" height="270" alt="Аватар пользователя">
+          </picture>
           <ul class="companions__flags">
             <li v-for="{src, alt} in countries" class="companions__flag">
               <img :src="src" width="35" height="24" :alt="alt">
@@ -115,13 +118,17 @@ const companions = [
 <style lang="scss" scoped>
 .companions {
   position: relative;
-  padding-top: 68px;
-  padding-bottom: 30px;
-  background: url('@/assets/img/smolov-back.png') 85% 35px,
-              url('@/assets/img/rogovaya-back.png') -15px 312px;
+  background-image: url('@/assets/img/smolov-back.png'),
+                    url('@/assets/img/rogovaya-back.png');
   background-size: 143px 143px, 71px 71px;
+  background-position: 85% 35px, -15px 312px;
   background-color: $special-blue;
   background-repeat: no-repeat;
+
+  @media (min-width: $tablet-width) {
+    background-size: 143px 143px, 285px 285px;
+    background-position: 40px 426px, 85% 80px;
+  }
 }
 
 .companions::before {
@@ -134,17 +141,48 @@ const companions = [
   border-radius: 10px;
   background-color: $special-dark-blue;
   z-index: 1;
+
+  @media (min-width: $tablet-width) {
+    width: 212px;
+    height: 212px;
+    border-radius: 20px;
+    top: 70px;
+    left: 40px;
+  }
+}
+
+.companions__container {
+  @include flex-column-center;
+  padding-top: 68px;
+  padding-bottom: 30px;
+
+  @media (min-width: $tablet-width) {
+    padding: 140px 75px 87px;
+  }
 }
 
 .companions__text {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   row-gap: 22px;
   color: $white;
   padding: 0 30px 0 25px;
   margin-bottom: 55px;
   z-index: 2;
+
+  @media (min-width: $tablet-width) {
+    align-self: start;
+    width: 430px;
+    row-gap: 40px;
+    padding: 0;
+    margin-bottom: 60px;
+  }
+}
+
+.companions__title {
+  @media (min-width: $tablet-width) {
+    margin-bottom: 15px; 
+  }
 }
 
 .companions__user-name {
@@ -156,6 +194,11 @@ const companions = [
   line-height: 22px;
   font-weight: 300;
   margin: 0;
+
+  @media (min-width: $tablet-width) {
+    font-size: 28px;
+    line-height: 33px;
+  }
 }
 
 .companions__excerpt {
@@ -163,21 +206,49 @@ const companions = [
   line-height: 22px;
   font-weight: 700;
   margin: 0;
+
+  @media (min-width: $tablet-width) {
+    font-size: 21px;
+    line-height: 24px;
+  }
+}
+
+.companions__excerpt-break {
+  display: none;
+
+  @media (min-width: $tablet-width) {
+    display: block;
+  }
 }
 
 .companions__list {
   @include reset-list;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
   row-gap: 10px;
   margin-bottom: 20px;
+
+  @media (min-width: $tablet-width) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 50px;
+    margin-bottom: 80px;
+  }
 }
 
 .companions__item {
-  width: 270px;
   background-color: $white;
   border-radius: 12px;
+
+  @media (min-width: $tablet-width) {
+    border-radius: 22px;
+  }
+}
+
+.companions__avatar img {
+  @media (min-width: $tablet-width) {
+    width: 285px;
+    height: 285px;
+  }
 }
 
 .companions__flags {
@@ -194,13 +265,15 @@ const companions = [
 }
 
 .companions__user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-column-center;
   row-gap: 15px;
   background-color: $white;
   padding: 13px 25px 20px;
   border-radius: 0 0 12px 12px;
+
+  @media (min-width: $tablet-width) {
+    border-radius: 0 0 22px 22px;
+  }
 }
 
 .companions__user-name {
@@ -236,6 +309,9 @@ const companions = [
 
 .companions__more {
   width: 270px;
-  margin: 0 auto;
+
+  @media (min-width: $tablet-width) {
+    width: 618px;
+  }
 }
 </style>

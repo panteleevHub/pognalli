@@ -25,9 +25,7 @@
 }
 
 .footer__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-column-center;
   row-gap: 39px;
   padding-top: 37px;
 
