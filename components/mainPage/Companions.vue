@@ -129,6 +129,10 @@ const companions = [
     background-size: 143px 143px, 285px 285px;
     background-position: 40px 426px, 85% 80px;
   }
+
+  @media (min-width: $desktop-width) {
+    background-position: calc(50% - 105px) 135px, calc(50% - 385px) calc(100% - 80px);
+  }
 }
 
 .companions::before {
@@ -149,6 +153,10 @@ const companions = [
     top: 70px;
     left: 40px;
   }
+
+  @media (min-width: $desktop-width) {
+    left: calc(50% - 655px);
+  }
 }
 
 .companions__container {
@@ -158,6 +166,13 @@ const companions = [
 
   @media (min-width: $tablet-width) {
     padding: 140px 75px 87px;
+  }
+
+  @media (min-width: $desktop-width) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 60px;
+    padding: 130px 60px 135px 130px;
   }
 }
 
@@ -232,6 +247,14 @@ const companions = [
     grid-template-columns: repeat(2, 1fr);
     gap: 25px 50px;
     margin-bottom: 80px;
+  }
+
+  @media (min-width: $desktop-width) {
+    grid-column: 2 / -1;
+    grid-row: 1 / 3;
+    column-gap: 60px;
+    margin-bottom: 0;
+    padding-top: 13px;
   }
 }
 
@@ -312,6 +335,10 @@ const companions = [
 
   @media (min-width: $tablet-width) {
     width: 618px;
+  }
+
+  @media (min-width: $desktop-width) {
+    width: 280px;
   }
 }
 </style>
