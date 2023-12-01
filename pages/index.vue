@@ -5,6 +5,7 @@
     <MainPageServiceInfo />
     <MainPageDirections />
     <MainPageCompanions />
+    <MainPageRates />
   </main>
 </template>
 
