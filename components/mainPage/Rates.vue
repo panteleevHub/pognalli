@@ -5,10 +5,10 @@
       <p class="rates__caption section-title">Добавьте свой профиль</p>
       <ul class="rates__list">
         <li v-for="{id, rate, price, currency} in rates" class="rates__item">
-          <span class="rates__name">
+          <NuxtLink class="rates__name" to="/">
             {{ rate }}
             <span class="rates__count">{{ id }}</span>
-          </span>
+          </NuxtLink>
           <span>{{ price === 0 ? 'Бесплатно': `${price} ${currency}./мес`}}</span>
         </li>
       </ul>
@@ -50,6 +50,11 @@ const rates = [
   @media (min-width: $tablet-width) {
     background-position: calc(100% - 85px) calc(100% - 45px);
   }
+
+  @media (min-width: $tablet-width) {
+    background-image: url('@/assets/img/icon-rates-desktop.png');
+    background-position: calc(50% + 550px) calc(100% - 256px);
+  }
 }
 
 .rates__container {
@@ -57,6 +62,10 @@ const rates = [
 
   @media (min-width: $tablet-width) {
     padding: 74px 40px 64px;
+  }
+
+  @media (min-width: $desktop-width) {
+    padding: 107px 60px 165px;
   }
 }
 
@@ -70,6 +79,10 @@ const rates = [
     margin-bottom: 40px;
     text-align: center;
   }
+
+  @media (min-width: $desktop-width) {
+    margin-bottom: 100px;
+  }
 }
 
 .rates__list {
@@ -78,6 +91,10 @@ const rates = [
 
   @media (min-width: $tablet-width) {
     padding-right: 35px;
+  }
+
+  @media (min-width: $desktop-width) {
+    padding-right: 272px;
   }
 }
 
@@ -93,9 +110,14 @@ const rates = [
   @media (min-width: $tablet-width) {
     @include flex-base;
     flex-direction: row;
+    column-gap: 50px;
     font-size: 28px;
     line-height: 28px;
     padding: 0;
+  }
+
+  @media (min-width: $desktop-width) {
+    column-gap: 150px;
   }
 }
 
@@ -132,6 +154,7 @@ const rates = [
 .rates__name {
   @include flex-base;
   column-gap: 22px;
+  color: inherit;
 
   @media (min-width: $tablet-width) {
     flex-direction: row-reverse;
