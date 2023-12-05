@@ -6,6 +6,7 @@
     <MainPageDirections />
     <MainPageCompanions />
     <MainPageRates />
+    <MainPageRegistration />
   </main>
 </template>
 

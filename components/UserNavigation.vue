@@ -8,7 +8,7 @@
         <a href="#"></a>
       </li>
     </ul>
-    <a class="user-nav__authorization user-nav__authorization--full" href="#">Авторизация</a>
+    <NuxtLink class="user-nav__authorization user-nav__authorization--full" to="/login">Авторизация</NuxtLink>
   </div>
 </template>
 
