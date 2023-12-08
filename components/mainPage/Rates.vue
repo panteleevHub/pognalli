@@ -51,7 +51,7 @@ const rates = [
     background-position: calc(100% - 85px) calc(100% - 45px);
   }
 
-  @media (min-width: $tablet-width) {
+  @media (min-width: $desktop-width) {
     background-image: url('@/assets/img/icon-rates-desktop.png');
     background-position: calc(50% + 550px) calc(100% - 256px);
   }

@@ -15,6 +15,14 @@ const { place } = defineProps({
 </script>
 
 <style lang="scss" scoped>
+.contacts {
+  @media (min-width: $desktop-width) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 40px;
+  }
+}
+
 .contacts__item {
   display: flex;
   min-height: 45px;
@@ -30,6 +38,11 @@ const { place } = defineProps({
     font-size: 28px;
     line-height: 28px;
     padding-left: 90px;
+  }
+
+  @media (min-width: $desktop-width) {
+    min-height: 90px;
+    padding-left: 120px;
   }
 }
 
@@ -47,13 +60,17 @@ const { place } = defineProps({
   @media (min-width: $tablet-width) {
     background-size: 68px 68px;
   }
+
+  @media (min-width: $desktop-width) {
+    background-size: 90px 90px;
+  }
 }
 
 .contacts__item--email {
   background: 0 center url('@/assets/img/mail-icon.svg') no-repeat;
   
   @media (min-width: $tablet-width) {
-    background-size: 68px 68px;
+    background-size: 90px 90px;
   }
 }
 
