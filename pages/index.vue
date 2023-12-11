@@ -7,6 +7,7 @@
     <MainPageCompanions />
     <MainPageRates />
     <MainPageRegistration />
+    <MainPageMap />
   </main>
 </template>
 

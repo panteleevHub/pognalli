@@ -56,20 +56,19 @@ const { place } = defineProps({
 
 .contacts__item--phone {
   background: 0 center url('@/assets/img/phone-icon.svg') no-repeat;
+}
 
+.contacts__item--email {
+  background: 0 center url('@/assets/img/mail-icon.svg') no-repeat;
+}
+
+.contacts__item--email,
+.contacts__item--phone {
   @media (min-width: $tablet-width) {
     background-size: 68px 68px;
   }
 
   @media (min-width: $desktop-width) {
-    background-size: 90px 90px;
-  }
-}
-
-.contacts__item--email {
-  background: 0 center url('@/assets/img/mail-icon.svg') no-repeat;
-  
-  @media (min-width: $tablet-width) {
     background-size: 90px 90px;
   }
 }
