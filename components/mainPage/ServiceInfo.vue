@@ -1,12 +1,14 @@
 <template>
   <section class="service-info">
-    <div class="service-info__container container">
-      <h2 class="service-info__title section-title">О сервисе</h2>
-      <div class="service-info__text">
-        <p class="service-info__desc">Любое путешествие веселее с попутчиками, которые на одной волне с тобой! Делитесь своими идеями путешествий и черпайте вдохновение в чужих.</p>
-        <p class="service-info__excerpt">А если найдете кого-то близкого по духу — <br class="service-info__break">скорее зовите в совместный трип!</p>
+    <div class="service-info__decor">
+      <div class="service-info__container container">
+        <h2 class="service-info__title section-title">О сервисе</h2>
+        <div class="service-info__text">
+          <p class="service-info__desc">Любое путешествие веселее с попутчиками, которые на одной волне с тобой! Делитесь своими идеями путешествий и черпайте вдохновение в чужих.</p>
+          <p class="service-info__excerpt">А если найдете кого-то близкого по духу — <br class="service-info__break">скорее зовите в совместный трип!</p>
+        </div>
+        <a class="service-info__more button" href="#">Подробнее</a>
       </div>
-      <a class="service-info__more button" href="#">Подробнее</a>
     </div>
   </section>
 </template>
@@ -17,24 +19,25 @@
 
 <style lang="scss" scoped>
 .service-info {
-  background-image: url("@/assets/img/phone-screen-mobile.png"),
-                    url("@/assets/img/rectangle.svg");
-  background-position: center, calc(50% - 125px) top;
-  background-size: auto, 140px 140px;
+  background-color: $basic-blue-pale;
+}
+
+.service-info__decor {
+  @include round-bottom;
+  background-image: url("@/assets/img/phone-screen-mobile.png");
+  background-position: center;
   background-color: $special-blue;
   background-repeat: no-repeat;
 
   @media (min-width: $tablet-width) {
     background-image: url("@/assets/img/phone-screen-tablet.png"),
-                      url("@/assets/img/rectangle-tablet.svg");
+                      url("@/assets/img/rectangle.svg");
     background-position: calc(50% + 188px) 40px, center top;
-    background-size: auto, auto;
   }
 
   @media (min-width: $desktop-width) {
-    background-image: url("@/assets/img/phone-screen-desktop.png"),
-                      url("@/assets/img/rectangle.svg");
-    background-position: calc(50% + 335px) -5px, calc(50% - 550px) -20px;
+    background-image: url("@/assets/img/phone-screen-desktop.png");
+    background-position: calc(50% + 335px) 105px;
   }
 }
 
@@ -46,7 +49,7 @@
   }
 
   @media (min-width: $desktop-width) {
-    padding: 42px 690px 163px 130px;
+    padding: 150px 690px 163px 130px;
   }  
 }
 

@@ -2,9 +2,11 @@
   <section class="map">
     <h2 class="visually-hidden">Карта</h2>
     <div class="map__location">
-      <div class="map__location-container container">
-        <address class="map__address">ул. Большая Конюшенная, 19/8</address>
-        <a class="map__route button" href="https://goo.gl/maps/gC63zF1KhysSKaoQA" target="_blank">Проложить маршрут</a>
+      <div class="map__location-decor">
+        <div class="map__location-container container">
+          <address class="map__address">ул. Большая Конюшенная, 19/8</address>
+          <a class="map__route button" href="https://goo.gl/maps/gC63zF1KhysSKaoQA" target="_blank">Проложить маршрут</a>
+        </div>
       </div>
     </div>
     <div class="map__image">
@@ -20,6 +22,11 @@
 
 <style lang="scss" scoped>
 .map__location {
+  background-color: transparent;
+}
+
+.map__location-decor {
+  @include round-bottom;
   background-color: $basic-yellow;
 }
 
@@ -99,10 +106,15 @@
 }
 .map__image {
   position: relative;
+  top: -30px;
+  z-index: -1;
   height: 310px;
+  margin-bottom: -60px;
 
   @media (min-width: $tablet-width) {
     height: 570px;
+    top: -40px;
+    margin-bottom: -80px;
   }
 
   @media (min-width: $tablet-width) {

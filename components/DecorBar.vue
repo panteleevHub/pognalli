@@ -6,8 +6,7 @@
 .bar {
   width: 100%;
   height: 37px;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-radius: 0 0 30px 30px;
 
   @media (min-width: $tablet-width) {
     height: 46px;

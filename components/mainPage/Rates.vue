@@ -1,21 +1,23 @@
 <template>
   <section class="rates">
-    <div class="rates__container container">
-      <h2 class="visually-hidden">Тарифы</h2>
-      <p class="rates__caption section-title">Добавьте свой профиль</p>
-      <ul class="rates__list">
-        <li v-for="{id, rate, price, currency} in rates" class="rates__item">
-          <NuxtLink class="rates__name" to="/">
-            {{ rate }}
-            <span class="rates__count">{{ id }}</span>
-          </NuxtLink>
-          <span>{{ price === 0 ? 'Бесплатно': `${price} ${currency}./мес`}}</span>
-        </li>
-      </ul>
-      <NuxtLink class="rates__link" to="/">
-        <span class="rates__link-icon"></span>
-        Показать тарифы для бизнеса
-      </NuxtLink>
+    <div class="rates__decor">
+      <div class="rates__container container">
+        <h2 class="visually-hidden">Тарифы</h2>
+        <p class="rates__caption section-title">Добавьте свой профиль</p>
+        <ul class="rates__list">
+          <li v-for="{id, rate, price, currency} in rates" class="rates__item">
+            <NuxtLink class="rates__name" to="/">
+              {{ rate }}
+              <span class="rates__count">{{ id }}</span>
+            </NuxtLink>
+            <span>{{ price === 0 ? 'Бесплатно': `${price} ${currency}./мес`}}</span>
+          </li>
+        </ul>
+        <NuxtLink class="rates__link" to="/">
+          <span class="rates__link-icon"></span>
+          Показать тарифы для бизнеса
+        </NuxtLink>
+      </div>
     </div>
   </section>
 </template>
@@ -45,7 +47,13 @@ const rates = [
 
 <style lang="scss" scoped>
 .rates {
+  background-color: $special-blue;
+}
+
+.rates__decor {
+  @include round-bottom;
   background: url('@/assets/img/icon-rates.png') calc(100% - 25px) 38px no-repeat;
+  background-color: $basic-blue-pale;
 
   @media (min-width: $tablet-width) {
     background-position: calc(100% - 85px) calc(100% - 45px);

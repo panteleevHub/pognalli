@@ -50,24 +50,25 @@
 .promo {
   padding-top: 40px;
   background: url('@/assets/img/traveller-illustration-mobile.png') 60% 170px no-repeat,
-              url('@/assets/img/globe-back-desktop.png') center 105px no-repeat;
+              url('@/assets/img/globe-back-mobile.jpg') center 105px no-repeat;
   background-size: 192px 255px, 768px 320px;
   background-color: $basic-blue;
 
   @media (min-width: $tablet-width) {
     padding-top: 30px;
     background-image: url('@/assets/img/traveller-illustration-tablet.png'),
-                      url('@/assets/img/globe-back-desktop.png');
-    background-position: 72% 275px, center 125px;
+                      url('@/assets/img/globe-back-desktop.jpg');
+    background-position: 72% 275px, center 230px;
     background-size: 372px 451px, 1440px 750px;
+    background-color: $dark-blue;
   }
 
   @media (min-width: $desktop-width) {
     padding-top: 110px;
     padding-bottom: 123px;
     background-image: url('@/assets/img/traveller-illustration-desktop.png'),
-                      url('@/assets/img/globe-back-desktop.png');
-    background-position: calc(50% + 85px) 10px, center -100px;
+                      url('@/assets/img/globe-back-desktop.jpg');
+    background-position: calc(50% + 85px) 10px, calc(50% - 200px) 0;
     background-size: 431px 640px, 1440px 750px;
   }
 }

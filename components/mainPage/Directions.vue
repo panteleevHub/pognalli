@@ -1,40 +1,42 @@
 <template>
   <section class="directions">
-    <div class="directions__container container">
-      <div class="directions__text">
-        <h2 class="directions__title section-title">Направления</h2>
-        <p class="directions__desc">Мы не продаем туры и ничего не рекламируем. Люди сами пишут о странах, куда хотели бы отправиться и чем можно там заняться.</p>
+    <div class="directions__decor">
+      <div class="directions__container container">
+        <div class="directions__text">
+          <h2 class="directions__title section-title">Направления</h2>
+          <p class="directions__desc">Мы не продаем туры и ничего не рекламируем. Люди сами пишут о странах, куда хотели бы отправиться и чем можно там заняться.</p>
+        </div>
+        <ul class="directions__list">
+          <li v-for="{country, users, flag, slogan, picture} in directions" class="directions__item">
+            <figure class="photo-card">
+              <picture class="photo-card__pic">
+                <source media="(min-width: 768px)" :srcset="picture.desktop">
+                <img
+                  :src="picture.mobile"
+                  width="270"
+                  height="110"
+                  :alt="picture.alt"
+                >
+              </picture>
+              <picture class="photo-card__flag">
+                <source media="(min-width: 768px)" :srcset="flag.desktop">
+                <img
+                  :src="flag.mobile"
+                  width="35"
+                  height="24"
+                  :alt="flag.alt"
+                >
+              </picture>
+              <figcaption class="photo-card__description">
+                <span class="photo-card__name">{{ country }}</span>
+                <span class="photo-card__users"><span class="photo-card__user-icon"></span>{{ users }}</span>
+                <span class="photo-card__slogan">{{ slogan }}</span>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
+        <NuxtLink class="directions__more button" to="/directions">Показать все</NuxtLink>
       </div>
-      <ul class="directions__list">
-        <li v-for="{country, users, flag, slogan, picture} in directions" class="directions__item">
-          <figure class="photo-card">
-            <picture class="photo-card__pic">
-              <source media="(min-width: 768px)" :srcset="picture.desktop">
-              <img
-                :src="picture.mobile"
-                width="270"
-                height="110"
-                :alt="picture.alt"
-              >
-            </picture>
-            <picture class="photo-card__flag">
-              <source media="(min-width: 768px)" :srcset="flag.desktop">
-              <img
-                :src="flag.mobile"
-                width="35"
-                height="24"
-                :alt="flag.alt"
-              >
-            </picture>
-            <figcaption class="photo-card__description">
-              <span class="photo-card__name">{{ country }}</span>
-              <span class="photo-card__users"><span class="photo-card__user-icon"></span>{{ users }}</span>
-              <span class="photo-card__slogan">{{ slogan }}</span>
-            </figcaption>
-          </figure>
-        </li>
-      </ul>
-      <NuxtLink class="directions__more button" to="/directions">Показать все</NuxtLink>
     </div>
   </section>
 </template>
@@ -106,6 +108,15 @@ const directions = [
 </script>
 
 <style lang="scss" scoped>
+.directions {
+  background-color: $special-blue;
+}
+
+.directions__decor {
+  @include round-bottom;
+  background-color: $basic-blue-pale;
+}
+
 .directions__container {
   @include flex-column-center;
   padding-top: 70px;

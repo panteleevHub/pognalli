@@ -14,6 +14,10 @@
 <style lang="scss" scoped>
 .header {
   background-color: $basic-blue;
+
+  @media (min-width: $tablet-width) {
+    background-color: $dark-blue;
+  }
 }
 
 .header__container {

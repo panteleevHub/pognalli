@@ -1,20 +1,22 @@
 <template>
   <section class="registration">
-    <div class="registration__container container">
-      <h2 class="visually-hidden">Регистрация на сайте</h2>
-      <p class="registration__caption section-title">Заинтересовались?</p>
-      <p class="registration__desc">
-        Зарегистрируйтесь, <span>это быстро и бесплатно!</span> <span>Уже зарегистрированы?</span>
-        Тогда скорее <NuxtLink to="/login">авторизуйтесь</NuxtLink>.</p>
-      <form class="registration__form" method="post" action="#">
-        <input class="registration__input" type="email" placeholder="E-mail">
-        <button class="registration__submit button" type="submit">
-          <span>Регистрация</span>
-        </button>
-      </form>
-      <div class="feedback">
-        <p class="feedback__desc">Остались вопросы? <span>Мы с радостью на них ответим!</span></p>
-        <Contacts place="registration" class="registration__contacts" />
+    <div class="registration__decor">
+      <div class="registration__container container">
+        <h2 class="visually-hidden">Регистрация на сайте</h2>
+        <p class="registration__caption section-title">Заинтересовались?</p>
+        <p class="registration__desc">
+          Зарегистрируйтесь, <span>это быстро и бесплатно!</span> <span>Уже зарегистрированы?</span>
+          Тогда скорее <NuxtLink to="/login">авторизуйтесь</NuxtLink>.</p>
+        <form class="registration__form" method="post" action="#">
+          <input class="registration__input" type="email" placeholder="E-mail">
+          <button class="registration__submit button" type="submit">
+            <span>Регистрация</span>
+          </button>
+        </form>
+        <div class="feedback">
+          <p class="feedback__desc">Остались вопросы? <span>Мы с радостью на них ответим!</span></p>
+          <Contacts place="registration" class="registration__contacts" />
+        </div>
       </div>
     </div>
   </section>
@@ -26,6 +28,11 @@
 
 <style lang="scss" scoped>
 .registration {
+  background-color: $basic-yellow;
+}
+
+.registration__decor {
+  @include round-bottom;
   background-color: $special-blue;
 }
 

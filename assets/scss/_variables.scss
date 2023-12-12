@@ -48,6 +48,14 @@ $special-orange-light: #ffa530;
   align-items: center;
 }
 
+@mixin round-bottom {
+  border-radius: 0 0 30px 30px;
+
+  @media (min-width: $tablet-width) {
+    border-radius: 0 0 40px 40px;
+  }
+}
+
 // Viewports
 
 $pre-tablet-width: 767px;
