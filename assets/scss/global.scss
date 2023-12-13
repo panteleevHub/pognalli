@@ -4,7 +4,12 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   font-family: "Blogger Sans", "Arial", sans-serif;
   font-size: 16px;
   line-height: 22px;
@@ -13,6 +18,10 @@ body {
   background-color: $basic-blue-pale;
   padding: 0;
   margin: 0;
+}
+
+#__nuxt {
+  height: 100%;
 }
 
 img {
@@ -36,4 +45,78 @@ a {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 0 25px;
+  margin: 0 auto;
+
+  @media (min-width: $tablet-width) {
+    padding: 0 40px;
+  }
+
+  @media (min-width: $desktop-width) {
+    padding: 0 60px;
+  }
+}
+
+.button {
+  display: block;
+  position: relative;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 700;
+  padding: 22px 24px;
+  color: $basic-blue-light;
+  background-color: $basic-yellow;
+  border: none;
+  border-radius: 10px;
+
+  @media (min-width: $tablet-width) {
+    font-size: 24px;
+    line-height: 24px;
+    padding: 28px 33px;
+    padding-right: 65px;
+    border-radius: 20px;  
+  }
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 14px;
+  height: 14px;
+  background: url('@/assets/img/icon-triangle.svg') right center no-repeat;
+
+  @media (min-width: $tablet-width) {
+    top: 33px;
+    right: 33px;
+  }
+}
+
+.title {
+  font-size: 36px;
+  line-height: 36px;
+  font-weight: 700;
+  color: $white;
+}
+
+.section-title {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 700;
+  color: $special-orange;
+  margin: 0;
+
+  @media (min-width: $tablet-width) {
+    font-size: 45px;
+    line-height: 45px;
+  }
+}
+
+.section-title--blue {
+  color: $basic-blue-light;
 }
