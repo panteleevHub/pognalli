@@ -205,18 +205,18 @@ const directions = [
     padding-bottom: 0;
     margin-bottom: 0;
   }
-}
 
-.directions__list::before {
-  @media (min-width: $tablet-width) {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 141px;
-    height: 141px;
-    background-color: $light-grey;
-    border-radius: 20px; 
+  &::before {
+    @media (min-width: $tablet-width) {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 141px;
+      height: 141px;
+      background-color: $light-grey;
+      border-radius: 20px; 
+    }
   }
 }
 

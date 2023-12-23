@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="desktop-menu">
-      <Logo :isInHeader="true" />
+      <NuxtLink to="/">
+        <Logo :isInHeader="true" />
+      </NuxtLink>
       <AppNavigation />
       <UserNavigation :isFull="true" />
     </div>

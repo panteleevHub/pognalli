@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['update:close']);
+defineEmits(['update:close']);
 
 const businessRates = [
   {
@@ -120,32 +120,37 @@ const businessRates = [
   @media (min-width: $desktop-width) {
     column-gap: 50px;
   }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $black;
+    opacity: 0.05;
+  }
+
+  &:last-of-type::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $black;
+    opacity: 0.05; 
+  }
 }
 
 .business-rates__item a {
   color: inherit;
-}
 
-.business-rates__item::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: $black;
-  opacity: 0.05;
-}
-
-.business-rates__item:last-of-type::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: $black;
-  opacity: 0.05; 
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 }
 
 .business-rates__item dd {
@@ -174,6 +179,15 @@ const businessRates = [
 
   @media (min-width: $desktop-width) {
     padding: 42px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $basic-blue-pale;
+  }
+
+  &:active {
+    color: rgba($basic-blue-light, 0.3);
   }
 }
 </style>

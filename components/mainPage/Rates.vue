@@ -136,35 +136,35 @@ const rates = [
   @media (min-width: $desktop-width) {
     column-gap: 150px;
   }
-}
 
-.rates__item::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 44px;
-  height: 1px;
-  background-color: $light-grey;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 44px;
+    height: 1px;
+    background-color: $light-grey;
 
-  @media (min-width: $tablet-width) {
-    left: 92px;
-    right: 0;
+    @media (min-width: $tablet-width) {
+      left: 92px;
+      right: 0;
+    }
   }
-}
 
-.rates__item:last-child::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 44px;
-  height: 1px;
-  background-color: $light-grey;
+  &:last-child::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 44px;
+    height: 1px;
+    background-color: $light-grey;
 
-  @media (min-width: $tablet-width) {
-    left: 92px;
-    right: 0;
+    @media (min-width: $tablet-width) {
+      left: 92px;
+      right: 0;
+    }
   }
 }
 
@@ -175,6 +175,11 @@ const rates = [
 
   @media (min-width: $tablet-width) {
     flex-direction: row-reverse;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
   }
 }
 
@@ -221,6 +226,15 @@ const rates = [
     max-width: 500px;
     font-size: 20px;
     line-height: 20px;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.3;
   }
 }
 

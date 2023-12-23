@@ -84,6 +84,15 @@
 .registration__desc a {
   text-decoration: underline;
   color: $basic-yellow;
+
+  &:hover,
+  &:focus {
+    color: $special-orange;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
 }
 
 .registration__form {
@@ -115,11 +124,6 @@
   border-radius: 10px;
   outline: none;
 
-  &::placeholder {
-    color: $special-grey;
-    opacity: 0.3;
-  }
-
   @media (min-width: $tablet-width) {
     height: 80px;
     font-size: 24px;
@@ -132,6 +136,25 @@
   @media (min-width: $desktop-width) {
     width: 100%;
     padding-right: 360px;
+  }
+
+  &::placeholder {
+    color: rgba($special-grey, 0.3);
+  }
+
+  &:hover::placeholder {
+    color: rgba($special-grey, 0.6);
+  }
+
+  &:focus {
+    color: $white;
+    background-color: transparent;
+    outline: 4px solid $white;
+    outline-offset: -4px;
+  }
+
+  &:focus::placeholder {
+    color: $white;
   }
 }
 

@@ -80,20 +80,29 @@ a {
     padding-right: 65px;
     border-radius: 20px;  
   }
-}
 
-.button::before {
-  content: "";
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 14px;
-  height: 14px;
-  background: url('@/assets/img/icon-triangle.svg') right center no-repeat;
+  &:hover,
+  &:focus {
+    background-color: $special-yellow-dark;
+  }
 
-  @media (min-width: $tablet-width) {
-    top: 33px;
-    right: 33px;
+  &:active {
+    color: rgba($basic-blue-light, 0.3);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 14px;
+    height: 14px;
+    background: url('@/assets/img/icon-triangle.svg') right center no-repeat;
+  
+    @media (min-width: $tablet-width) {
+      top: 33px;
+      right: 33px;
+    }
   }
 }
 
