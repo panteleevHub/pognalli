@@ -84,9 +84,7 @@ defineProps({
 }
 
 .contacts__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   width: 45px;
   height: 45px;
   background-color: $basic-blue;

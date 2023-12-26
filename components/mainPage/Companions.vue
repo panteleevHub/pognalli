@@ -13,6 +13,12 @@
               <source media="(min-width: 768px)" :srcset="avatar.desktop">
               <img :src="avatar.mobile" width="270" height="270" alt="Аватар пользователя">
             </picture>
+            <UserLevel
+              :level="level"
+              place="promo"
+              color="#444"
+              class="companions__level"
+            />
             <UserCountries :countries="countries" place="promo" class="companions__countries" />
             <div class="companions__user-info">
               <NuxtLink :to="'companions/' + id" class="companions__user-name">
@@ -245,6 +251,7 @@ const companions = [
 }
 
 .companions__item {
+  position: relative;
   background-color: $white;
   border-radius: 12px;
 
@@ -258,6 +265,12 @@ const companions = [
     width: 285px;
     height: 285px;
   }
+}
+
+.companions__level {
+  position: absolute;
+  top: 17px;
+  left: 17px;
 }
 
 .companions__countries {

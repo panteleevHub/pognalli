@@ -63,9 +63,7 @@ defineProps({
 }
 
 .socials__item a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   border-radius: 50%;
   
   &:active svg {
