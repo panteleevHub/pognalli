@@ -14,6 +14,8 @@
 
 <style lang="scss" scoped>
 .footer {
+  position: relative;
+  z-index: 2;
   background-color: $white;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;

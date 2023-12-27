@@ -5,42 +5,51 @@
         <h2 class="visually-hidden">Тарифы</h2>
         <p class="rates__caption section-title">Добавьте свой профиль</p>
         <ul class="rates__list">
-          <li v-for="{id, rate, price, currency} in rates" class="rates__item">
+          <li v-for="{id, rate, price, currency, unit} in rates" class="rates__item">
             <NuxtLink class="rates__name" to="/">
               {{ rate }}
               <span class="rates__count">{{ id }}</span>
             </NuxtLink>
-            <span>{{ price === 0 ? 'Бесплатно': `${price} ${currency}./мес`}}</span>
+            <span>{{ price === 0 ? 'Бесплатно': `${price} ${currency}./${unit}`}}</span>
           </li>
         </ul>
-        <NuxtLink class="rates__link" to="/">
+        <NuxtLink @click="isModalOpened = true" class="rates__link" to="/">
           <span class="rates__link-icon"></span>
           Показать тарифы для бизнеса
         </NuxtLink>
       </div>
     </div>
   </section>
+   
+  <BusinessRates v-if="isModalOpened" v-model:close="isModalOpened" />
 </template>
 
 <script setup>
+import BusinessRates from '@/components/modals/BusinessRates.vue';
+
+const isModalOpened = ref(false);
+
 const rates = [
   {
     id: 1,
     rate: 'Базовое размещение',
     price: 0,
-    currency: 'руб'
+    currency: 'руб',
+    unit: 'мес',
   },
   {
     id: 2,
     rate: 'Вывод на первых позициях',
     price: 99,
-    currency: 'руб'
+    currency: 'руб',
+    unit: 'мес',
   },
   {
     id: 3,
     rate: 'Кастомный цвет карточки',
     price: 59,
-    currency: 'руб'
+    currency: 'руб',
+    unit: 'мес',
   },
 ];
 </script>
@@ -127,35 +136,35 @@ const rates = [
   @media (min-width: $desktop-width) {
     column-gap: 150px;
   }
-}
 
-.rates__item::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 44px;
-  height: 1px;
-  background-color: $light-grey;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 44px;
+    height: 1px;
+    background-color: $light-grey;
 
-  @media (min-width: $tablet-width) {
-    left: 92px;
-    right: 0;
+    @media (min-width: $tablet-width) {
+      left: 92px;
+      right: 0;
+    }
   }
-}
 
-.rates__item:last-child::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 44px;
-  height: 1px;
-  background-color: $light-grey;
+  &:last-child::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 44px;
+    height: 1px;
+    background-color: $light-grey;
 
-  @media (min-width: $tablet-width) {
-    left: 92px;
-    right: 0;
+    @media (min-width: $tablet-width) {
+      left: 92px;
+      right: 0;
+    }
   }
 }
 
@@ -166,6 +175,11 @@ const rates = [
 
   @media (min-width: $tablet-width) {
     flex-direction: row-reverse;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
   }
 }
 
@@ -212,6 +226,15 @@ const rates = [
     max-width: 500px;
     font-size: 20px;
     line-height: 20px;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.3;
   }
 }
 

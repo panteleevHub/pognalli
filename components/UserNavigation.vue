@@ -2,10 +2,10 @@
   <div class="user-nav">
     <ul v-if="isFull" class="user-nav__contacts">
       <li class="user-nav__item user-nav__item--phone">
-        <a href="#"></a>
+        <NuxtLink to="/"></NuxtLink>
       </li>
       <li class="user-nav__item user-nav__item--email">
-        <a href="#"></a>
+        <NuxtLink to="/"></NuxtLink>
       </li>
     </ul>
     <NuxtLink class="user-nav__authorization user-nav__authorization--full" to="/login">Авторизация</NuxtLink>
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-const { isFull } = defineProps({
+defineProps({
   isFull: {
     type: Boolean,
     required: true
@@ -31,7 +31,8 @@ const { isFull } = defineProps({
   display: flex;
 }
 
-.user-nav__item {
+.user-nav__item a {
+  display: block;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -44,14 +45,32 @@ const { isFull } = defineProps({
   }
 }
 
-.user-nav__item--phone {
+.user-nav__item--phone a {
   background-color: $special-orange;
   background-image: url('@/assets/img/icon-phone.svg');
+
+  &:hover,
+  &:focus {
+    background-color: $special-orange-dark;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
 }
 
-.user-nav__item--email {
+.user-nav__item--email a {
   background-color: $special-yellow-dark;
   background-image: url('@/assets/img/icon-mail.svg');
+
+  &:hover,
+  &:focus {
+    background-color: $special-orange;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
 }
 
 .user-nav__authorization {
@@ -71,6 +90,15 @@ const { isFull } = defineProps({
   @media (min-width: $tablet-width) {
     min-width: 188px;
     font-size: 20px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $special-yellow-dark;
+  }
+
+  &:active {
+    opacity: 0.3;
   }
 }
 

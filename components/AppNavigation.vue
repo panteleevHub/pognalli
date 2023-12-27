@@ -2,13 +2,13 @@
   <nav class="main-nav">
     <ul class="main-nav__list">
       <li class="main-nav__item">
-        <NuxtLink to="/">О сервисе</NuxtLink>
+        <NuxtLink to="/" class="main-nav__link" activeClass="main-nav__link--active">О сервисе</NuxtLink>
       </li>
       <li class="main-nav__item">
-        <NuxtLink to="/directions">Направления</NuxtLink>
+        <NuxtLink to="/directions" class="main-nav__link" activeClass="main-nav__link--active">Направления</NuxtLink>
       </li>
       <li class="main-nav__item">
-        <NuxtLink to="/companions">Попутчики</NuxtLink>
+        <NuxtLink to="/companions" class="main-nav__link" activeClass="main-nav__link--active">Попутчики</NuxtLink>
       </li>
     </ul>
   </nav>
@@ -47,17 +47,18 @@
     gap: 20px 34px;
     padding-left: 105px;
   }
-}
-.main-nav__list::before {
-  position: absolute;
-  left: 0;
-  content: "";
-  width: 60px;
-  height: 2px;
-  background-color: $white;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    content: "";
+    width: 60px;
+    height: 2px;
+    background-color: $white;
+  }
 }
 
-.main-nav__list a {
+.main-nav__link {
   font-size: 30px;
   font-weight: 500;
   line-height: 35px;
@@ -74,5 +75,18 @@
     line-height: 20px;
     color: $white;
   }
+
+  &:hover,
+  &:focus {
+    color: $basic-yellow;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
+}
+
+.main-nav__link--active {
+  color: $basic-yellow;
 }
 </style>

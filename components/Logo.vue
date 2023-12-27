@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-const { isMenuOpened, isInHeader } = defineProps({
+defineProps({
   isMenuOpened: {
     type: Boolean,
     required: false
