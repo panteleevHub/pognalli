@@ -19,10 +19,11 @@ const props = defineProps({
     type: String,
     required: true
   }
-})
+});
 
 const rotate = props.level >= 50 ? 50 : 0;
-const levelColor = props.level >= 50 ? '#ff8d30' : '#444'; 
+const levelColor = props.level >= 50 ? '#ff8d30' : props.color;
+
 </script>
 
 <style lang="scss" scoped>
@@ -55,7 +56,7 @@ const levelColor = props.level >= 50 ? '#ff8d30' : '#444';
 
 .level--promo {
   color: $white;
-  background-color: $special-grey;
+  background-color: v-bind(color);
 }
 
 .level--catalog {

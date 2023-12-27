@@ -18,7 +18,7 @@
               <span class="plan__number">1</span>              
             </div>
           </li>
-          <li class="plan__item" id="second-plan-item">
+          <li class="plan__item">
             <div class="plan__item-wrapper">
               <span class="plan__name">Изучите идеи путешественников</span>
               <span class="plan__number">2</span>             
