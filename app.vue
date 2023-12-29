@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <TheHeader />
+    <MainHeader />
     <NuxtPage />
-    <TheFooter />
+    <MainFooter />
   </div>
 </template>
 
