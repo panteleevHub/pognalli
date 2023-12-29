@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <div :class="isMenuOpened ? 'mobile-menu mobile-menu--opened' : 'mobile-menu'">
-      <div class="mobile-menu__top">
-        <NuxtLink to="/">
-          <Logo :isMenuOpened="isMenuOpened" :isInHeader="true" />
-        </NuxtLink>
-        <button
-          @click="isMenuOpened = !isMenuOpened"
-          class="mobile-menu__toggle"
-          type="button"
-          aria-label="Открыть меню"
-        >
-        </button>
-        <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--top" />
-      </div>
-      <div v-if="isMenuOpened" class="mobile-menu__bottom">
-        <AppNavigation />
-        <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--bottom" />
-        <Contacts place="header" class="mobile-menu__contacts" />
-        <Socials place="header" class="mobile-menu__socials" />
-      </div>
+  <div class="mobile-menu container" :class="isMenuOpened && 'mobile-menu--opened'">
+    <div class="mobile-menu__top">
+      <NuxtLink to="/">
+        <Logo :isMenuOpened="isMenuOpened" :isInHeader="true" />
+      </NuxtLink>
+      <button
+        @click="isMenuOpened = !isMenuOpened"
+        class="mobile-menu__toggle"
+        type="button"
+        aria-label="Открыть меню"
+      >
+      </button>
+      <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--top" />
+    </div>
+    <div v-if="isMenuOpened" class="mobile-menu__bottom">
+      <AppNavigation v-model:close="isMenuOpened" />
+      <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--bottom" />
+      <Contacts place="header" class="mobile-menu__contacts" />
+      <Socials place="header" class="mobile-menu__socials" />
     </div>
   </div>
 </template>
@@ -30,12 +28,7 @@ const isMenuOpened = ref(false);
 
 <style lang="scss" scoped>
 .mobile-menu--opened {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  padding: 0 25px;
+  position: relative;
   background-color: $white;
 
   @media (min-width: $tablet-width) {
@@ -54,8 +47,15 @@ const isMenuOpened = ref(false);
 
 .mobile-menu__bottom {
   @include flex-column-center;
+  position: absolute;
+  top: 59px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: inherit;
 
   @media (min-width: $tablet-width) {
+    top: 130px;
     display: block;
     padding: 0 57px;
   }

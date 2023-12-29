@@ -50,9 +50,9 @@
 .promo {
   padding-top: 40px;
   background: url('@/assets/img/traveller-illustration-mobile.png') 60% 170px no-repeat,
-              url('@/assets/img/globe-back-mobile.jpg') center 105px no-repeat;
-  background-size: 192px 255px, 768px 320px;
-  background-color: $basic-blue;
+              url('@/assets/img/globe-back-desktop.jpg') center 150px no-repeat;
+  background-size: 192px 255px, 725px 275px;
+  background-color: $dark-blue;
 
   @media (min-width: $tablet-width) {
     padding-top: 30px;
