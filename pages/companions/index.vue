@@ -1,13 +1,17 @@
 <template>
   <main class="companions">
-    <PageHeader>Попутчики</PageHeader>
+    <PageHeader class="companions__header">Попутчики</PageHeader>
+    <CountryFilter />
   </main>
 </template>
 
 <script setup>
-
+import CountryFilter from '@/components/companionsPage/CountryFilter.vue';
 </script>
 
 <style lang="scss" scoped>
-
+.companions__header {
+  position: relative;
+  z-index: 2;
+}
 </style>
