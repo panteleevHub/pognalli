@@ -11,7 +11,11 @@
     </div>
     <div v-if="isFilterOpened" class="filter__bottom">
       <div class="filter__bottom-container container">
-        <CountrySlider :countries="countries" class="filter__slider" />
+        <CountrySlider
+          :countries="countries"
+          place="companions"
+          class="filter__slider"
+        />
         <button @click="isFilterOpened = !isFilterOpened" class="filter__close" type="button">
           <span>Свернуть</span>
         </button>
@@ -271,7 +275,7 @@ const countries = [
   'Замбия',
 ];
 
-const isFilterOpened = ref(true);
+const isFilterOpened = ref(false);
 </script>
 
 <style lang="scss" scoped>
