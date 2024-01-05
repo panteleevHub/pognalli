@@ -59,7 +59,7 @@ const countries = [
   'Болгария',
   'Мьянма',
   'Бурунди',
-  'Белоруссия',
+  'Беларусь',
   'Камбоджа',
   'Камерун',
   'Канада',
@@ -380,11 +380,18 @@ const isFilterOpened = ref(false);
 }
 
 .filter__bottom-container {
+  padding-top: 28px;
   padding-bottom: 28px;
   
   @media (min-width: $tablet-width) {
     padding-bottom: 80px;
   }
+}
+
+.filter__slider {
+  width: 220px;
+  margin: 0 auto;
+  margin-bottom: 28px;
 }
 
 .filter__close {
