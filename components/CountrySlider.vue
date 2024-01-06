@@ -1,19 +1,22 @@
 <template>
   <div class="slider" :class="'slider--' + place">
-    <ul class="slider__buttons">
-      <li 
+    <div class="slider__buttons">
+      <button
         v-for="{letter} in countriesList"
+        @click="activeButton = letter"
         :key="letter"
         class="slider__button"
         :class="activeButton === letter && 'slider__button--active'"
+        type="button"
       >
-        <button @click="activeButton = letter" type="button">{{ letter }}</button>
-      </li>
-    </ul>
+        {{ letter }}
+      </button>
+    </div>
     <div class="slider__slide">
       <button
         v-for="country in activeSlide.countries"
         :key="country"
+        class="slider__country"
         type="button"
       >
         {{ country }}
@@ -54,7 +57,7 @@ const countriesList = computed(() => {
     }
   });
 
-  return arr.sort((a, b) => a.letter.localeCompare(b.letter));
+  return arr;
 });
 
 const activeButton = ref('А');
@@ -62,18 +65,34 @@ const activeSlide = computed(() => countriesList.value.find(slide => slide.lette
 </script>
 
 <style lang="scss" scoped>
+.slider--companions {
+  @media (min-width: $tablet-width) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 110px;
+  }
+}
+
 .slider__buttons {
-  @include reset-list;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  min-height: 205px;
 }
 .slider--companions .slider__buttons {
   margin-bottom: 15px;
+
+  @media (min-width: $tablet-width) {
+    width: 350px;
+    align-self: start;
+    row-gap: 20px;
+  }
 }
 
-.slider__button button {
+.slider__button {
   display: block;
   width: 100%;
+  height: 100%;
+  font-family: inherit;
   font-size: 14px;
   line-height: 14px;
   font-weight: 500;
@@ -82,16 +101,38 @@ const activeSlide = computed(() => countriesList.value.find(slide => slide.lette
   border: none;
   color: $basic-blue-light;
   background-color: $white;
+  outline: 1px solid $basic-grey-light;
   cursor: pointer;
 }
 
-.slider__button--active button {
+.slider__button--active {
   color: $white;
   background-color: $basic-blue-light;
+  outline: 1px solid $basic-blue-light;
 }
 
-.slider__slide button {
+.slider--companions .slider__button {
+  @media (min-width: $tablet-width) {
+    width: auto;
+    height: auto;
+    font-size: 60px;
+    line-height: 60px;
+    font-weight: 700;
+    color: rgba($special-blue, 0.3);
+    background-color: transparent;
+    outline: none;
+  }
+}
+
+.slider--companions .slider__button--active {
+    @media (min-width: $tablet-width) {
+      color: $special-blue;
+    }
+  }
+
+.slider__country {
   display: block;
+  font-family: inherit;
   font-size: 16px;
   line-height: 22px;
   text-align: left;
@@ -100,5 +141,10 @@ const activeSlide = computed(() => countriesList.value.find(slide => slide.lette
   border: none;
   padding: 0;
   cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    font-size: 20px;
+    line-height: 30px;
+  }
 }
 </style>

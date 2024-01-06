@@ -65,7 +65,6 @@ const countries = [
   'Канада',
   'Кабо-Верде',
   'Каймановы острова',
-  'Центральноафриканская Республика',
   'Шри-Ланка',
   'Чад',
   'Чили',
@@ -271,7 +270,6 @@ const countries = [
   'Венесуэла',
   'Уоллис и Футуна',
   'Самоа',
-  'Йемен',
   'Замбия',
 ];
 
@@ -380,11 +378,11 @@ const isFilterOpened = ref(false);
 }
 
 .filter__bottom-container {
-  padding-top: 28px;
+  padding-top: 15px;
   padding-bottom: 28px;
   
   @media (min-width: $tablet-width) {
-    padding-bottom: 80px;
+    padding: 0 75px 80px;
   }
 }
 
@@ -392,6 +390,15 @@ const isFilterOpened = ref(false);
   width: 220px;
   margin: 0 auto;
   margin-bottom: 28px;
+
+  @media (min-width: $tablet-width) {
+    width: 620px;
+    margin-bottom: 80px;
+  }
+
+  @media (min-width: $desktop-width) {
+    display: none;
+  }
 }
 
 .filter__close {
