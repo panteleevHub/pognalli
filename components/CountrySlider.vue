@@ -2,7 +2,7 @@
   <div class="slider" :class="'slider--' + place">
     <div class="slider__buttons">
       <button
-        v-for="{letter} in countriesList"
+        v-for="{letter} in countries"
         @click="activeButton = letter"
         :key="letter"
         class="slider__button"
@@ -39,29 +39,8 @@ const props = defineProps({
   }
 });
 
-const countriesList = computed(() => {
-  const arr = [];
-
-  const sortedCountries = [...props.countries.sort()];
-
-  sortedCountries.forEach((el) => {
-    const obj = arr.findIndex(item => item.letter === el[0]);
-
-    if (obj === -1) {
-      arr.push({
-        letter: el[0],
-        countries: [el]
-      });
-    } else {
-      arr[obj].countries.push(el);
-    }
-  });
-
-  return arr;
-});
-
 const activeButton = ref('А');
-const activeSlide = computed(() => countriesList.value.find(slide => slide.letter === activeButton.value));
+const activeSlide = computed(() => props.countries.find(slide => slide.letter === activeButton.value));
 </script>
 
 <style lang="scss" scoped>
@@ -85,6 +64,7 @@ const activeSlide = computed(() => countriesList.value.find(slide => slide.lette
     width: 350px;
     align-self: start;
     row-gap: 20px;
+    margin: 0;
   }
 }
 

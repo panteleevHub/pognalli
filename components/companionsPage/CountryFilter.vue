@@ -12,10 +12,18 @@
     <div v-if="isFilterOpened" class="filter__bottom">
       <div class="filter__bottom-container container">
         <CountrySlider
-          :countries="countries"
+          :countries="store.countriesList"
           place="companions"
           class="filter__slider"
         />
+        <ul class="filter__countries">
+          <li v-for="{letter, countries} in store.countriesList">
+            <div>{{ letter }}</div>
+            <div>
+              <button v-for="country in countries" type="button">{{ country }}</button>
+            </div>
+          </li>
+        </ul>
         <button @click="isFilterOpened = !isFilterOpened" class="filter__close" type="button">
           <span>Свернуть</span>
         </button>
@@ -25,7 +33,11 @@
 </template>
 
 <script setup>
-const countries = [
+import { useCountriesStore } from '@/stores/countries';
+
+const store = useCountriesStore();
+
+store.setCountries([
   'Афганистан',
   'Албания',
   'Антарктика',
@@ -271,7 +283,9 @@ const countries = [
   'Уоллис и Футуна',
   'Самоа',
   'Замбия',
-];
+]);
+
+// await useAsyncData('countries', () => store.fetchCountries());
 
 const isFilterOpened = ref(false);
 </script>
@@ -398,6 +412,14 @@ const isFilterOpened = ref(false);
 
   @media (min-width: $desktop-width) {
     display: none;
+  }
+}
+
+.filter__countries {
+  display: none;
+
+  @media (min-width: $desktop-width) {
+    display: block;
   }
 }
 
