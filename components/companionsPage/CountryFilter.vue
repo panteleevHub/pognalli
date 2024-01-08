@@ -18,9 +18,9 @@
         />
         <ul class="filter__countries">
           <li v-for="{letter, countries} in store.countriesList">
-            <div>{{ letter }}</div>
-            <div>
-              <button v-for="country in countries" type="button">{{ country }}</button>
+            <span class="filter__letter">{{ letter }}</span>
+            <div class="filter__countries-list">
+              <button v-for="country in countries" class="filter__country" type="button">{{ country }}</button>
             </div>
           </li>
         </ul>
@@ -305,7 +305,9 @@ const isFilterOpened = ref(false);
 }
 
 .filter--opened .filter__top {
-  border-radius: 0
+  @media (max-width: $pre-desktop-width) {
+    border-radius: 0;
+  }
 }
 
 .filter__top-container {
@@ -389,6 +391,10 @@ const isFilterOpened = ref(false);
 .filter__bottom {
   @include round-bottom;
   background-color: $light-grey;
+
+  @media (min-width: $desktop-width) {
+    background-color: inherit;
+  }
 }
 
 .filter__bottom-container {
@@ -397,6 +403,10 @@ const isFilterOpened = ref(false);
   
   @media (min-width: $tablet-width) {
     padding: 0 75px 80px;
+  }
+
+  @media (min-width: $desktop-width) {
+    padding: 30px 60px 100px;
   }
 }
 
@@ -419,8 +429,39 @@ const isFilterOpened = ref(false);
   display: none;
 
   @media (min-width: $desktop-width) {
-    display: block;
+    @include reset-list;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 50px;
+    padding: 0 36px;
+    margin-bottom: 50px;
   }
+}
+
+.filter__countries li {
+  @include flex-column;
+  row-gap: 30px;
+}
+
+.filter__letter {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: 700;
+  color: $special-blue;
+}
+
+.filter__countries-list {
+  @include flex-column;
+}
+
+.filter__country {
+  font-size: 20px;
+  line-height: 30px;
+  text-align: left;
+  color: $special-grey;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 
 .filter__close {
