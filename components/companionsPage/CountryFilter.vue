@@ -7,23 +7,39 @@
           <span v-if="!isFilterOpened" class="filter__show">Показать</span>
           <span v-else class="filter__hide">Свернуть</span>
         </button>
+        <!-- <span class="filter__selected-countries">{{ filtersStore.selectedCountries.join(', ') }}</span> -->
       </div>
     </div>
     <div v-if="isFilterOpened" class="filter__bottom">
       <div class="filter__bottom-container container">
         <CountrySlider
-          :countries="store.countriesList"
           place="companions"
           class="filter__slider"
         />
         <ul class="filter__countries">
-          <li v-for="{letter, countries} in store.countriesList">
+          <li v-for="{letter, countries} in countriesList">
             <span class="filter__letter">{{ letter }}</span>
             <div class="filter__countries-list">
-              <button v-for="country in countries" class="filter__country" type="button">{{ country }}</button>
+              <div
+                v-for="country in countries"
+                :key="country"
+                class="filter__country"
+              >
+                <input
+                  @click="onCountryClick"
+                  :value="country"
+                  :id="country"
+                  :checked="selectedCountries.includes(country)"
+                  type="checkbox"
+                />
+                <label :for="country">{{ country }}</label>
+              </div>
             </div>
           </li>
         </ul>
+        <button @click="onCloseFilterClick" class="filter__reset" type="button">
+          <span>Сбросить фильтр</span>
+        </button>
         <button @click="isFilterOpened = !isFilterOpened" class="filter__close" type="button">
           <span>Свернуть</span>
         </button>
@@ -33,11 +49,13 @@
 </template>
 
 <script setup>
-import { useCountriesStore } from '@/stores/countries';
+const countriesStore = useCountriesStore();
+const filtersStore = useFiltersStore();
 
-const store = useCountriesStore();
+const countriesList = reactive(countriesStore.countriesList);
+const selectedCountries = reactive(filtersStore.selectedCountries);
 
-store.setCountries([
+countriesStore.setCountries([
   'Афганистан',
   'Албания',
   'Антарктика',
@@ -285,12 +303,30 @@ store.setCountries([
   'Замбия',
 ]);
 
-// await useAsyncData('countries', () => store.fetchCountries());
+// await useAsyncData('countries', () => countriesStore.fetchCountries());
 
 const isFilterOpened = ref(false);
+
+const onCountryClick = (evt) => {
+  console.log(evt.target.value)
+  if (evt.target.checked) {
+    filtersStore.setCountry(evt.target.value);
+  } else {
+    filtersStore.removeCountry(evt.target.value);
+  }
+};
+
+const onCloseFilterClick = () => {
+  filtersStore.resetCountriesFilter();
+  isFilterOpened.value = false;
+};
 </script>
 
 <style lang="scss" scoped>
+.filter {
+  position: relative;
+}
+
 .filter__top {
   @include round-bottom;
   position: relative;
@@ -312,6 +348,7 @@ const isFilterOpened = ref(false);
 
 .filter__top-container {
   @include flex-base;
+  flex-wrap: wrap;
   column-gap:  20px;
   padding-top: 47px;
   padding-bottom: 15px;
@@ -330,7 +367,8 @@ const isFilterOpened = ref(false);
 
 .filter__title,
 .filter__close,
-.filter__toggle {
+.filter__toggle,
+.filter__reset {
   font-size: 16px;
   line-height: 18px;
   font-weight: 700;
@@ -390,10 +428,19 @@ const isFilterOpened = ref(false);
 
 .filter__bottom {
   @include round-bottom;
+  position: absolute;
+  top: 50px;
+  z-index: 5;
+  width: 100%;
   background-color: $light-grey;
 
+  
+  @media (min-width: $tablet-width) {
+    top: 140px;
+  }
+
   @media (min-width: $desktop-width) {
-    background-color: inherit;
+    background-color: $basic-blue-pale;
   }
 }
 
@@ -434,7 +481,7 @@ const isFilterOpened = ref(false);
     grid-template-columns: repeat(5, 1fr);
     gap: 50px;
     padding: 0 36px;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
   }
 }
 
@@ -454,7 +501,7 @@ const isFilterOpened = ref(false);
   @include flex-column;
 }
 
-.filter__country {
+.filter__country label{
   font-size: 20px;
   line-height: 30px;
   text-align: left;
@@ -462,6 +509,31 @@ const isFilterOpened = ref(false);
   background-color: transparent;
   border: none;
   padding: 0;
+  cursor: pointer;
+}
+
+.filter__country input {
+  display: none;
+}
+
+.filter__country input:checked + label {
+  font-weight: 500;
+  color: $basic-blue-light;
+}
+
+.filter__reset {
+  width: 100%;
+  text-align: center;
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    margin-bottom: 40px;
+  }
 }
 
 .filter__close {

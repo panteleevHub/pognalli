@@ -2,7 +2,7 @@
   <div class="slider" :class="'slider--' + place">
     <div class="slider__buttons">
       <button
-        v-for="{letter} in countries"
+        v-for="{letter} in countriesList"
         @click="activeButton = letter"
         :key="letter"
         class="slider__button"
@@ -13,25 +13,26 @@
       </button>
     </div>
     <div class="slider__slide">
-      <button
+      <div
         v-for="country in activeSlide.countries"
         :key="country"
         class="slider__country"
-        type="button"
       >
-        {{ country }}
-      </button>
+        <input
+          @click="onCountryClick"
+          :value="country"
+          :id="country"
+          :checked="selectedCountries.includes(country)"
+          type="checkbox"
+        />
+        <label :for="country">{{ country }}</label>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  countries: {
-    type: Array,
-    default: [],
-    required: true,
-  },
   place: {
     type: String,
     default: '',
@@ -39,8 +40,23 @@ const props = defineProps({
   }
 });
 
+const countriesStore = useCountriesStore();
+const filtersStore = useFiltersStore();
+
 const activeButton = ref('А');
-const activeSlide = computed(() => props.countries.find(slide => slide.letter === activeButton.value));
+const countriesList = reactive(countriesStore.countriesList);
+const selectedCountries = reactive(filtersStore.selectedCountries);
+
+const activeSlide = computed(() => countriesList.find(slide => slide.letter === activeButton.value));
+
+const onCountryClick = (evt) => {
+  console.log(evt.target.value)
+  if (evt.target.checked) {
+    filtersStore.setCountry(evt.target.value);
+  } else {
+    filtersStore.removeCountry(evt.target.value);
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -110,7 +126,7 @@ const activeSlide = computed(() => props.countries.find(slide => slide.letter ==
     }
   }
 
-.slider__country {
+.slider__country label {
   display: block;
   font-family: inherit;
   font-size: 16px;
@@ -126,5 +142,14 @@ const activeSlide = computed(() => props.countries.find(slide => slide.letter ==
     font-size: 20px;
     line-height: 30px;
   }
+}
+
+.slider__country input {
+  display: none;
+}
+
+.slider__country input:checked + label {
+  font-weight: 500;
+  color: $basic-blue-light;
 }
 </style>
