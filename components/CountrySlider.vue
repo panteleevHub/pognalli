@@ -50,7 +50,6 @@ const selectedCountries = reactive(filtersStore.selectedCountries);
 const activeSlide = computed(() => countriesList.find(slide => slide.letter === activeButton.value));
 
 const onCountryClick = (evt) => {
-  console.log(evt.target.value)
   if (evt.target.checked) {
     filtersStore.setCountry(evt.target.value);
   } else {

@@ -308,7 +308,6 @@ countriesStore.setCountries([
 const isFilterOpened = ref(false);
 
 const onCountryClick = (evt) => {
-  console.log(evt.target.value)
   if (evt.target.checked) {
     filtersStore.setCountry(evt.target.value);
   } else {

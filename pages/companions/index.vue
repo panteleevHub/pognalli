@@ -1,8 +1,10 @@
 <template>
   <main class="companions">
     <PageHeader class="companions__header">Попутчики</PageHeader>
-    <CountryFilter />
-    <Companions />
+    <div class="companions__content">
+      <CountryFilter />
+      <Companions />
+    </div>
   </main>
 </template>
 
@@ -15,5 +17,10 @@ import Companions from '@/components/companionsPage/Companions.vue';
 .companions__header {
   position: relative;
   z-index: 2;
+}
+
+.companions__content {
+  display: grid;
+  row-gap: 25px;
 }
 </style>

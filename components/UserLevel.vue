@@ -60,6 +60,9 @@ const levelColor = props.level >= 50 ? '#ff8d30' : props.color;
 }
 
 .level--catalog {
+  color: $basic-blue-light;
+  background-color: v-bind(color);
+  
   @media (max-width: $pre-tablet-width) {
     padding: 0;
   }

@@ -44,6 +44,13 @@ const activeTooltip = ref('');
   gap: 10px 20px;
 }
 
+.countries--catalog img {
+  @media (max-width: $pre-tablet-width) {
+    width: 26px;
+    height: 18px; 
+  }
+}
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.3s ease;
