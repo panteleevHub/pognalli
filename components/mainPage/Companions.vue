@@ -8,11 +8,14 @@
           <p class="companions__excerpt">Теперь можно легко<br class="companions__excerpt-break"> найти единомышленников!</p>
         </div>
         <ul class="companions__list">
-          <li v-for="{id, name, avatar, countries, tags, transport, level} in companions" class="companions__item">
-            <picture class="companions__avatar">
-              <source media="(min-width: 768px)" :srcset="avatar.desktop">
-              <img :src="avatar.mobile" width="270" height="270" alt="Аватар пользователя">
-            </picture>
+          <li v-for="{id, name, avatarUrl, countries, tags, transport, level} in companions" class="companions__item">
+            <img
+              :src="avatarUrl"
+              class="companions__avatar"
+              width="270"
+              height="270"
+              alt="Аватар пользователя"
+            >
             <UserLevel
               :level="level"
               place="promo"
@@ -36,10 +39,6 @@
 </template>
 
 <script setup>
-import firsovaMobile from '@/assets/img/firsova-promo-mobile.png';
-import firsovaDesktop from '@/assets/img/firsova-promo-desktop.png';
-import deminMobile from '@/assets/img/demin-promo-mobile.png';
-import deminDesktop from '@/assets/img/demin-promo-desktop.png';
 import flagCzech from '@/assets/img/flag-czech-mobile.png';
 import flagSeychelles from '@/assets/img/flag-seychelles-mobile.png';
 import flagSriLanka from '@/assets/img/flag-sri-lanka-mobile.png';
@@ -50,26 +49,20 @@ const companions = [
   {
     id: 1,
     name: 'Таня Фирсова',
-    avatar: {
-      mobile: firsovaMobile,
-      desktop: firsovaDesktop,
-    },
+    avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
     countries: [
       {
-        id: 1,
         name: 'Шри-Ланка',
         src: flagSriLanka,
         alt: 'Флаг Шри-Ланки'
       },
       {
-        id: 2,
         name: 'Таиланд',
         src: flagThailand,
         alt: 'Флаг Таиланда'
       },
       {
-        id: 3,
-        name: 'Сейшелы',
+        name: 'Сейшельские Острова',
         src: flagSeychelles,
         alt: 'Флаг Сейшел'
       },
@@ -81,28 +74,23 @@ const companions = [
   {
     id: 2,
     name: 'Петя Демин',
-    avatar: {
-      mobile: deminMobile,
-      desktop: deminDesktop,
-    },
+    avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
-        id: 1,
         name: 'Бельгия',
         src: flagBelgium,
         alt: 'Флаг Бельгии'
       },
       {
-        id: 2,
-        name: 'Чехия', 
+        name: 'Чехия',
         src: flagCzech,
         alt: 'Флаг Чехии'
-      }
+      },
     ],
     tags: ['#бургер', '#бар', '#футбол', '#концерт', '#крафт'],
     transport: ['plane', 'auto', 'walk'],
     level: 80,
-  }
+  },
 ];
 </script>
 
@@ -167,7 +155,6 @@ const companions = [
   @media (min-width: $desktop-width) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 60px;
     padding: 130px 60px 135px 130px;
   }
 }
@@ -231,7 +218,6 @@ const companions = [
 .companions__list {
   @include reset-list;
   display: grid;
-  grid-template-columns: 1fr;
   row-gap: 10px;
   margin-bottom: 20px;
 
@@ -244,7 +230,7 @@ const companions = [
   @media (min-width: $desktop-width) {
     grid-column: 2 / -1;
     grid-row: 1 / 3;
-    column-gap: 60px;
+    column-gap: 55px;
     margin-bottom: 0;
     padding-top: 13px;
   }
@@ -256,14 +242,17 @@ const companions = [
   border-radius: 12px;
 
   @media (min-width: $tablet-width) {
-    border-radius: 22px;
+    border-radius: 20px;
   }
 }
 
-.companions__avatar img {
+.companions__avatar {
+  border-radius: 12px 12px 0 0;
+  
   @media (min-width: $tablet-width) {
     width: 285px;
     height: 285px;
+    border-radius: 20px 20px 0 0;
   }
 }
 

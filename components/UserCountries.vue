@@ -7,8 +7,9 @@
       class="countries__item"
     >
       <img :src="src" width="35" height="24" :alt="alt">
+      <span class="countries__name">{{ name }}</span>
       <Transition>
-        <Tooltip v-if="activeTooltip === name">{{ name }}</Tooltip>
+        <Tooltip v-if="activeTooltip === name" class="countries__tooltip">{{ name }}</Tooltip>
       </Transition>
     </li>
   </ul>
@@ -40,8 +41,41 @@ const activeTooltip = ref('');
   position: relative;
 }
 
+.countries__name {
+  display: none;
+}
+
 .countries--promo {
   gap: 10px 20px;
+}
+
+.countries--catalog {
+  flex-direction: column;
+  row-gap: 10px;
+
+  @media (min-width: $tablet-width) {
+    flex-direction: row;
+    gap: 25px;
+  }
+
+  @media (min-width: $desktop-width) {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+}
+
+.countries--catalog .countries__item {
+  display: flex;
+  align-items: center;
+  column-gap: 14px;
+
+  @media (min-width: $tablet-width) {
+    column-gap: 11px;
+  }
+
+  @media (min-width: $desktop-width) {
+    column-gap: 18px;
+  }
 }
 
 .countries--catalog img {
@@ -49,6 +83,24 @@ const activeTooltip = ref('');
     width: 26px;
     height: 18px; 
   }
+}
+
+.countries--catalog .countries__name {
+  display: block;
+  font-size: 15px;
+  line-height: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: $basic-blue-light;
+
+  @media (min-width: $tablet-width) {
+    font-size: 20px;
+    line-height: 20px;
+  }
+}
+
+.countries--catalog .countries__tooltip {
+  display: none;
 }
 
 .v-enter-active,

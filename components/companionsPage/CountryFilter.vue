@@ -324,19 +324,18 @@ const onCloseFilterClick = () => {
 <style lang="scss" scoped>
 .filter {
   position: relative;
-}
-
-.filter__top {
-  @include round-bottom;
-  position: relative;
   top: -30px;
   margin-bottom: -30px;
-  background-color: $light-grey;
 
   @media (min-width: $tablet-width) {
     top: -40px;
     margin-bottom: -40px;
   }
+}
+
+.filter__top {
+  @include round-bottom;
+  background-color: $light-grey;
 }
 
 .filter--opened .filter__top {
@@ -428,15 +427,9 @@ const onCloseFilterClick = () => {
 .filter__bottom {
   @include round-bottom;
   position: absolute;
-  top: 50px;
   z-index: 5;
   width: 100%;
   background-color: $light-grey;
-
-  
-  @media (min-width: $tablet-width) {
-    top: 140px;
-  }
 
   @media (min-width: $desktop-width) {
     background-color: $basic-blue-pale;
