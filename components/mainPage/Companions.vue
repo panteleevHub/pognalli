@@ -62,7 +62,7 @@ const companions = [
         alt: 'Флаг Таиланда'
       },
       {
-        name: 'Сейшельские Острова',
+        name: 'Сейшелы',
         src: flagSeychelles,
         alt: 'Флаг Сейшел'
       },

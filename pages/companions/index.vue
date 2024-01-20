@@ -27,7 +27,7 @@ import Companions from '@/components/companionsPage/Companions.vue';
   padding-bottom: 45px;
 
   @media (min-width: $tablet-width) {
-    width: 688px;
+    width: $tablet-width;
     padding-top: 43px;
     padding-bottom: 62px;
   }

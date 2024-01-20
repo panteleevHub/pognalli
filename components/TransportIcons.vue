@@ -77,10 +77,6 @@ const activeTooltip = ref('');
   align-items: center;
 }
 
-.transport-icons--promo {
-  column-gap: 15px;
-}
-
 .transport-icons__icon {
   position: relative;
 }
@@ -89,8 +85,67 @@ const activeTooltip = ref('');
   display: block;
 }
 
+.transport-icons--promo {
+  column-gap: 15px;
+}
+
 .transport-icons--promo .transport-icons__icon:last-child {
   margin-left: -3px;
+}
+
+.transport-icons--catalog {
+  column-gap: 1px;
+
+  @media (min-width: $tablet-width) {
+    flex-direction: column;
+  }
+}
+
+.transport-icons--catalog .transport-icons__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: $basic-blue-pale;
+  border-radius: 50%;
+
+  @media (min-width: $tablet-width) {
+    background-color: transparent;
+  }
+}
+
+.transport-icons--catalog svg {
+  width: 14px;
+  height: 16px;
+}
+
+.transport-icons--catalog #icon-plane {
+  @media (min-width: $tablet-width) {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.transport-icons--catalog #icon-auto {
+  @media (min-width: $tablet-width) {
+    width: 18px;
+    height: 20px;
+  }
+}
+
+.transport-icons--catalog #icon-bike {
+  @media (min-width: $tablet-width) {
+    width: 26px;
+    height: 25px;
+  }
+}
+
+.transport-icons--catalog #icon-walk {
+  @media (min-width: $tablet-width) {
+    width: 22px;
+    height: 24px;
+  }
 }
 
 .v-enter-active,

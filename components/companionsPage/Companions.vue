@@ -17,11 +17,17 @@
         </div>
         <NuxtLink :to="'/companions/' + user.id" class="user__name">{{ user.name }}</NuxtLink>
         <div class="user__likes">
-          <button type="button"></button>
-          <span>{{ user.likes }}</span>
+          <button
+            @click="onLikeClick(user)"
+            class="user__like-button"
+            :class="user.likes.includes(userId) && 'user__like-button--active'"
+            type="button"
+          >
+          </button>
+          <span>{{ user.likes.length }}</span>
         </div>
-        <p class="user__tags">{{ user.tags.join(', ') }}</p>
-        <div class="user__contries">
+        <p class="user__tags">{{ user.tags.join(' ') }}</p>
+        <div class="user__countries">
           <span class="user__caption user__caption--countries">Хочет посетить:</span>
           <UserCountries :countries="user.countries" place="catalog" />
         </div>
@@ -51,7 +57,9 @@ import flagDominika from '@/assets/img/flag-dominika.png';
 import flagUK from '@/assets/img/flag-uk.png';
 import flagGermany from '@/assets/img/flag-germany.png';
 
-const users = [
+const userId = 21;
+
+const users = reactive([
   {
     id: 1,
     name: 'Таня Фирсова',
@@ -68,7 +76,7 @@ const users = [
         alt: 'Флаг Таиланда'
       },
       {
-        name: 'Сейшельские Острова',
+        name: 'Сейшелы',
         src: flagSeychelles,
         alt: 'Флаг Сейшел'
       },
@@ -76,7 +84,7 @@ const users = [
     tags: ['#ЗОЖ', '#ПП', '#Фитнес', '#пляж', '#авокадо', '#смузи'],
     transport: ['plane'],
     level: 99,
-    likes: 1500000,
+    likes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
   {
     id: 2,
@@ -97,7 +105,7 @@ const users = [
     tags: ['#бургер', '#бар', '#футбол', '#концерт', '#крафт'],
     transport: ['plane', 'auto', 'walk'],
     level: 80,
-    likes: 1500,
+    likes: [1, 2, 3, 4, 5],
   },
   {
     id: 3,
@@ -105,9 +113,9 @@ const users = [
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
-        name: 'Соединённые Штаты Америки',
+        name: 'США',
         src: flagUSA,
-        alt: 'Флаг Соединённых Штатов Америки'
+        alt: 'Флаг США'
       },
       {
         name: 'Австралия',
@@ -123,7 +131,7 @@ const users = [
     tags: ['#рэп', '#тату', '#хайпбист', '#кроссовки', '#суприм'],
     transport: ['plane', 'bike'],
     level: 25,
-    likes: 170,
+    likes: [1],
   },
   {
     id: 4,
@@ -144,9 +152,9 @@ const users = [
     tags: ['#образование', '#карьера', '#учеба', '#линкедин'],
     transport: ['plane', 'auto'],
     level: 50,
-    likes: 23,
+    likes: [1, 2, 3, 4, 5, 6],
   },
-];
+]);
 
 const filtersStore = useFiltersStore();
 
@@ -159,6 +167,14 @@ const filteredUsers = computed(() => {
     return selectedCountries.some((el) => countries.find(({name}) => el === name));
   });
 });
+
+const onLikeClick = (user) => {
+  // Запрос на сервер
+
+  const userIdIndex = user.likes.indexOf(userId);
+
+  userIdIndex === -1 ? user.likes.push(userId) : user.likes.splice(userIdIndex, 1);
+}
 </script>
 
 <style lang="scss" scoped>
@@ -166,27 +182,72 @@ const filteredUsers = computed(() => {
   @include reset-list;
   display: grid;
   row-gap: 10px;
+
+  @media (min-width: $tablet-width) {
+    row-gap: 40px;
+  }
 }
 
 .user {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 14px;
   background-color: $white;
   padding: 15px 20px 23px;
   border-radius: 20px;
+
+  @media (min-width: $tablet-width) {
+    grid-template-columns: 220px repeat(2, 1fr) auto;
+    row-gap: 0;
+    padding: 30px;
+  }
+}
+
+.user__avatar {
+  grid-row: 1 / 3;
+
+  @media (min-width: $tablet-width) {
+    grid-row: 1 / 4;
+    align-self: center;
+    padding-right: 30px;
+  }
+}
+
+.user__avatar img {
+  border-radius: 50%;
+
+  @media (min-width: $tablet-width) {
+    width: 190px;
+    height: 190px;
+    border-radius: 20px;
+  }
 }
 
 .user__name {
+  position: relative;
+  left: -45px;
   font-size: 20px;
   line-height: 20px;
   font-weight: 700;
   color: $basic-blue-light;
+  margin-bottom: -14px;
 
   @media (min-width: $tablet-width) {
+    position: static;
+    grid-column: 2 / 4;
     font-size: 30px;
     line-height: 30px;
+    margin-bottom: 20px;
+    padding-right: 30px;
   }
 }
 
 .user__likes {
+  position: relative;
+  left: -80px;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
   font-size: 14px;
   line-height: 16px;
   font-weight: 700;
@@ -194,23 +255,71 @@ const filteredUsers = computed(() => {
   text-transform: uppercase;
 
   @media (min-width: $tablet-width) {
+    left: -15px;
+    grid-row: 3 / 4;
+    grid-column: 3 / 4;
+    align-self: center;
     font-size: 20px;
     line-height: 20px;
   }
 }
 
-.user__tags {
-  font-size: 15px;
-  line-height: 18px;
+.user__like-button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: $light-grey url('@/assets/img/icon-heart-grey.svg') center no-repeat;
+  background-size: 12px 12px;
 
   @media (min-width: $tablet-width) {
+    width: 50px;
+    height: 50px;
+    background-size: 20px 20px;
+  }
+}
+
+.user__like-button--active {
+  background-color: $light-red;
+  background-image: url('@/assets/img/icon-heart-red.svg');
+}
+
+.user__tags {
+  width: 185px;
+  grid-column: 1 / -1;
+  font-size: 15px;
+  line-height: 18px;
+  margin: 0;
+
+  @media (min-width: $tablet-width) {
+    width: 250px;
+    min-height: 70px;
+    grid-column: 2 / 4;
     font-size: 20px;
     line-height: 23px;
     color: $black;
+    margin-bottom: 20px;
+  }
+}
+
+.user__countries {
+  grid-column: 1 / -1;
+
+  @media (min-width: $tablet-width) {
+    margin-top: 22px;
+  }
+}
+
+.user__transport {
+  @media (min-width: $tablet-width) {
+    grid-column: 4 / -1;
+    grid-row: 1 / 3;
   }
 }
 
 .user__caption {
+  display: block;
   font-size: 15px;
   line-height: 16px;
   text-transform: lowercase;
@@ -226,7 +335,34 @@ const filteredUsers = computed(() => {
   }
 }
 
+.user__caption--countries {
+  margin-bottom: 18px;
+
+  @media (min-width: $tablet-width) {
+    padding-left: 50px;
+  }
+}
+
+.user__caption--transport {
+  margin-bottom: 16px;
+}
+
+.user__caption--level {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.user__level {
+  justify-self: end;
+
+  @media (min-width: $tablet-width) {
+    grid-column: 4 / -1;
+    grid-row: 3 / 4;
+  }
+}
+
 .user__invite {
+  grid-column: 1 / -1;
   font-family: "Blogger Sans";
   width: 100%;
   font-size: 17px;
@@ -240,6 +376,10 @@ const filteredUsers = computed(() => {
   border: none;
 
   @media (min-width: $tablet-width) {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    justify-self: start;
+    align-self: center;
     width: auto;
     min-width: 150px;
     font-size: 20px;
