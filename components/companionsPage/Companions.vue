@@ -186,6 +186,10 @@ const onLikeClick = (user) => {
   @media (min-width: $tablet-width) {
     row-gap: 40px;
   }
+
+  @media (min-width: $desktop-width) {
+    row-gap: 30px;
+  }
 }
 
 .user {
@@ -198,8 +202,15 @@ const onLikeClick = (user) => {
 
   @media (min-width: $tablet-width) {
     grid-template-columns: 220px repeat(2, 1fr) auto;
-    row-gap: 0;
     padding: 30px;
+  }
+
+  @media (min-width: $desktop-width) {
+    position: relative;
+    width: 950px;
+    grid-template-columns: 340px repeat(2, 1fr) repeat(2, auto);
+    padding: 43px;
+    padding-left: 0;
   }
 }
 
@@ -211,6 +222,11 @@ const onLikeClick = (user) => {
     align-self: center;
     padding-right: 30px;
   }
+
+  @media (min-width: $desktop-width) {
+    position: absolute;
+    padding-right: 55px;
+  }
 }
 
 .user__avatar img {
@@ -220,6 +236,12 @@ const onLikeClick = (user) => {
     width: 190px;
     height: 190px;
     border-radius: 20px;
+  }
+
+  @media (min-width: $desktop-width) {
+    width: 285px;
+    height: 285px;
+    border-radius: 20px 0 0 20px;
   }
 }
 
@@ -237,7 +259,7 @@ const onLikeClick = (user) => {
     grid-column: 2 / 4;
     font-size: 30px;
     line-height: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     padding-right: 30px;
   }
 }
@@ -262,6 +284,10 @@ const onLikeClick = (user) => {
     font-size: 20px;
     line-height: 20px;
   }
+
+  @media (min-width: $desktop-width) {
+    left: -10px;
+  }
 }
 
 .user__like-button {
@@ -272,6 +298,7 @@ const onLikeClick = (user) => {
   border-radius: 50%;
   background: $light-grey url('@/assets/img/icon-heart-grey.svg') center no-repeat;
   background-size: 12px 12px;
+  cursor: pointer;
 
   @media (min-width: $tablet-width) {
     width: 50px;
@@ -299,7 +326,7 @@ const onLikeClick = (user) => {
     font-size: 20px;
     line-height: 23px;
     color: $black;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
   }
 }
 
@@ -307,7 +334,13 @@ const onLikeClick = (user) => {
   grid-column: 1 / -1;
 
   @media (min-width: $tablet-width) {
-    margin-top: 22px;
+    margin-top: 8px;
+  }
+
+  @media (min-width: $desktop-width) {
+    grid-column: 4 / -1;
+    grid-row: 1 / 3;
+    margin-top: 0;
   }
 }
 
@@ -315,6 +348,13 @@ const onLikeClick = (user) => {
   @media (min-width: $tablet-width) {
     grid-column: 4 / -1;
     grid-row: 1 / 3;
+  }
+
+  @media (min-width: $desktop-width) {
+    grid-column: 4 / -2;
+    grid-row: 3 / 4;
+    align-self: center;
+    padding-right: 45px;
   }
 }
 
@@ -359,6 +399,10 @@ const onLikeClick = (user) => {
     grid-column: 4 / -1;
     grid-row: 3 / 4;
   }
+
+  @media (min-width: $desktop-width) {
+    grid-column: -2 / -1;
+  }
 }
 
 .user__invite {
@@ -374,6 +418,7 @@ const onLikeClick = (user) => {
   padding: 12px 20px;
   border-radius: 25px;
   border: none;
+  cursor: pointer;
 
   @media (min-width: $tablet-width) {
     grid-column: 2 / 3;

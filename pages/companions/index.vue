@@ -22,7 +22,7 @@ import Companions from '@/components/companionsPage/Companions.vue';
 .companions__container {
   display: grid;
   row-gap: 28px;
-  width: 320px;
+  width: $mobile-width;
   padding-top: 25px;
   padding-bottom: 45px;
 
@@ -33,7 +33,7 @@ import Companions from '@/components/companionsPage/Companions.vue';
   }
 
   @media (min-width: $desktop-width) {
-    width: 950px;
+    width: $desktop-width;
     padding-top: 50px;
     padding-bottom: 77px;
   }

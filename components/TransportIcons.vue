@@ -99,6 +99,10 @@ const activeTooltip = ref('');
   @media (min-width: $tablet-width) {
     flex-direction: column;
   }
+
+  @media (min-width: $desktop-width) {
+    flex-direction: row;
+  }
 }
 
 .transport-icons--catalog .transport-icons__icon {
