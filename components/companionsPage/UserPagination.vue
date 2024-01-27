@@ -49,7 +49,21 @@ defineEmits(['update:currentPage']);
 
 <style lang="scss" scoped>
 .pagination {
-  padding-top: 30px;
+  margin-top: 30px;
+
+  @media (min-width: $tablet-width) {
+    @include flex-base;
+    column-gap: 50px;
+    background-color: $white;
+    margin-top: 50px;
+    padding: 25px 28px;
+    border-radius: 20px;
+  }
+
+  @media (min-width: $desktop-width) {
+    width: 950px;
+    margin-top: 70px;
+  }
 }
 
 .pagination__page-buttons {
@@ -57,6 +71,10 @@ defineEmits(['update:currentPage']);
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 20px;
+
+  @media (min-width: $tablet-width) {
+    margin-bottom: 0;
+  }
 }
 
 .pagination__page-button {
@@ -70,6 +88,13 @@ defineEmits(['update:currentPage']);
   border: 0;
   border-radius: 50%;
   cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    min-width: 50px;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 15px 0;
+  }
 }
 
 .pagination__page-button--active {
@@ -83,6 +108,15 @@ defineEmits(['update:currentPage']);
   background-color: $white;
   border-radius: 20px;
 
+  @media (min-width: $tablet-width) {
+    column-gap: 27px;
+    padding-right: 12px;
+  }
+
+  @media (min-width: $desktop-width) {
+    column-gap: 30px;
+  }
+
   &::before {
     position: absolute;
     content: "";
@@ -91,6 +125,10 @@ defineEmits(['update:currentPage']);
     width: 1px;
     height: 100%;
     background-color: $basic-blue-pale;
+
+    @media (min-width: $tablet-width) {
+      display: none;
+    }
   }
 }
 
@@ -102,6 +140,12 @@ defineEmits(['update:currentPage']);
   background: transparent url('@/assets/img/icon-page-arrow.svg') center no-repeat;
   background-size: 10px 17px;
   cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    width: 13px;
+    height: 20px;
+    background-size: 13px 20px;
+  }
 
   &:disabled {
     opacity: 0.1;

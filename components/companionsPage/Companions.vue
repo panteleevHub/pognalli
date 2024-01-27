@@ -45,7 +45,6 @@
     <UserPagination
       v-if="isPaginationShow"
       :pages="pageCount"
-      :currentPage="currentPage"
       v-model:currentPage="currentPage"
     />
   </section>
