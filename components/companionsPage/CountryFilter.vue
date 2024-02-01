@@ -7,7 +7,15 @@
           <span v-if="!isFilterOpened" class="filter__show">Показать</span>
           <span v-else class="filter__hide">Свернуть</span>
         </button>
-        <!-- <span class="filter__selected-countries">{{ filtersStore.selectedCountries.join(', ') }}</span> -->
+        <span v-if="selectedCountries.length !== 0" class="filter__selected-countries">{{ selectedCountries.join(', ') }}</span>
+        <button
+          v-if="selectedCountries.length !== 0"
+          @click="onResetFilterClick"
+          class="filter__reset"
+          type="button"
+        >
+          <span>Сбросить фильтр</span>
+        </button>
       </div>
     </div>
     <div v-if="isFilterOpened" class="filter__bottom">
@@ -37,10 +45,7 @@
             </div>
           </li>
         </ul>
-        <button @click="onCloseFilterClick" class="filter__reset" type="button">
-          <span>Сбросить фильтр</span>
-        </button>
-        <button @click="isFilterOpened = !isFilterOpened" class="filter__close" type="button">
+        <button @click="onCloseFilterClick" class="filter__close" type="button">
           <span>Свернуть</span>
         </button>
       </div>
@@ -316,6 +321,11 @@ const onCountryClick = (evt) => {
 };
 
 const onCloseFilterClick = () => {
+  isFilterOpened.value = false;
+  window.scrollTo(0, 0);
+};
+
+const onResetFilterClick = () => {
   filtersStore.resetCountriesFilter();
   isFilterOpened.value = false;
 };
@@ -345,28 +355,27 @@ const onCloseFilterClick = () => {
 }
 
 .filter__top-container {
-  @include flex-base;
-  flex-wrap: wrap;
-  column-gap:  20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 15px 20px;
   padding-top: 47px;
   padding-bottom: 15px;
   padding-right: 30px;
 
   @media (min-width: $tablet-width) {
-    column-gap: 50px;
+    gap: 30px 50px;
     padding: 100px 75px 60px;
   }
 
   @media (min-width: $desktop-width) {
     padding-left: 80px;
-    padding-right: 80px;
+    padding-right: 125px;
   }
 }
 
 .filter__title,
 .filter__close,
-.filter__toggle,
-.filter__reset {
+.filter__toggle {
   font-size: 16px;
   line-height: 18px;
   font-weight: 700;
@@ -421,6 +430,39 @@ const onCloseFilterClick = () => {
 
   @media (min-width: $tablet-width) {
     display: block;
+  }
+}
+
+.filter__selected-countries {
+  grid-column: 1 / -1;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+
+  @media (min-width: $tablet-width) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+
+.filter__reset {
+  grid-column: 1 / -1;
+  font-size: 15px;
+  line-height: 17px;
+  font-weight: 700;
+  color: $special-blue;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    font-size: 18px;
+    line-height: 18px;
   }
 }
 
@@ -511,21 +553,6 @@ const onCloseFilterClick = () => {
 .filter__country input:checked + label {
   font-weight: 500;
   color: $basic-blue-light;
-}
-
-.filter__reset {
-  width: 100%;
-  text-align: center;
-  text-decoration: underline;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin-bottom: 20px;
-  cursor: pointer;
-
-  @media (min-width: $tablet-width) {
-    margin-bottom: 40px;
-  }
 }
 
 .filter__close {

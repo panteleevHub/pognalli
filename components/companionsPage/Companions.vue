@@ -97,6 +97,8 @@ const onLikeClick = (user) => {
 
   userIdIndex === -1 ? user.likes.push(userId) : user.likes.splice(userIdIndex, 1);
 };
+
+watch(currentPage, () => window.scrollTo(0, 0));
 </script>
 
 <style lang="scss" scoped>
