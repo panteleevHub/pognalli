@@ -3,6 +3,7 @@
     <PageHeader class="companions__header">Попутчики</PageHeader>
     <CountryFilter />
     <div class="companions__container container">
+      <UserFilter />
       <Companions :users="users" />
     </div>
   </main>
@@ -10,6 +11,7 @@
 
 <script setup>
 import CountryFilter from '@/components/companionsPage/CountryFilter.vue';
+import UserFilter from '@/components/companionsPage/UserFilter.vue';
 import Companions from '@/components/companionsPage/Companions.vue';
 import flagCzech from '@/assets/img/flag-czech-mobile.png';
 import flagSeychelles from '@/assets/img/flag-seychelles-mobile.png';
