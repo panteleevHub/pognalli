@@ -245,6 +245,11 @@ const onMaxLevelChange = ({target}) => {
   @media (min-width: $tablet-width) {
     padding: 35px;
   }
+
+  @media (min-width: $desktop-width) {
+    width: 285px;
+    padding: 45px; 
+  }
 }
 
 .filter__caption {
@@ -262,12 +267,16 @@ const onMaxLevelChange = ({target}) => {
     line-height: 30px;
     margin-bottom: 40px;
   }
+
+  @media (min-width: $desktop-width) {
+    margin-bottom: 23px;
+  }
 }
 
 .filter__options {
   position: relative;
 
-  @media (min-width: $tablet-width) {
+  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
     @include flex-column;
     row-gap: 25px;
     padding: 35px 0;
@@ -295,7 +304,7 @@ const onMaxLevelChange = ({target}) => {
   margin: 0;
   border: none;
 
-  @media (min-width: $tablet-width) {
+  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
     display: grid;
     grid-template-columns: 1fr 3fr;
     align-items: center;
@@ -306,7 +315,7 @@ const onMaxLevelChange = ({target}) => {
   display: flex;
   flex-direction: column-reverse;
 
-  @media (min-width: $tablet-width) {
+  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
     @include flex-base;
     flex-direction: row;
   }
@@ -324,9 +333,15 @@ const onMaxLevelChange = ({target}) => {
   padding: 12px 0;
   margin: 0;
 
+  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
+    padding: 0;
+  }
+
   span {
-    @media (max-width: $pre-tablet-width) {
-      display: none;
+    display: none;
+
+    @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
+      display: inline;
     }
   }
 
@@ -355,14 +370,9 @@ const onMaxLevelChange = ({target}) => {
     background: url('@/assets/img/icon-page-arrow.svg') no-repeat;
     background-size: 6px 10px;
 
-    @media (min-width: $tablet-width) {
+    @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
       display: none;
     }
-  }
-
-  @media (min-width: $tablet-width) {
-    width: auto;
-    padding: 0;
   }
 }
 
@@ -370,7 +380,7 @@ const onMaxLevelChange = ({target}) => {
   // display: none;
   padding: 5px 0 20px;
 
-  @media (min-width: $tablet-width) {
+  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
     padding: 0;
   }
 }
@@ -380,10 +390,14 @@ const onMaxLevelChange = ({target}) => {
   @include flex-column;
   row-gap: 12px;
 
-  @media (min-width: $tablet-width) {
+  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px 20px;
+  }
+
+  @media (min-width: $desktop-width) {
+    row-gap: 16px;
   }
 }
 
@@ -437,6 +451,7 @@ const onMaxLevelChange = ({target}) => {
 
 .field__list label {
   padding-left: 28px;
+  cursor: pointer;
 
   @media (min-width: $tablet-width) {
     padding-left: 32px;
@@ -521,6 +536,10 @@ const onMaxLevelChange = ({target}) => {
     padding: 0 12px;
   }
 
+  @media (min-width: $desktop-width) {
+    width: 194px;
+  }
+
   &:focus::placeholder {
     color: transparent;
   }
@@ -538,11 +557,19 @@ const onMaxLevelChange = ({target}) => {
   @media (min-width: $tablet-width) {
     margin: 0; 
   }
+
+  @media (min-width: $desktop-width) {
+    margin-bottom: 30px; 
+  }
 }
 
 .field__level-controls input {
   @media (min-width: $tablet-width) {
     width: 75px;
+  }
+
+  @media (min-width: $desktop-width) {
+    width: 97px;
   }
 }
 
@@ -562,6 +589,10 @@ const onMaxLevelChange = ({target}) => {
   @media (min-width: $tablet-width) {
     width: 280px;
     height: 13px;
+  }
+
+  @media (min-width: $desktop-width) {
+    width: 100%;
   }
 }
 

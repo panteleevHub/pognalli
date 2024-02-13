@@ -3,7 +3,7 @@
     <PageHeader class="companions__header">Попутчики</PageHeader>
     <CountryFilter />
     <div class="companions__container container">
-      <UserFilter />
+      <UserFilter class="companions__user-filter" />
       <Companions :users="users" />
     </div>
   </main>
@@ -481,9 +481,18 @@ const users = reactive([
   }
 
   @media (min-width: $desktop-width) {
+    grid-template-columns: 1fr auto;
+    column-gap: 85px;
     width: $desktop-width;
     padding-top: 50px;
     padding-bottom: 77px;
+  }
+}
+
+.companions__user-filter {
+  @media (min-width: $desktop-width) {
+    order: 1;
+    align-self: start;
   }
 }
 </style>
