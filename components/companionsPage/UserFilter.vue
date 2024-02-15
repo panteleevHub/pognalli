@@ -4,7 +4,7 @@
     <p class="filter__caption">Подберите идеального попутчика</p>
     <div class="filter__options">
       <fieldset class="filter__field field">
-        <h4 class="field__caption">Цель поездки<span>:</span></h4>
+        <h4 @click="onCaptionClick" class="field__caption" tabindex="0">Цель поездки<span>:</span></h4>
         <div class="field__container">
           <ul class="field__list">
             <li v-for="{ value, name } in filterData.purpose">
@@ -20,7 +20,7 @@
         </div>
       </fieldset>
       <fieldset class="filter__field field">
-        <h4 class="field__caption">Музыка<span>:</span></h4>
+        <h4 @click="onCaptionClick" class="field__caption" tabindex="0">Музыка<span>:</span></h4>
         <div class="field__container">
           <ul class="field__list">
             <li v-for="{ value, name } in filterData.music">
@@ -36,7 +36,7 @@
         </div>
       </fieldset>
       <fieldset class="filter__field field">
-        <h4 class="field__caption">Транспорт<span>:</span></h4>
+        <h4 @click="onCaptionClick" class="field__caption" tabindex="0">Транспорт<span>:</span></h4>
         <div class="field__container">
           <ul class="field__transport">
             <li>
@@ -99,51 +99,59 @@
         </div>
       </fieldset>
       <fieldset class="filter__field field">
-        <h4 class="field__caption">Возраст<span>:</span></h4>
+        <h4 @click="onCaptionClick" class="field__caption" tabindex="0">Возраст<span>:</span></h4>
         <div class="field__container">
           <input
             v-model="selectedData.age"
+            :min="filterData.age.min"
+            :max="filterData.age.max"
             class="field__age-input"
             type="number"
             placeholder="Введите возраст"
           >
         </div>      
       </fieldset>
-      <fieldset class="filter__field field field--level">
-        <h4 class="field__caption">Левел<span>:</span></h4>
+      <fieldset class="filter__field field">
+        <h4 @click="onCaptionClick" class="field__caption" tabindex="0">Левел<span>:</span></h4>
         <div class="field__container">
-          <div class="field__range-controls">
-            <div class="field__range-bar">
-              <div class="field__selected-bar" :style="rangeBarStyle"></div>
+          <div class="field__level">
+            <div class="field__range-controls">
+              <div class="field__range-bar">
+                <div class="field__selected-bar" :style="rangeBarStyle"></div>
+              </div>
+              <input
+                type="range"
+                :min="filterData.level.min"
+                :max="filterData.level.max"
+                :step="filterData.level.step"
+                :value="selectedData.level.min"
+                @input="onMinLevelChange"
+              >
+              <input
+                type="range"
+                :min="filterData.level.min"
+                :max="filterData.level.max"
+                :step="filterData.level.step"
+                :value="selectedData.level.max"
+                @input="onMaxLevelChange"
+              >
             </div>
-            <input
-              type="range"
-              :min="filterData.level.min"
-              :max="filterData.level.max"
-              :step="filterData.level.step"
-              :value="selectedData.level.min"
-              @input="onMinLevelChange"
-            >
-            <input
-              type="range"
-              :min="filterData.level.min"
-              :max="filterData.level.max"
-              :step="filterData.level.step"
-              :value="selectedData.level.max"
-              @input="onMaxLevelChange"
-            >
-          </div>
-          <div class="field__level-controls">
-            <input
-              v-model="selectedData.level.min"
-              class="field__level field__level--min"
-              type="number"
-            >
-            <input
-              v-model="selectedData.level.max"
-              class="field__level field__level--max"
-              type="number"
-            >
+            <div class="field__level-controls">
+              <input
+                v-model="selectedData.level.min"
+                :min="filterData.level.min"
+                :max="filterData.level.max - filterData.level.step"
+                class="field__level field__level--min"
+                type="number"
+              >
+              <input
+                v-model="selectedData.level.max"
+                :min="filterData.level.min + filterData.level.step"
+                :max="filterData.level.max"
+                class="field__level field__level--max"
+                type="number"
+              >
+            </div>
           </div>
         </div>
       </fieldset>
@@ -194,6 +202,10 @@ const filterData = reactive({
       value: 'juzz',
     },
   ],
+  age: {
+    min: 16,
+    max: 100,
+  },
   level: {
     min: 1,
     max: 100,
@@ -202,9 +214,9 @@ const filterData = reactive({
 });
 
 const selectedData = reactive({
-  purpose: '',
-  music: [],
-  transport: [],
+  purpose: 'vacation',
+  music: ['rock', 'techno'],
+  transport: ['plane'],
   age: null,
   level: {
     min: 1,
@@ -233,6 +245,10 @@ const onMaxLevelChange = ({target}) => {
   if (selectedData.level.max <= selectedData.level.min) {
     selectedData.level.max = selectedData.level.min + filterData.level.step;
   }
+};
+
+const onCaptionClick = ({target}) => {
+  target.classList.toggle('field__caption--opened');
 };
 </script>
 
@@ -311,16 +327,6 @@ const onMaxLevelChange = ({target}) => {
   }
 }
 
-.field--level .field__container {
-  display: flex;
-  flex-direction: column-reverse;
-
-  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
-    @include flex-base;
-    flex-direction: row;
-  }
-}
-
 .field__caption {
   position: relative;
   width: 100%;
@@ -332,9 +338,11 @@ const onMaxLevelChange = ({target}) => {
   color: $basic-blue-light;
   padding: 12px 0;
   margin: 0;
+  cursor: pointer;
 
   @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
     padding: 0;
+    cursor: auto;
   }
 
   span {
@@ -342,20 +350,6 @@ const onMaxLevelChange = ({target}) => {
 
     @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
       display: inline;
-    }
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: rgba($basic-blue-light, 0.1);
-
-    @media (min-width: $tablet-width) {
-      display: none;
     }
   }
 
@@ -370,19 +364,33 @@ const onMaxLevelChange = ({target}) => {
     background: url('@/assets/img/icon-page-arrow.svg') no-repeat;
     background-size: 6px 10px;
 
-    @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
+    @media (min-width: $tablet-width) {
       display: none;
     }
   }
 }
 
+.field__caption--opened {
+  &::after {
+    transform: translateY(-50%) rotate(90deg);
+  }
+}
+
 .field__container {
-  // display: none;
+  display: none;
   padding: 5px 0 20px;
+
+  @media (min-width: $tablet-width) {
+    display: block;
+  }
 
   @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
     padding: 0;
   }
+}
+
+.field__caption--opened + .field__container {
+  display: block;
 }
 
 .field__list {
@@ -550,6 +558,16 @@ const onMaxLevelChange = ({target}) => {
   }
 }
 
+.field__level {
+  display: flex;
+  flex-direction: column-reverse;
+
+  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
+    @include flex-base;
+    flex-direction: row;
+  }
+}
+
 .field__level-controls {
   display: flex;
   margin-bottom: 20px;
@@ -689,7 +707,7 @@ const onMaxLevelChange = ({target}) => {
     font-size: 20px;
     line-height: 20px;
     padding: 15px 25px;
-    margin-top: 36px;
+    margin-top: 16px;
   }
 }
 </style>
