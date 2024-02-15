@@ -120,32 +120,34 @@
                 <div class="field__selected-bar" :style="rangeBarStyle"></div>
               </div>
               <input
-                type="range"
+                @input="onMinLevelChange"
+                :value="selectedData.level.min"
                 :min="filterData.level.min"
                 :max="filterData.level.max"
                 :step="filterData.level.step"
-                :value="selectedData.level.min"
-                @input="onMinLevelChange"
+                type="range"
               >
               <input
-                type="range"
+                @input="onMaxLevelChange"
+                :value="selectedData.level.max"
                 :min="filterData.level.min"
                 :max="filterData.level.max"
                 :step="filterData.level.step"
-                :value="selectedData.level.max"
-                @input="onMaxLevelChange"
+                type="range"
               >
             </div>
             <div class="field__level-controls">
               <input
-                v-model="selectedData.level.min"
+                @input="onMinLevelInput"
+                :value="selectedData.level.min"
                 :min="filterData.level.min"
                 :max="filterData.level.max - filterData.level.step"
                 class="field__level field__level--min"
                 type="number"
               >
               <input
-                v-model="selectedData.level.max"
+                @input="onMaxLevelInput"
+                :value="selectedData.level.max"
                 :min="filterData.level.min + filterData.level.step"
                 :max="filterData.level.max"
                 class="field__level field__level--max"
@@ -245,6 +247,24 @@ const onMaxLevelChange = ({target}) => {
   if (selectedData.level.max <= selectedData.level.min) {
     selectedData.level.max = selectedData.level.min + filterData.level.step;
   }
+};
+
+const onMinLevelInput = ({target}) => {
+  if (target.value < filterData.level.min || target.value >= selectedData.level.max) {
+    selectedData.level.min = filterData.level.min;
+    return
+  };
+
+  selectedData.level.min = parseInt(target.value);
+};
+
+const onMaxLevelInput = ({target}) => {
+  if (target.value > filterData.level.max || target.value <= selectedData.level.min) {
+    selectedData.level.max = filterData.level.max;
+    return;
+  };
+
+  selectedData.level.max = parseInt(target.value);
 };
 
 const onCaptionClick = ({target}) => {
