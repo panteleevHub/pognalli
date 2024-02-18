@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="console.log(selectedData)" class="filter">
+  <form @submit.prevent="onFormSubmit" class="filter">
     <h3 class="visually-hidden">Фильтр попутчиков</h3>
     <p class="filter__caption">Подберите идеального попутчика</p>
     <div class="filter__options">
@@ -12,7 +12,7 @@
                 v-model="selectedData.purpose"
                 :value="value"
                 :id="value"
-                type="radio"
+                type="checkbox"
               >
               <label :for="value">{{ name }}</label>
             </li>
@@ -158,11 +158,13 @@
         </div>
       </fieldset>
     </div>
-    <button class="filter__submit" type="submit">Показать</button>
+    <button :disabled="isSubmitButtonDisabled" class="filter__submit" type="submit">Показать</button>
   </form>
 </template>
 
 <script setup>
+const filtersStore = useFiltersStore();
+
 const filterData = reactive({
   purpose: [
     {
@@ -216,14 +218,14 @@ const filterData = reactive({
 });
 
 const selectedData = reactive({
-  purpose: 'vacation',
-  music: ['rock', 'techno'],
-  transport: ['plane'],
+  purpose: [],
+  music: [],
+  transport: [],
   age: null,
   level: {
     min: 1,
     max: 100,
-  },
+  }
 });
 
 const rangeBarStyle = computed(() => {
@@ -270,6 +272,22 @@ const onMaxLevelInput = ({target}) => {
 const onCaptionClick = ({target}) => {
   target.classList.toggle('field__caption--opened');
 };
+
+const onFormSubmit = () => {
+  // if (selectedData.purpose === '' || selectedData.music.length === 0 ||
+  //   selectedData.transport.length === 0) {
+  //     alert('Пожалуйста, заполните все поля!');
+  //     return;
+  // }
+
+  filtersStore.setUserData(selectedData);
+};
+
+const isSubmitButtonDisabled = computed(() => {
+  return selectedData.purpose === '' || selectedData.music.length === 0 ||
+    selectedData.transport.length === 0;
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -443,32 +461,8 @@ const onCaptionClick = ({target}) => {
 
 .field__list input {
   display: none;
-
-  &[type=radio] + label::before {
-    border-radius: 50%;
-  }
-
-  &[type=checkbox] + label::before {
-    border-radius: 4px;
-  }
-
-  &[type=radio]:checked + label::after {
-    content: "";
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 6px;
-    height: 6px;
-    background-color: $basic-blue;
-    border-radius: 50%;
-
-    @media (min-width: $tablet-width) {
-      width: 8px;
-      height: 8px;
-    }
-  }
   
-  &[type=checkbox]:checked + label::before {
+  &:checked + label::before {
     background: $white url('@/assets/img/icon-check-mark.svg') center no-repeat;
 
     @media (min-width: $tablet-width) {
@@ -493,6 +487,7 @@ const onCaptionClick = ({target}) => {
     width: 18px;
     height: 18px;
     background-color: $white;
+    border-radius: 4px;
 
     @media (min-width: $tablet-width) {
       width: 20px;
@@ -722,12 +717,24 @@ const onCaptionClick = ({target}) => {
   margin-top: 8px;
   border: none;
   border-radius: 25px;
+  cursor: pointer;
 
   @media (min-width: $tablet-width) {
     font-size: 20px;
     line-height: 20px;
     padding: 15px 25px;
     margin-top: 16px;
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 3px 6px rgba($black, 0.14);
+  }
+  
+  &:active,
+  &:disabled {
+    background-color: $special-yellow-dark;
+    opacity: 0.5;
   }
 }
 </style>

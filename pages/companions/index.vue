@@ -28,17 +28,13 @@ const users = reactive([
   {
     id: 1,
     name: 'Таня Фирсова',
+    age: 25,
     avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
     countries: [
       {
         name: 'Шри-ланка',
         src: flagSriLanka,
         alt: 'Флаг Шри-Ланки'
-      },
-      {
-        name: 'Таиланд',
-        src: flagThailand,
-        alt: 'Флаг Таиланда'
       },
       {
         name: 'Сейшелы',
@@ -50,10 +46,13 @@ const users = reactive([
     transport: ['plane'],
     level: 99,
     likes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    purpose: 'vacation',
+    music: ['pop'],
   },
   {
     id: 2,
     name: 'Петя Демин',
+    age: 45,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
@@ -71,10 +70,13 @@ const users = reactive([
     transport: ['plane', 'auto', 'walk'],
     level: 80,
     likes: [1, 2, 3, 4, 5],
+    purpose: 'vacation',
+    music: ['rap', 'techno'],
   },
   {
     id: 3,
     name: 'Марк Смолов',
+    age: null,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
@@ -97,10 +99,13 @@ const users = reactive([
     transport: ['plane', 'bike'],
     level: 25,
     likes: [1],
+    purpose: 'vacation',
+    music: ['rap', 'rock'],
   },
   {
     id: 4,
     name: 'Лариса Роговая',
+    age: null,
     avatarUrl: 'https://i.postimg.cc/sXKQ5n5y/dmitry-rodionov-unsplash.jpg',
     countries: [
     {
@@ -118,10 +123,13 @@ const users = reactive([
     transport: ['plane', 'auto'],
     level: 50,
     likes: [1, 2, 3, 4, 5, 6],
+    purpose: 'study',
+    music: [],
   },
   {
     id: 5,
     name: 'Таня Фирсова',
+    age: 33,
     avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
     countries: [
       {
@@ -144,10 +152,13 @@ const users = reactive([
     transport: ['plane'],
     level: 99,
     likes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    purpose: 'work',
+    music: ['pop', 'techno'],
   },
   {
     id: 6,
     name: 'Петя Демин',
+    age: null,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
@@ -165,13 +176,21 @@ const users = reactive([
     transport: ['plane', 'auto', 'walk'],
     level: 80,
     likes: [1, 2, 3, 4, 5],
+    purpose: 'work',
+    music: ['rap', 'techno', 'rock'],
   },
   {
     id: 7,
     name: 'Марк Смолов',
+    age: 43,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
+        name: 'США',
+        src: flagUSA,
+        alt: 'Флаг США'
+      },
+      {
         name: 'США',
         src: flagUSA,
         alt: 'Флаг США'
@@ -191,17 +210,15 @@ const users = reactive([
     transport: ['plane', 'bike'],
     level: 25,
     likes: [1],
+    purpose: 'vacation',
+    music: ['rap'],
   },
   {
     id: 9,
     name: 'Таня Фирсова',
+    age: 18,
     avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
     countries: [
-      {
-        name: 'Шри-ланка',
-        src: flagSriLanka,
-        alt: 'Флаг Шри-Ланки'
-      },
       {
         name: 'Таиланд',
         src: flagThailand,
@@ -217,10 +234,13 @@ const users = reactive([
     transport: ['plane'],
     level: 99,
     likes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    purpose: 'study',
+    music: ['pop', 'classic'],
   },
   {
     id: 10,
     name: 'Петя Демин',
+    age: 55,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
@@ -238,10 +258,13 @@ const users = reactive([
     transport: ['plane', 'auto', 'walk'],
     level: 80,
     likes: [1, 2, 3, 4, 5],
+    purpose: 'work',
+    music: [],
   },
   {
     id: 11,
     name: 'Марк Смолов',
+    age: 29,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
@@ -264,10 +287,13 @@ const users = reactive([
     transport: ['plane', 'bike'],
     level: 25,
     likes: [1],
+    purpose: 'vacation',
+    music: ['techno', 'jazz'],
   },
   {
     id: 12,
     name: 'Таня Фирсова',
+    age: null,
     avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
     countries: [
       {
@@ -290,10 +316,13 @@ const users = reactive([
     transport: ['plane'],
     level: 99,
     likes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    purpose: 'study',
+    music: ['classic', 'juzz'],
   },
   {
     id: 13,
     name: 'Петя Демин',
+    age: 40,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
@@ -311,10 +340,13 @@ const users = reactive([
     transport: ['plane', 'auto', 'walk'],
     level: 80,
     likes: [1, 2, 3, 4, 5],
+    purpose: 'vacation',
+    music: ['rap', 'techno', 'pop'],
   },
   {
     id: 14,
     name: 'Марк Смолов',
+    age: 62,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
@@ -337,10 +369,13 @@ const users = reactive([
     transport: ['plane', 'bike'],
     level: 25,
     likes: [1],
+    purpose: 'vacation',
+    music: ['juzz', 'classic'],
   },
   {
     id: 15,
     name: 'Таня Фирсова',
+    age: 57,
     avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
     countries: [
       {
@@ -363,10 +398,13 @@ const users = reactive([
     transport: ['plane'],
     level: 99,
     likes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    purpose: 'vacation',
+    music: ['classic'],
   },
   {
     id: 16,
     name: 'Петя Демин',
+    age: 20,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
@@ -384,10 +422,13 @@ const users = reactive([
     transport: ['plane', 'auto', 'walk'],
     level: 80,
     likes: [1, 2, 3, 4, 5],
+    purpose: 'vacation',
+    music: ['rap', 'pop'],
   },
   {
     id: 17,
     name: 'Марк Смолов',
+    age: 36,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
@@ -410,10 +451,13 @@ const users = reactive([
     transport: ['plane', 'bike'],
     level: 25,
     likes: [1],
+    purpose: 'work',
+    music: [],
   },
   {
     id: 18,
     name: 'Петя Демин',
+    age: null,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
@@ -431,10 +475,13 @@ const users = reactive([
     transport: ['plane', 'auto', 'walk'],
     level: 80,
     likes: [1, 2, 3, 4, 5],
+    purpose: 'study',
+    music: ['techno'],
   },
   {
     id: 19,
     name: 'Марк Смолов',
+    age: 18,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
@@ -457,6 +504,8 @@ const users = reactive([
     transport: ['plane', 'bike'],
     level: 25,
     likes: [1],
+    purpose: 'vacation',
+    music: ['rap', 'pop', 'rock'],
   },
 ]);
 </script>

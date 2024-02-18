@@ -19,10 +19,30 @@ export const useFiltersStore = defineStore('filters', () => {
     selectedCountries.value.splice(0, selectedCountries.value.length);
   }
 
+  const defaultUserData = ref({
+    purpose: [],
+    music: [],
+    transport: [],
+    age: null,
+    level: {
+      min: 1,
+      max: 100,
+    },
+  });
+
+  const selectedUserData = ref({...defaultUserData.value});
+
+  const setUserData = (data) => {
+    selectedUserData.value = {...data};
+  };
+
   return {
     selectedCountries,
     setCountry,
     removeCountry,
     resetCountriesFilter,
+    selectedUserData,
+    defaultUserData,
+    setUserData
   };
 });

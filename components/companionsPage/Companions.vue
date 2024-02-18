@@ -66,16 +66,31 @@ const currentPage = ref(1);
 const USERS_ON_PAGE = 8;
 
 const filtersStore = useFiltersStore();
+const { selectedCountries, selectedUserData, defaultUserData } = storeToRefs(filtersStore);
 
-const selectedCountries = reactive(filtersStore.selectedCountries);
+const filteredUsersByCountries = computed(() => {
+  if (selectedCountries.value.length === 0) return props.users;
+
+  return props.users.filter(user => {
+    return selectedCountries.value.some((country) => user.countries.find(({name}) => country === name));
+  });
+});
 
 const filteredUsers = computed(() => {
   currentPage.value = 1;
 
-  if (selectedCountries.length === 0) return props.users;
+  if (JSON.stringify(selectedUserData.value) === JSON.stringify(defaultUserData.value)) {
+    return filteredUsersByCountries.value;
+  }
 
-  return props.users.filter(({countries}) => {
-    return selectedCountries.some((el) => countries.find(({name}) => el === name));
+  return filteredUsersByCountries.value.filter(user => {
+    return selectedUserData.value.purpose.includes(user.purpose) &&
+      user.level >= selectedUserData.value.level.min &&
+      user.level <= selectedUserData.value.level.max &&
+      // user.age >= selectedUserData.value.age.min &&
+      // user.age <= selectedUserData.value.age.max &&
+      selectedUserData.value.music.some(genre => user.music.includes(genre)) &&
+      selectedUserData.value.transport.some(transport => user.transport.includes(transport));
   });
 });
 
