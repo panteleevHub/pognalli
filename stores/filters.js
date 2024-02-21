@@ -23,7 +23,10 @@ export const useFiltersStore = defineStore('filters', () => {
     purpose: [],
     music: [],
     transport: [],
-    age: null,
+    age: {
+      min: 1,
+      max: 100
+    },
     level: {
       min: 1,
       max: 100,

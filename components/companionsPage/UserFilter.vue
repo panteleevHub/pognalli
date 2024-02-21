@@ -101,60 +101,25 @@
       <fieldset class="filter__field field">
         <h4 @click="onCaptionClick" class="field__caption" tabindex="0">Возраст<span>:</span></h4>
         <div class="field__container">
-          <input
-            v-model="selectedData.age"
-            :min="filterData.age.min"
-            :max="filterData.age.max"
-            class="field__age-input"
-            type="number"
-            placeholder="Введите возраст"
-          >
+          <DoubleRangeSlider
+            v-model:minRange="filterData.age.min"
+            v-model:maxRange="filterData.age.max"
+            v-model:step="filterData.age.step"
+            v-model:minValue="selectedData.age.min"
+            v-model:maxValue="selectedData.age.max"
+          />
         </div>      
       </fieldset>
       <fieldset class="filter__field field">
         <h4 @click="onCaptionClick" class="field__caption" tabindex="0">Левел<span>:</span></h4>
         <div class="field__container">
-          <div class="field__level">
-            <div class="field__range-controls">
-              <div class="field__range-bar">
-                <div class="field__selected-bar" :style="rangeBarStyle"></div>
-              </div>
-              <input
-                @input="onMinLevelChange"
-                :value="selectedData.level.min"
-                :min="filterData.level.min"
-                :max="filterData.level.max"
-                :step="filterData.level.step"
-                type="range"
-              >
-              <input
-                @input="onMaxLevelChange"
-                :value="selectedData.level.max"
-                :min="filterData.level.min"
-                :max="filterData.level.max"
-                :step="filterData.level.step"
-                type="range"
-              >
-            </div>
-            <div class="field__level-controls">
-              <input
-                @input="onMinLevelInput"
-                :value="selectedData.level.min"
-                :min="filterData.level.min"
-                :max="filterData.level.max - filterData.level.step"
-                class="field__level field__level--min"
-                type="number"
-              >
-              <input
-                @input="onMaxLevelInput"
-                :value="selectedData.level.max"
-                :min="filterData.level.min + filterData.level.step"
-                :max="filterData.level.max"
-                class="field__level field__level--max"
-                type="number"
-              >
-            </div>
-          </div>
+          <DoubleRangeSlider
+            v-model:minRange="filterData.level.min"
+            v-model:maxRange="filterData.level.max"
+            v-model:step="filterData.level.step"
+            v-model:minValue="selectedData.level.min"
+            v-model:maxValue="selectedData.level.max"
+          />
         </div>
       </fieldset>
     </div>
@@ -207,8 +172,9 @@ const filterData = reactive({
     },
   ],
   age: {
-    min: 16,
+    min: 1,
     max: 100,
+    step: 1,
   },
   level: {
     min: 1,
@@ -221,53 +187,15 @@ const selectedData = reactive({
   purpose: [],
   music: [],
   transport: [],
-  age: null,
+  age: {
+    min: 1,
+    max: 100,
+  },
   level: {
     min: 1,
     max: 100,
   }
 });
-
-const rangeBarStyle = computed(() => {
-  return {
-    left: `${selectedData.level.min / filterData.level.max * 100}%`,
-    right: `${100 - (selectedData.level.max / filterData.level.max * 100)}%`,
-  };
-});
-
-const onMinLevelChange = ({target}) => {
-  selectedData.level.min = parseInt(target.value);
-  
-  if (selectedData.level.min >= selectedData.level.max) {
-    selectedData.level.min = selectedData.level.max - filterData.level.step;
-  }
-};
-
-const onMaxLevelChange = ({target}) => {
-  selectedData.level.max = parseInt(target.value);
-
-  if (selectedData.level.max <= selectedData.level.min) {
-    selectedData.level.max = selectedData.level.min + filterData.level.step;
-  }
-};
-
-const onMinLevelInput = ({target}) => {
-  if (target.value < filterData.level.min || target.value >= selectedData.level.max) {
-    selectedData.level.min = filterData.level.min;
-    return
-  };
-
-  selectedData.level.min = parseInt(target.value);
-};
-
-const onMaxLevelInput = ({target}) => {
-  if (target.value > filterData.level.max || target.value <= selectedData.level.min) {
-    selectedData.level.max = filterData.level.max;
-    return;
-  };
-
-  selectedData.level.max = parseInt(target.value);
-};
 
 const onCaptionClick = ({target}) => {
   target.classList.toggle('field__caption--opened');
@@ -283,10 +211,10 @@ const onFormSubmit = () => {
   filtersStore.setUserData(selectedData);
 };
 
-const isSubmitButtonDisabled = computed(() => {
-  return selectedData.purpose === '' || selectedData.music.length === 0 ||
-    selectedData.transport.length === 0;
-});
+// const isSubmitButtonDisabled = computed(() => {
+//   return selectedData.purpose.length === 0 && selectedData.music.length === 0 &&
+//     selectedData.transport.length === 0;
+// });
 
 </script>
 
@@ -530,177 +458,6 @@ const isSubmitButtonDisabled = computed(() => {
       width: 23px;
       height: 22px;
     }
-  }
-}
-
-.field__age-input,
-.field__level-controls input {
-  display: block;
-  width: 115px;
-  height: 35px;
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 14px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-align: center;
-  background-color: $white;
-  color: $basic-blue-light;
-  padding: 0 7px;
-  border: 1px solid $basic-grey-light;
-  outline: none;
-  border-radius: 4px;
-
-  @media (min-width: $tablet-width) {
-    width: 172px;
-    height: 46px;
-    font-size: 20px;
-    line-height: 20px;
-    padding: 0 12px;
-  }
-
-  @media (min-width: $desktop-width) {
-    width: 194px;
-  }
-
-  &:focus::placeholder {
-    color: transparent;
-  }
-
-  &::placeholder {
-    letter-spacing: normal;
-    color: rgba($basic-blue-light, 0.5);
-  }
-}
-
-.field__level {
-  display: flex;
-  flex-direction: column-reverse;
-
-  @media (min-width: $tablet-width) and (max-width: $pre-desktop-width) {
-    @include flex-base;
-    flex-direction: row;
-  }
-}
-
-.field__level-controls {
-  display: flex;
-  margin-bottom: 20px;
-
-  @media (min-width: $tablet-width) {
-    margin: 0; 
-  }
-
-  @media (min-width: $desktop-width) {
-    margin-bottom: 30px; 
-  }
-}
-
-.field__level-controls input {
-  @media (min-width: $tablet-width) {
-    width: 75px;
-  }
-
-  @media (min-width: $desktop-width) {
-    width: 97px;
-  }
-}
-
-.field__level-controls input:first-of-type {
-  border-radius: 4px 0 0 4px;
-}
-
-.field__level-controls input:last-of-type {
-  border-radius: 0 4px 4px 0;
-}
-
-.field__range-controls {
-  position: relative;
-  width: 100%;
-  height: 10px;
-
-  @media (min-width: $tablet-width) {
-    width: 280px;
-    height: 13px;
-  }
-
-  @media (min-width: $desktop-width) {
-    width: 100%;
-  }
-}
-
-.field__range-bar {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  height: 2px;
-  background-color: rgba($basic-blue-light, 0.2);
-
-  @media (min-width: $tablet-width) {
-    height: 3px; 
-  }
-}
-
-.field__selected-bar {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: $basic-blue-light;
-
-  @media (min-width: $tablet-width) {
-    height: 3px; 
-  }
-}
-
-.field__range-controls input[type="range"] {
-  appearance: none;
-  width: 100%;
-  height: 2px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  background-color: transparent;
-  margin: 0;
-  pointer-events: none;
-
-  @media (min-width: $tablet-width) {
-    height: 3px; 
-  }
-}
-
-.field__range-controls input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 10px;
-  height: 10px;
-  background-color: $basic-blue-light;
-  border-radius: 50%;
-  pointer-events: all;
-  cursor: pointer;
-
-  @media (min-width: $tablet-width) {
-    width: 13px;
-    height: 13px; 
-  }
-}
-
-.field__range-controls input[type="range"]::-moz-range-thumb {
-  box-sizing: border-box;
-  appearance: none;
-  width: 10px;
-  height: 10px;
-  background-color: $basic-blue-light;
-  border-radius: 50%;
-  pointer-events: all;
-  cursor: pointer;
-
-  @media (min-width: $tablet-width) {
-    width: 13px;
-    height: 13px; 
   }
 }
 

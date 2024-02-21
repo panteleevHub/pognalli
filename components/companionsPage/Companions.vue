@@ -1,52 +1,55 @@
 <template>
   <section class="users">
     <h2 class="visually-hidden">Список попутчиков</h2>
-    <ul class="users__list">
-      <li
-        v-for="user in slicedUsers"
-        :key="user.id"
-        class="users__item user"
-      >
-        <div class="user__avatar">
-          <img
-            :src="user.avatarUrl"
-            width="70"
-            height="70"
-            alt="Аватар пользователя"
-          >
-        </div>
-        <NuxtLink :to="'/companions/' + user.id" class="user__name">{{ user.name }}</NuxtLink>
-        <div class="user__likes">
-          <button
-            @click="onLikeClick(user)"
-            class="user__like-button"
-            :class="user.likes.includes(userId) && 'user__like-button--active'"
-            type="button"
-          >
-          </button>
-          <span>{{ user.likes.length }}</span>
-        </div>
-        <p class="user__tags">{{ user.tags.join(' ') }}</p>
-        <div class="user__countries">
-          <span class="user__caption user__caption--countries">Хочет посетить:</span>
-          <UserCountries :countries="user.countries" place="catalog" />
-        </div>
-        <div class="user__transport">
-          <span class="user__caption user__caption--transport">Транспорт:</span>
-          <TransportIcons :transport="user.transport" place="catalog" />
-        </div>
-        <div class="user__level">
-          <span class="user__caption user__caption--level">Левел:</span>
-          <UserLevel :level="user.level" color="#fff" place="catalog" />
-        </div>
-        <button class="user__invite" type="button">Позвать!</button>
-      </li>
-    </ul>
-    <UserPagination
-      v-if="isPaginationShow"
-      :pages="pageCount"
-      v-model:currentPage="currentPage"
-    />
+    <p v-if="filteredUsers.length === 0" class="users__empty">Попутчики не найдены</p>
+    <div v-else>
+      <ul class="users__list">
+        <li
+          v-for="user in slicedUsers"
+          :key="user.id"
+          class="users__item user"
+        >
+          <div class="user__avatar">
+            <img
+              :src="user.avatarUrl"
+              width="70"
+              height="70"
+              alt="Аватар пользователя"
+            >
+          </div>
+          <NuxtLink :to="'/companions/' + user.id" class="user__name">{{ user.name }}</NuxtLink>
+          <div class="user__likes">
+            <button
+              @click="onLikeClick(user)"
+              class="user__like-button"
+              :class="user.likes.includes(userId) && 'user__like-button--active'"
+              type="button"
+            >
+            </button>
+            <span>{{ user.likes.length }}</span>
+          </div>
+          <p class="user__tags">{{ user.tags.join(' ') }}</p>
+          <div class="user__countries">
+            <span class="user__caption user__caption--countries">Хочет посетить:</span>
+            <UserCountries :countries="user.countries" place="catalog" />
+          </div>
+          <div class="user__transport">
+            <span class="user__caption user__caption--transport">Транспорт:</span>
+            <TransportIcons :transport="user.transport" place="catalog" />
+          </div>
+          <div class="user__level">
+            <span class="user__caption user__caption--level">Левел:</span>
+            <UserLevel :level="user.level" color="#fff" place="catalog" />
+          </div>
+          <button class="user__invite" type="button">Позвать!</button>
+        </li>
+      </ul>
+      <UserPagination
+        v-if="isPaginationShow"
+        :pages="pageCount"
+        v-model:currentPage="currentPage"
+      />
+    </div>
   </section>
 </template>
 
@@ -84,13 +87,16 @@ const filteredUsers = computed(() => {
   }
 
   return filteredUsersByCountries.value.filter(user => {
-    return selectedUserData.value.purpose.includes(user.purpose) &&
+    return (
       user.level >= selectedUserData.value.level.min &&
       user.level <= selectedUserData.value.level.max &&
-      // user.age >= selectedUserData.value.age.min &&
-      // user.age <= selectedUserData.value.age.max &&
-      selectedUserData.value.music.some(genre => user.music.includes(genre)) &&
-      selectedUserData.value.transport.some(transport => user.transport.includes(transport));
+      user.age >= selectedUserData.value.age.min &&
+      user.age <= selectedUserData.value.age.max &&
+      (selectedUserData.value.purpose.length === 0 || selectedUserData.value.purpose.includes(user.purpose)) &&
+      (selectedUserData.value.music.length === 0 || selectedUserData.value.music.some(genre => user.music.includes(genre))) &&
+      (selectedUserData.value.transport.length === 0 ||
+        selectedUserData.value.transport.some(transport => user.transport.includes(transport)))
+    );
   });
 });
 
@@ -117,6 +123,31 @@ watch(currentPage, () => window.scrollTo(0, 0));
 </script>
 
 <style lang="scss" scoped>
+.users__empty {
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 700;
+  text-align: center;
+  color: $basic-blue-light;
+  margin: 0;
+  margin-top: 15px;
+
+  @media (min-width: $tablet-width) {
+    font-size: 22px;
+    line-height: 22px;
+    margin-top: 20px;
+  }
+
+  @media (min-width: $desktop-width) {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    line-height: 32px;
+    margin-top: 0;
+  }
+}
+
 .users__list {
   @include reset-list;
   display: grid;
