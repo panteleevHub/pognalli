@@ -69,7 +69,7 @@ const currentPage = ref(1);
 const USERS_ON_PAGE = 8;
 
 const filtersStore = useFiltersStore();
-const { selectedCountries, selectedUserData, defaultUserData } = storeToRefs(filtersStore);
+const { selectedCountries, selectedUserData, initialUserData } = storeToRefs(filtersStore);
 
 const filteredUsersByCountries = computed(() => {
   if (selectedCountries.value.length === 0) return props.users;
@@ -82,7 +82,7 @@ const filteredUsersByCountries = computed(() => {
 const filteredUsers = computed(() => {
   currentPage.value = 1;
 
-  if (JSON.stringify(selectedUserData.value) === JSON.stringify(defaultUserData.value)) {
+  if (JSON.stringify(selectedUserData.value) === JSON.stringify(initialUserData)) {
     return filteredUsersByCountries.value;
   }
 

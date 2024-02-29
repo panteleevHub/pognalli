@@ -76,7 +76,7 @@ const users = reactive([
   {
     id: 3,
     name: 'Марк Смолов',
-    age: null,
+    age: 16,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
     {
@@ -105,7 +105,7 @@ const users = reactive([
   {
     id: 4,
     name: 'Лариса Роговая',
-    age: null,
+    age: 27,
     avatarUrl: 'https://i.postimg.cc/sXKQ5n5y/dmitry-rodionov-unsplash.jpg',
     countries: [
     {
@@ -158,7 +158,7 @@ const users = reactive([
   {
     id: 6,
     name: 'Петя Демин',
-    age: null,
+    age: 58,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {
@@ -185,11 +185,6 @@ const users = reactive([
     age: 43,
     avatarUrl: 'https://i.postimg.cc/FRhkdtdD/stefan-stefancik-unsplash.jpg',
     countries: [
-    {
-        name: 'США',
-        src: flagUSA,
-        alt: 'Флаг США'
-      },
       {
         name: 'США',
         src: flagUSA,
@@ -293,7 +288,7 @@ const users = reactive([
   {
     id: 12,
     name: 'Таня Фирсова',
-    age: null,
+    age: 39,
     avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
     countries: [
       {
@@ -457,7 +452,7 @@ const users = reactive([
   {
     id: 18,
     name: 'Петя Демин',
-    age: null,
+    age: 25,
     avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
     countries: [
       {

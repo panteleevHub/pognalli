@@ -123,14 +123,14 @@
         </div>
       </fieldset>
     </div>
-    <button :disabled="isSubmitButtonDisabled" class="filter__submit" type="submit">Показать</button>
+    <button class="filter__submit" type="submit">Показать</button>
   </form>
 </template>
 
 <script setup>
 const filtersStore = useFiltersStore();
 
-const filterData = reactive({
+const filterData = {
   purpose: [
     {
       name: 'Отдых',
@@ -181,7 +181,7 @@ const filterData = reactive({
     max: 100,
     step: 1,
   },
-});
+};
 
 const selectedData = reactive({
   purpose: [],
@@ -194,27 +194,29 @@ const selectedData = reactive({
   level: {
     min: 1,
     max: 100,
-  }
+  },
 });
+
+const onFormSubmit = () => {
+  const payload = {
+    purpose: selectedData.purpose,
+    music: selectedData.music,
+    transport: selectedData.transport,
+    age: {
+      min: selectedData.age.min,
+      max: selectedData.age.max,
+    },
+    level: {
+      min: selectedData.level.min,
+      max: selectedData.level.max,
+    },
+  };
+  filtersStore.setUserData(payload);
+};
 
 const onCaptionClick = ({target}) => {
   target.classList.toggle('field__caption--opened');
 };
-
-const onFormSubmit = () => {
-  // if (selectedData.purpose === '' || selectedData.music.length === 0 ||
-  //   selectedData.transport.length === 0) {
-  //     alert('Пожалуйста, заполните все поля!');
-  //     return;
-  // }
-
-  filtersStore.setUserData(selectedData);
-};
-
-// const isSubmitButtonDisabled = computed(() => {
-//   return selectedData.purpose.length === 0 && selectedData.music.length === 0 &&
-//     selectedData.transport.length === 0;
-// });
 
 </script>
 
