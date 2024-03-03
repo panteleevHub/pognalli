@@ -82,7 +82,7 @@ const filteredUsersByCountries = computed(() => {
 const filteredUsers = computed(() => {
   currentPage.value = 1;
 
-  if (JSON.stringify(selectedUserData.value) === JSON.stringify(initialUserData)) {
+  if (JSON.stringify(selectedUserData.value) === JSON.stringify(initialUserData.value)) {
     return filteredUsersByCountries.value;
   }
 

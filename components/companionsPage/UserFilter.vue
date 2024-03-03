@@ -105,8 +105,7 @@
             v-model:minRange="filterData.age.min"
             v-model:maxRange="filterData.age.max"
             v-model:step="filterData.age.step"
-            v-model:minValue="selectedData.age.min"
-            v-model:maxValue="selectedData.age.max"
+            v-model:value="selectedData.age"
           />
         </div>      
       </fieldset>
@@ -117,18 +116,26 @@
             v-model:minRange="filterData.level.min"
             v-model:maxRange="filterData.level.max"
             v-model:step="filterData.level.step"
-            v-model:minValue="selectedData.level.min"
-            v-model:maxValue="selectedData.level.max"
+            v-model:value="selectedData.level"
           />
         </div>
       </fieldset>
     </div>
     <button class="filter__submit" type="submit">Показать</button>
+    <button
+      @click="onResetButtonClick"
+      :disabled="isResetButtonDisabled"
+      class="filter__reset"
+      type="button"
+    >
+      Сбросить фильтр
+    </button>
   </form>
 </template>
 
 <script setup>
 const filtersStore = useFiltersStore();
+const { selectedUserData, initialUserData } = storeToRefs(filtersStore);
 
 const filterData = {
   purpose: [
@@ -183,40 +190,24 @@ const filterData = {
   },
 };
 
-const selectedData = reactive({
-  purpose: [],
-  music: [],
-  transport: [],
-  age: {
-    min: 1,
-    max: 100,
-  },
-  level: {
-    min: 1,
-    max: 100,
-  },
-});
+const selectedData = ref(getDeepObjectCopy(selectedUserData.value));
 
 const onFormSubmit = () => {
-  const payload = {
-    purpose: selectedData.purpose,
-    music: selectedData.music,
-    transport: selectedData.transport,
-    age: {
-      min: selectedData.age.min,
-      max: selectedData.age.max,
-    },
-    level: {
-      min: selectedData.level.min,
-      max: selectedData.level.max,
-    },
-  };
-  filtersStore.setUserData(payload);
+  filtersStore.setUserData(getDeepObjectCopy(selectedData.value));
 };
 
 const onCaptionClick = ({target}) => {
   target.classList.toggle('field__caption--opened');
 };
+
+const onResetButtonClick = () => {
+  filtersStore.resetUserFilter();
+  selectedData.value = getDeepObjectCopy(initialUserData.value);
+};
+
+const isResetButtonDisabled = computed(() => {
+  return JSON.stringify(selectedUserData.value) === JSON.stringify(initialUserData.value);
+});
 
 </script>
 
@@ -473,7 +464,7 @@ const onCaptionClick = ({target}) => {
   color: $basic-blue;
   background-color: $white;
   padding: 12px 20px;
-  margin-top: 8px;
+  margin: 8px 0 20px;
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -482,7 +473,7 @@ const onCaptionClick = ({target}) => {
     font-size: 20px;
     line-height: 20px;
     padding: 15px 25px;
-    margin-top: 16px;
+    margin: 16px 0 30px;
   }
 
   &:hover,
@@ -494,6 +485,34 @@ const onCaptionClick = ({target}) => {
   &:disabled {
     background-color: $special-yellow-dark;
     opacity: 0.5;
+  }
+}
+
+.filter__reset {
+  width: 100%;
+  font-family: inherit;
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: underline;
+  color: $basic-blue;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: auto;
   }
 }
 </style>

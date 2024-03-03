@@ -19,7 +19,7 @@ export const useFiltersStore = defineStore('filters', () => {
     selectedCountries.value.splice(0, selectedCountries.value.length);
   }
 
-  const initialUserData = {
+  const initialUserData = ref({
     purpose: [],
     music: [],
     transport: [],
@@ -31,13 +31,17 @@ export const useFiltersStore = defineStore('filters', () => {
       min: 1,
       max: 100,
     },
-  };
+  });
 
-  const selectedUserData = ref(structuredClone(initialUserData));
+  const selectedUserData = ref(getDeepObjectCopy(initialUserData.value));
 
   const setUserData = (payload) => {
     selectedUserData.value = payload;
   };
+
+  const resetUserFilter = () => {
+    selectedUserData.value = getDeepObjectCopy(initialUserData.value);
+  }
 
   return {
     selectedCountries,
@@ -46,6 +50,7 @@ export const useFiltersStore = defineStore('filters', () => {
     resetCountriesFilter,
     selectedUserData,
     initialUserData,
-    setUserData
+    setUserData,
+    resetUserFilter,
   };
 });
