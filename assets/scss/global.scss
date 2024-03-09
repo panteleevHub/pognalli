@@ -64,6 +64,7 @@ a {
 .button {
   display: block;
   position: relative;
+  font-family: inherit;
   font-size: 18px;
   line-height: 18px;
   font-weight: 700;
@@ -111,6 +112,12 @@ a {
   line-height: 36px;
   font-weight: 700;
   color: $white;
+  margin: 0;
+
+  @media (min-width: $tablet-width) {
+    font-size: 60px;
+    line-height: 60px;
+  }
 }
 
 .section-title {

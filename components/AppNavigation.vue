@@ -1,21 +1,36 @@
 <template>
   <nav class="main-nav">
     <ul class="main-nav__list">
-      <li class="main-nav__item">
-        <NuxtLink to="/" class="main-nav__link" activeClass="main-nav__link--active">О сервисе</NuxtLink>
-      </li>
-      <li class="main-nav__item">
-        <NuxtLink to="/directions" class="main-nav__link" activeClass="main-nav__link--active">Направления</NuxtLink>
-      </li>
-      <li class="main-nav__item">
-        <NuxtLink to="/companions" class="main-nav__link" activeClass="main-nav__link--active">Попутчики</NuxtLink>
+      <li v-for="link in links" class="main-nav__item">
+        <NuxtLink
+          @click="emit('update:close', false)"
+          :to="link.ref"
+          class="main-nav__link"
+          activeClass="main-nav__link--active">
+            {{ link.title }}
+          </NuxtLink>
       </li>
     </ul>
   </nav>
 </template>
 
 <script setup>
+const emit = defineEmits(['update:close']);
 
+const links = [
+  {
+    ref: '/',
+    title: 'О сервисе'
+  },
+  {
+    ref: '/directions',
+    title: 'Направления'
+  },
+  {
+    ref: '/companions',
+    title: 'Попутчики'
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -46,15 +61,15 @@
     align-items: center;
     gap: 20px 34px;
     padding-left: 105px;
-  }
 
-  &::before {
-    position: absolute;
-    left: 0;
-    content: "";
-    width: 60px;
-    height: 2px;
-    background-color: $white;
+    &::before {
+      position: absolute;
+      left: 0;
+      content: "";
+      width: 60px;
+      height: 2px;
+      background-color: $white;
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="desktop-menu">
+  <div class="desktop-menu">
+    <div class="desktop-menu__container container">
       <NuxtLink to="/">
         <Logo :isInHeader="true" />
       </NuxtLink>
@@ -15,11 +15,11 @@
 </script>
 
 <style lang="scss" scoped>
-.desktop-menu {
+.desktop-menu__container {
   display: grid;
   align-items: center;
   grid-template-columns: auto 1fr auto;
   column-gap: 40px;
-  padding: 47px 0 11px;
+  padding: 47px 60px 11px;
 }
 </style>

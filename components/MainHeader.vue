@@ -1,9 +1,7 @@
 <template>
   <header class="header">
-    <div class="header__container container">
-      <DesktopMenu class="header__desktop-menu" />
-      <MobileMenu class="header__mobile-menu" />
-    </div>
+    <DesktopMenu class="header__desktop-menu" />
+    <MobileMenu class="header__mobile-menu" />
   </header>
 </template>
 
@@ -13,15 +11,7 @@
 
 <style lang="scss" scoped>
 .header {
-  background-color: $basic-blue;
-
-  @media (min-width: $tablet-width) {
-    background-color: $dark-blue;
-  }
-}
-
-.header__container {
-  position: relative;
+  background-color: $dark-blue;
 }
 
 .header__desktop-menu {
