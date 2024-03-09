@@ -4,7 +4,7 @@
     <CountryFilter />
     <div class="companions__container container">
       <UserFilter class="companions__user-filter" />
-      <Companions :users="users" />
+      <Companions />
     </div>
   </main>
 </template>
@@ -24,7 +24,9 @@ import flagDominika from '@/assets/img/flag-dominika.png';
 import flagUK from '@/assets/img/flag-uk.png';
 import flagGermany from '@/assets/img/flag-germany.png';
 
-const users = reactive([
+const usersStore = useUsersStore();
+
+usersStore.setUsers([
   {
     id: 1,
     name: 'Таня Фирсова',
@@ -503,6 +505,9 @@ const users = reactive([
     music: ['rap', 'pop', 'rock'],
   },
 ]);
+
+// await useAsyncData('users', () => usersStore.fetchUsers());
+
 </script>
 
 <style lang="scss" scoped>

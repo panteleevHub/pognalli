@@ -5,7 +5,7 @@
         <div class="range__selected-bar" :style="rangeBarStyle"></div>
       </div>
       <input
-        @input="onMinLevelChange"
+        @input="onMinValueChange"
         :value="sliderValue.min"
         :min="minRange"
         :max="maxRange"
@@ -13,7 +13,7 @@
         type="range"
       >
       <input
-        @input="onMaxLevelChange"
+        @input="onMaxValueChange"
         :value="sliderValue.max"
         :min="minRange"
         :max="maxRange"
@@ -23,14 +23,14 @@
     </div>
     <div class="range__inputs">
       <input
-        @input="onMinLevelInput"
+        @input="onMinValueInput"
         :value="sliderValue.min"
         :min="minRange"
         :max="maxRange - step"
         type="number"
       >
       <input
-        @input="onMaxLevelInput"
+        @input="onMaxValueInput"
         :value="sliderValue.max"
         :min="minRange + step"
         :max="maxRange"
@@ -65,11 +65,6 @@ const props = defineProps({
     },
     required: true,
   },
-  // maxValue: {
-  //   type: Number,
-  //   default: 100,
-  //   required: true,
-  // },
 });
 
 const emit = defineEmits([
@@ -93,7 +88,7 @@ const rangeBarStyle = computed(() => {
   };
 });
 
-const onMinLevelChange = ({target}) => {
+const onMinValueChange = ({target}) => {
   sliderValue.min = parseInt(target.value);
   emit('update:value', {...props.value, min: parseInt(target.value)});
 
@@ -103,7 +98,7 @@ const onMinLevelChange = ({target}) => {
   }
 };
 
-const onMaxLevelChange = ({target}) => {
+const onMaxValueChange = ({target}) => {
   sliderValue.max = parseInt(target.value);
   emit('update:value', {...props.value, max: parseInt(target.value)});
 
@@ -113,7 +108,7 @@ const onMaxLevelChange = ({target}) => {
   }
 };
 
-const onMinLevelInput = ({target}) => {
+const onMinValueInput = ({target}) => {
   if (!target.value) return;
 
   if (target.value < props.minRange || target.value >= sliderValue.max) {
@@ -126,8 +121,8 @@ const onMinLevelInput = ({target}) => {
   emit('update:value', {...props.value, min: parseInt(target.value)});
 };
 
-const onMaxLevelInput = ({target}) => {
-  if (!target.value) return;
+const onMaxValueInput = ({target}) => {
+  if (!target.value || target.value <= sliderValue.min) return;
 
   if (target.value > props.maxRange) {
     sliderValue.max = props.maxRange;

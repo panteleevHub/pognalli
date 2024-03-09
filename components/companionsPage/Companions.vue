@@ -47,7 +47,6 @@
       <UserPagination
         v-if="isPaginationShow"
         :pages="pageCount"
-        v-model:currentPage="currentPage"
       />
     </div>
   </section>
@@ -56,32 +55,24 @@
 <script setup>
 import UserPagination from '@/components/companionsPage/UserPagination.vue';
 
-const props = defineProps({
-  users: {
-    type: Array,
-    default: [],
-    required: true,
-  }
-});
-
-const userId = 21;
-const currentPage = ref(1);
-const USERS_ON_PAGE = 8;
-
 const filtersStore = useFiltersStore();
 const { selectedCountries, selectedUserData, initialUserData } = storeToRefs(filtersStore);
 
-const filteredUsersByCountries = computed(() => {
-  if (selectedCountries.value.length === 0) return props.users;
+const usersStore = useUsersStore();
+const { users, currentPage } = storeToRefs(usersStore);
 
-  return props.users.filter(user => {
+const USERS_ON_PAGE = 8;
+const userId = 21; // Временно
+
+const filteredUsersByCountries = computed(() => {
+  if (selectedCountries.value.length === 0) return users.value;
+
+  return users.value.filter(user => {
     return selectedCountries.value.some((country) => user.countries.find(({name}) => country === name));
   });
 });
 
 const filteredUsers = computed(() => {
-  currentPage.value = 1;
-
   if (JSON.stringify(selectedUserData.value) === JSON.stringify(initialUserData.value)) {
     return filteredUsersByCountries.value;
   }
@@ -120,6 +111,7 @@ const onLikeClick = (user) => {
 };
 
 watch(currentPage, () => window.scrollTo(0, 0));
+watch(filteredUsers, () => usersStore.changeCurrentPage(1));
 </script>
 
 <style lang="scss" scoped>

@@ -329,6 +329,14 @@ const onResetFilterClick = () => {
   filtersStore.resetCountriesFilter();
   isFilterOpened.value = false;
 };
+
+onMounted(() => {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.code === 'Escape' && isFilterOpened.value) {
+      onCloseFilterClick();
+    }
+  })
+});
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,7 @@
     <div class="pagination__page-buttons">
       <button
         v-for="number in pages"
-        @click="$emit('update:currentPage', number)"
+        @click="usersStore.changeCurrentPage(number)"
         class="pagination__page-button"
         :class="currentPage === number && 'pagination__page-button--active'"
         type="button"
@@ -13,14 +13,14 @@
     </div>
     <div class="pagination__arrow-buttons">
       <button
-        @click="$emit('update:currentPage', currentPage - 1)"
+        @click="usersStore.changeCurrentPage(currentPage - 1)"
         class="pagination__arrow-button pagination__arrow-button--prev"
         type="button"
         :disabled="currentPage === 1"
       >
       </button>
       <button
-        @click="$emit('update:currentPage', currentPage + 1)"
+        @click="usersStore.changeCurrentPage(currentPage + 1)"
         class="pagination__arrow-button pagination__arrow-button--next"
         type="button"
         :disabled="currentPage === pages"
@@ -31,20 +31,17 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   pages: {
     type: Number,
     default: 0,
     required: true,
-  },
-  currentPage: {
-    type: Number,
-    default: 1,
-    required: true,
   }
 });
 
-defineEmits(['update:currentPage']);
+const usersStore = useUsersStore();
+const { currentPage } = storeToRefs(usersStore);
+
 </script>
 
 <style lang="scss" scoped>
