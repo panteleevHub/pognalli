@@ -15,7 +15,10 @@
     "sass": "^1.64.2"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@pinia/nuxt": "^0.5.1",
+    "mongoose": "^8.2.2",
+    "nuxt-server-utils": "^0.0.7",
     "pinia": "^2.1.7"
   },
   "overrides": {

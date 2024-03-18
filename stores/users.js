@@ -2,13 +2,10 @@ export const useUsersStore = defineStore('users', () => {
   const users = ref([]);
   const currentPage = ref(1);
 
-  const setUsers = (payload) => {
-    users.value = payload;
+  const fetchUsers = async () => {
+    const { data } = await useFetch(API_ROUTES.Users);
+    users.value = data.value;
   };
-
-  // const fetchUsers = async () => {
-  //   users.value = await 'api';
-  // };
 
   const changeCurrentPage = (page) => {
     currentPage.value = page;
@@ -17,8 +14,7 @@ export const useUsersStore = defineStore('users', () => {
   return {
     users,
     currentPage,
-    setUsers,
-    // fetchUsers,
+    fetchUsers,
     changeCurrentPage,
   }
 });

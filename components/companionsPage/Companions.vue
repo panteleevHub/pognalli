@@ -6,7 +6,7 @@
       <ul class="users__list">
         <li
           v-for="user in slicedUsers"
-          :key="user.id"
+          :key="user._id"
           class="users__item user"
         >
           <div class="user__avatar">
@@ -17,7 +17,7 @@
               alt="Аватар пользователя"
             >
           </div>
-          <NuxtLink :to="'/companions/' + user.id" class="user__name">{{ user.name }}</NuxtLink>
+          <NuxtLink :to="'/companions/' + user._id" class="user__name">{{ user.name }}</NuxtLink>
           <div class="user__likes">
             <button
               @click="onLikeClick(user)"
@@ -73,6 +73,7 @@ const filteredUsersByCountries = computed(() => {
 });
 
 const filteredUsers = computed(() => {
+  console.log(filteredUsersByCountries.value)
   if (JSON.stringify(selectedUserData.value) === JSON.stringify(initialUserData.value)) {
     return filteredUsersByCountries.value;
   }
@@ -102,13 +103,13 @@ const slicedUsers = computed(() => {
 
 const isPaginationShow = computed(() => filteredUsers.value.length > USERS_ON_PAGE);
 
-const onLikeClick = (user) => {
-  // Запрос на сервер
+// const onLikeClick = (user) => {
+//   // Запрос на сервер
 
-  const userIdIndex = user.likes.indexOf(userId);
+//   const userIdIndex = user.likes.indexOf(userId);
 
-  userIdIndex === -1 ? user.likes.push(userId) : user.likes.splice(userIdIndex, 1);
-};
+//   userIdIndex === -1 ? user.likes.push(userId) : user.likes.splice(userIdIndex, 1);
+// };
 
 watch(currentPage, () => window.scrollTo(0, 0));
 watch(filteredUsers, () => usersStore.changeCurrentPage(1));
