@@ -171,11 +171,11 @@ const filterData = {
     },
     {
       name: 'Классика',
-      value: 'classic',
+      value: 'classical',
     },
     {
       name: 'Джаз',
-      value: 'juzz',
+      value: 'jazz',
     },
   ],
   age: {

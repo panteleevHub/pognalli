@@ -14,6 +14,9 @@ export const generateUsers = (userCount) => {
     'http://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg',
     'http://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg',
     'http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg',
+    'http://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg',
+    'http://purecatamphetamine.github.io/country-flag-icons/3x2/CO.svg',
+    'http://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg',
   ];
 
   const getRandomTransport = () => {
@@ -30,12 +33,13 @@ export const generateUsers = (userCount) => {
       name: faker.person.fullName(),
       age: faker.number.int({ min: 16, max: 100 }),
       avatarUrl: avatars[faker.number.int({min: 0, max: 2})],
-      countries: {
-        name: faker.location.country(),
-        src: flags[faker.number.int({min: 0, max: 3})],
-        alt: 'Флаг',
-      },
-      tags: Array.from({length: faker.number.int({min: 1, max: 5})}, () => `#${faker.lorem.word()}`),
+      countries: Array.from({length: faker.number.int({min: 1, max: 4})},
+        () => ({
+          name: faker.location.country(),
+          src: flags[faker.number.int({min: 0, max: 6})],
+          alt: 'Флаг',
+        })),
+      tags: Array.from({length: faker.number.int({min: 1, max: 7})}, () => `#${faker.lorem.word()}`),
       transport: getRandomTransport(),
       level: faker.number.int({min: 1, max: 100}),
       likes: Array.from({length: faker.number.int({min: 0, max: 100})}, () => faker.number.int({min: 1, max: 100})),

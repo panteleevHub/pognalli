@@ -37,6 +37,10 @@ const activeTooltip = ref('');
   flex-wrap: wrap;
 }
 
+.countries img {
+  border-radius: 4px;
+}
+
 .countries__item {
   position: relative;
 }
@@ -48,6 +52,7 @@ const activeTooltip = ref('');
 .countries--promo {
   gap: 10px 20px;
 }
+
 
 .countries--catalog {
   flex-direction: column;
@@ -81,7 +86,8 @@ const activeTooltip = ref('');
 .countries--catalog img {
   @media (max-width: $pre-tablet-width) {
     width: 26px;
-    height: 18px; 
+    height: 18px;
+    border-radius: 3px;
   }
 }
 
