@@ -1,12 +1,13 @@
 <template>
   <ul class="countries" :class="'countries--' + place">
     <li
-      v-for="{name, src, alt} in countries"
+      v-for="{name, _id, flag} in countries"
       @mouseenter="activeTooltip = name"
       @mouseleave="activeTooltip = ''"
       class="countries__item"
+      :id="_id"
     >
-      <img :src="src" width="35" height="24" :alt="alt">
+      <img :src="flag.src" width="35" height="24" :alt="flag.alt">
       <span class="countries__name">{{ name }}</span>
       <Transition>
         <Tooltip v-if="activeTooltip === name" class="countries__tooltip">{{ name }}</Tooltip>
@@ -16,8 +17,8 @@
 </template>
 
 <script setup>
-defineProps({
-  countries: {
+const props = defineProps({
+  countriesIds: {
     type: Array,
     required: true
   },
@@ -27,7 +28,13 @@ defineProps({
   }
 });
 
+const countriesStore = useCountriesStore();
+
 const activeTooltip = ref('');
+
+const countries = computed(() => {
+  return countriesStore.countries.filter((country) => props.countriesIds.find((id) => id === country._id));
+});
 </script>
 
 <style lang="scss" scoped>

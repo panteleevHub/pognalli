@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import { generateUsers } from '../utils';
-import { User } from './models/user';
 
 const config = useRuntimeConfig();
 

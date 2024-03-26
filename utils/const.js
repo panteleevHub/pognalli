@@ -1,5 +1,5 @@
 export const API_ROUTES = {
   Users: '/api/users',
-  NewUser: '/api/user',
+  User: '/api/users/:id',
   Countries: '/api/countries',
 };

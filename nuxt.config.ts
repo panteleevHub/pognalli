@@ -20,7 +20,10 @@ export default defineNuxtConfig({
     mongodbUrl: process.env.MONGODB_URI,
   },
   nitro: {
-    plugins: ['@/server/index.ts'],
+    plugins: [
+      '@/server/index.ts',
+      '@/server/seed.ts'
+    ],
   },
   devtools: { enabled: true }
 })

@@ -31,7 +31,7 @@
           <p class="user__tags">{{ user.tags.join(' ') }}</p>
           <div class="user__countries">
             <span class="user__caption user__caption--countries">Хочет посетить:</span>
-            <UserCountries :countries="user.countries" place="catalog" />
+            <UserCountries :countriesIds="user.countries" place="catalog" />
           </div>
           <div class="user__transport">
             <span class="user__caption user__caption--transport">Транспорт:</span>
@@ -56,9 +56,9 @@
 import UserPagination from '@/components/companionsPage/UserPagination.vue';
 
 const filtersStore = useFiltersStore();
-const { selectedCountries, selectedUserData, initialUserData } = storeToRefs(filtersStore);
-
 const usersStore = useUsersStore();
+
+const { selectedCountries, selectedUserData, initialUserData } = storeToRefs(filtersStore);
 const { users, currentPage } = storeToRefs(usersStore);
 
 const USERS_ON_PAGE = 8;
@@ -67,9 +67,11 @@ const userId = 21; // Временно
 const filteredUsersByCountries = computed(() => {
   if (selectedCountries.value.length === 0) return users.value;
 
-  return users.value.filter(user => {
-    return selectedCountries.value.some((country) => user.countries.find(({name}) => country === name));
-  });
+  return users.value.filter(user => (
+    selectedCountries.value.some((country) => (
+      user.countries.find((countryId) => countryId === country.id)
+    ))
+  ))
 });
 
 const filteredUsers = computed(() => {
