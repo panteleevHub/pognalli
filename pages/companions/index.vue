@@ -15,10 +15,8 @@ import UserFilter from '@/components/companionsPage/UserFilter.vue';
 import Companions from '@/components/companionsPage/Companions.vue';
 
 const usersStore = useUsersStore();
-const countriesStore = useCountriesStore();
 
 await useAsyncData('users', () => usersStore.fetchUsers());
-await useAsyncData('countries', () => countriesStore.fetchCountries());
 
 </script>
 
