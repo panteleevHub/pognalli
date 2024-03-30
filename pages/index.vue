@@ -19,12 +19,6 @@ import Companions from '@/components/mainPage/Companions.vue';
 import Rates from '@/components/mainPage/Rates.vue';
 import Registration from '@/components/mainPage/Registration.vue';
 import Map from '@/components/mainPage/Map.vue';
-
-const usersStore = useUsersStore();
-const countriesStore = useCountriesStore();
-
-await useAsyncData('promoUsers', () => usersStore.fetchPromoUsers());
-await useAsyncData('countries', () => countriesStore.fetchCountries());
 </script>
 
 <style lang="scss" scoped>
