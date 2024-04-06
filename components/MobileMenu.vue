@@ -1,7 +1,7 @@
 <template>
   <div class="mobile-menu container" :class="isMenuOpened && 'mobile-menu--opened'">
     <div class="mobile-menu__top">
-      <NuxtLink to="/">
+      <NuxtLink :to="APP_ROUTES.Main">
         <Logo :isMenuOpened="isMenuOpened" :isInHeader="true" />
       </NuxtLink>
       <button

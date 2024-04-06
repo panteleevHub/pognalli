@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__container container">
       <h1 class="header__title title"><slot></slot></h1>
-      <NuxtLink class="header__link-home" to="/">На главную</NuxtLink>
+      <NuxtLink class="header__link-home" :to="APP_ROUTES.Main">На главную</NuxtLink>
     </div>
   </header>
 </template>

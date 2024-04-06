@@ -24,7 +24,7 @@
             />
             <UserCountries :countriesIds="user.countries" place="promo" class="companions__countries" />
             <div class="companions__user-info">
-              <NuxtLink :to="'companions/' + user._id" class="companions__user-name">
+              <NuxtLink :to="APP_ROUTES.Companion.replace(':id', user._id)" class="companions__user-name">
                 {{ user.name }}
               </NuxtLink>
               <p class="companions__tags">{{ user.tags.join(' ') }}</p>
@@ -32,7 +32,7 @@
             </div>
           </li>
         </ul>
-        <NuxtLink class="companions__more button" to="/companions">Показать всех</NuxtLink>
+        <NuxtLink class="companions__more button" :to="APP_ROUTES.Companions">Показать всех</NuxtLink>
       </div>
     </div>
   </section>

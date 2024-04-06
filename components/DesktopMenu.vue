@@ -1,7 +1,7 @@
 <template>
   <div class="desktop-menu">
     <div class="desktop-menu__container container">
-      <NuxtLink to="/">
+      <NuxtLink :to="APP_ROUTES.Main">
         <Logo :isInHeader="true" />
       </NuxtLink>
       <AppNavigation />

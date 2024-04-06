@@ -6,7 +6,7 @@
         <p class="registration__caption section-title">Заинтересовались?</p>
         <p class="registration__desc">
           Зарегистрируйтесь, <span>это быстро и бесплатно!</span> <span>Уже зарегистрированы?</span>
-          Тогда скорее <NuxtLink to="/login">авторизуйтесь</NuxtLink>.</p>
+          Тогда скорее <NuxtLink :to="APP_ROUTES.Login">авторизуйтесь</NuxtLink>.</p>
         <form class="registration__form" method="post" action="#">
           <input class="registration__input" type="email" placeholder="E-mail">
           <button class="registration__submit button" type="submit">

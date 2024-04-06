@@ -17,7 +17,7 @@
               alt="Аватар пользователя"
             >
           </div>
-          <NuxtLink :to="'/companions/' + user._id" class="user__name">{{ user.name }}</NuxtLink>
+          <NuxtLink :to="APP_ROUTES.Companion.replace(':id', user._id)" class="user__name">{{ user.name }}</NuxtLink>
           <div class="user__likes">
             <button
               @click="onLikeClick(user)"

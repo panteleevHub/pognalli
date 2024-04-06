@@ -35,7 +35,7 @@
             </figure>
           </li>
         </ul>
-        <NuxtLink class="directions__more button" to="/directions">Показать все</NuxtLink>
+        <NuxtLink class="directions__more button" :to="APP_ROUTES.Directions">Показать все</NuxtLink>
       </div>
     </div>
   </section>

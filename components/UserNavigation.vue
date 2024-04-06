@@ -2,13 +2,13 @@
   <div class="user-nav">
     <ul v-if="isFull" class="user-nav__contacts">
       <li class="user-nav__item user-nav__item--phone">
-        <NuxtLink to="/"></NuxtLink>
+        <NuxtLink :to="APP_ROUTES.Main"></NuxtLink>
       </li>
       <li class="user-nav__item user-nav__item--email">
-        <NuxtLink to="/"></NuxtLink>
+        <NuxtLink :to="APP_ROUTES.Main"></NuxtLink>
       </li>
     </ul>
-    <NuxtLink class="user-nav__authorization user-nav__authorization--full" to="/login">Авторизация</NuxtLink>
+    <NuxtLink class="user-nav__authorization user-nav__authorization--full" :to="APP_ROUTES.Login">Авторизация</NuxtLink>
   </div>
 </template>
 

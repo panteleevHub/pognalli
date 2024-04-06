@@ -1,7 +1,9 @@
 <template>
   <footer class="footer">
     <div class="footer__container container">
-      <Logo :isInHeader="false" />
+      <NuxtLink :to="APP_ROUTES.Main">
+        <Logo :isInHeader="false" />
+      </NuxtLink>
       <Socials place="footer" />
       <Copyright />
     </div>
