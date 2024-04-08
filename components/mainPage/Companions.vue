@@ -94,7 +94,7 @@ const { promoUsers } = storeToRefs(usersStore);
 
 .companions__container {
   @include flex-column-center;
-  padding-top: 68px;
+  padding-top: 40px;
   padding-bottom: 30px;
 
   @media (min-width: $tablet-width) {

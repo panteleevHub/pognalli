@@ -9,6 +9,7 @@ export const APP_ROUTES = {
   Main: '/',
   Companions: '/companions',
   Login: '/login',
+  SignUp: '/registration',
   Directions: '/directions',
   Companion: '/companions/:id',
 };

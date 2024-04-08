@@ -119,7 +119,7 @@ const directions = [
 
 .directions__container {
   @include flex-column-center;
-  padding-top: 70px;
+  padding-top: 40px;
   padding-bottom: 35px;
 
   @media (min-width: $tablet-width) {
@@ -143,7 +143,7 @@ const directions = [
   flex-direction: column;
   row-gap: 20px;
   padding: 0 25px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 
   @media (min-width: $tablet-width) {
     align-self: start;

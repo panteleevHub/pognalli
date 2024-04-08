@@ -1,19 +1,18 @@
 <template>
-  <section class="login container">
-    <h1 class="login__title title">Авторизация</h1>
-    <form @submit.prevent="" class="login__form">
-      <div class="login__inputs">
+  <section class="registration container">
+    <h1 class="registration__title title">Регистрация</h1>
+    <form @submit.prevent="" class="registration__form">
+      <div class="registration__inputs">
+        <input type="text" placeholder="Имя">
+        <input type="text" placeholder="Фамилия">
         <input type="email" placeholder="E-mail">
-        <input class="login__input" type="password" placeholder="Пароль">
+        <input type="password" placeholder="Пароль">
       </div>
-      <button class="login__submit button" type="submit">
-        <span>Войти</span>
+      <button class="registration__submit button" type="submit">
+        <span>Создать аккаунт</span>
       </button>
     </form>
-    <div class="login__links">
-      <NuxtLink :to="APP_ROUTES.SignUp" class="login__signup-link">Создать аккаунт</NuxtLink>
-      <NuxtLink :to="APP_ROUTES.Main" class="login__home-link">На главную</NuxtLink>
-    </div>
+    <NuxtLink :to="APP_ROUTES.Main" class="registration__home-link">На главную</NuxtLink>
   </section>
 </template>
 
@@ -24,7 +23,7 @@ definePageMeta({
 </script>
 
 <style lang="scss" scoped>
-.login {
+.registration {
   @include flex-column-center;
   padding: 25px;
 
@@ -37,7 +36,7 @@ definePageMeta({
   }
 }
 
-.login__title {
+.registration__title {
   text-align: center;
   color: $special-orange;
   margin-bottom: 30px;
@@ -46,8 +45,7 @@ definePageMeta({
     margin-bottom: 35px;
   }
 }
-
-.login__inputs {
+.registration__inputs {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -59,7 +57,7 @@ definePageMeta({
   }
 }
 
-.login__inputs input {
+.registration__inputs input {
   width: 100%;
   height: 60px;
   font-size: 18px;
@@ -100,7 +98,7 @@ definePageMeta({
   }
 }
 
-.login__submit {
+.registration__submit {
   width: 100%;
   height: 60px;
   margin-bottom: 15px;
@@ -115,16 +113,10 @@ definePageMeta({
   }
 }
 
-.login__links {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.login__signup-link,
-.login__home-link {
+.registration__home-link {
   font-size: 17px;
   line-height: 17px;
+  text-align: center;
   color: $white;
 
   @media (min-width: $tablet-width) {
