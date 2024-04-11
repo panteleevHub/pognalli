@@ -14,8 +14,11 @@ import CountryFilter from '@/components/companionsPage/CountryFilter.vue';
 import UserFilter from '@/components/companionsPage/UserFilter.vue';
 import Companions from '@/components/companionsPage/Companions.vue';
 
-const usersStore = useUsersStore();
+definePageMeta({
+  middleware: 'auth',
+});
 
+const usersStore = useUsersStore();
 await useAsyncData('users', () => usersStore.fetchUsers());
 
 </script>

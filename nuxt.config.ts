@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     '@/assets/scss/fonts.scss',
     '@/assets/scss/global.scss',
   ],
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -12,18 +13,31 @@ export default defineNuxtConfig({
       }
     }
   },
+
   modules: [
     '@pinia/nuxt',
     'nuxt-server-utils',
+    '@sidebase/nuxt-auth'
   ],
+
   runtimeConfig: {
     mongodbUrl: process.env.MONGODB_URI,
+    authSecret: process.env.AUTH_SECRET,
   },
+
+  auth: {
+    baseURL: process.env.AUTH_ORIGIN,
+    provider: {
+      type: 'authjs'
+    }
+  },
+
   nitro: {
     plugins: [
       '@/server/index.ts',
       '@/server/seed.ts'
     ],
   },
+
   devtools: { enabled: true }
 })

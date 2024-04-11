@@ -5,14 +5,33 @@ export const useUsersStore = defineStore('users', () => {
   const currentPage = ref(1);
 
   const fetchUsers = async () => {
-    const { data } = await useFetch(API_ROUTES.Users);
-    users.value = data.value;
+    try {
+      const { data } = await useFetch(API_ROUTES.Users);
+      users.value = data.value;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const fetchPromoUsers = async () => {
-    const { data } = await useFetch(API_ROUTES.PromoUsers);
-    promoUsers.value = data.value;
+    try {
+      const { data } = await useFetch(API_ROUTES.PromoUsers);
+      promoUsers.value = data.value;
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  const fetchNewUser = async (data) => {
+    try {
+      await useFetch(API_ROUTES.SignUp, {
+        method: 'POST',
+        body: data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const changeCurrentPage = (page) => {
     currentPage.value = page;
@@ -24,6 +43,7 @@ export const useUsersStore = defineStore('users', () => {
     currentPage,
     fetchUsers,
     fetchPromoUsers,
+    fetchNewUser,
     changeCurrentPage,
   }
 });

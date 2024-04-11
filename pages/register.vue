@@ -1,14 +1,14 @@
 <template>
   <section class="registration container">
     <h1 class="registration__title title">Регистрация</h1>
-    <form @submit.prevent="" class="registration__form">
+    <form @submit.prevent="onFormSubmit" class="registration__form">
       <div class="registration__inputs">
-        <input type="text" placeholder="Имя">
-        <input type="text" placeholder="Фамилия">
-        <input type="email" placeholder="E-mail">
-        <input type="password" placeholder="Пароль">
+        <input v-model="formData.firstName" type="text" placeholder="Имя">
+        <input v-model="formData.lastName" type="text" placeholder="Фамилия">
+        <input v-model="formData.email"  type="email" placeholder="Email">
+        <input v-model="formData.password" type="password" placeholder="Пароль">
       </div>
-      <button class="registration__submit button" type="submit">
+      <button :disabled="isLoading" class="registration__submit button" type="submit">
         <span>Создать аккаунт</span>
       </button>
     </form>
@@ -20,6 +20,23 @@
 definePageMeta({
   layout: 'blank'
 });
+
+const usersStore = useUsersStore();
+
+const isLoading = ref(false);
+
+const formData = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+});
+
+const onFormSubmit = async () => {
+  isLoading.value = true;
+  await useAsyncData('newUser', () => usersStore.fetchNewUser(formData.value));
+  isLoading.value = false;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -105,6 +122,11 @@ definePageMeta({
 
   &::before {
     display: none;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
   }
 
   @media (min-width: $tablet-width) {

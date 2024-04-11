@@ -34,6 +34,10 @@ export const generateUsers = (userCount, countriesIds) => {
       likes: Array.from({length: faker.number.int({min: 0, max: 100})}, () => faker.number.int({min: 1, max: 100})),
       purpose: purpose[faker.number.int({min: 0, max: 2})],
       music: Array.from({length: faker.number.int({min: 1, max: 4})}, () => faker.music.genre().toLocaleLowerCase()),
+      authData: {
+        email: faker.internet.email(),
+        password: faker.internet.password({length: 8}),
+      }
     }
   };
 

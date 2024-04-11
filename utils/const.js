@@ -3,13 +3,14 @@ export const API_ROUTES = {
   PromoUsers: '/api/users/promo',
   User: '/api/users/:id',
   Countries: '/api/countries',
+  SignUp: '/api/auth/register',
 };
 
 export const APP_ROUTES = {
   Main: '/',
   Companions: '/companions',
   Login: '/login',
-  SignUp: '/registration',
+  SignUp: '/register',
   Directions: '/directions',
   Companion: '/companions/:id',
 };
