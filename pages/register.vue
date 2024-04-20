@@ -33,9 +33,21 @@ const formData = ref({
 });
 
 const onFormSubmit = async () => {
-  isLoading.value = true;
-  await useAsyncData('newUser', () => usersStore.fetchNewUser(formData.value));
-  isLoading.value = false;
+  try {
+    isLoading.value = true;
+
+    await useFetch(API_ROUTES.SignUp, {
+      method: 'POST',
+      body: formData.value,
+    });
+
+    useRouter().push(APP_ROUTES.Login)
+
+  } catch (err) {
+    console.log(err);
+  } finally {
+    isLoading.value = false;
+  }
 }
 </script>
 

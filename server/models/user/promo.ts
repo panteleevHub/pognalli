@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const PromoUsersSchema = new Schema({
+const PromoUserSchema = new Schema({
   _id: Schema.Types.ObjectId,
   name: String,
   avatarUrl: String,
@@ -10,4 +10,4 @@ const PromoUsersSchema = new Schema({
   level: Number,
 }, {versionKey: false});
 
-export const PromoUser = model('PromoUser', PromoUsersSchema);
+export const PromoUser = model('PromoUser', PromoUserSchema);

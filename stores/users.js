@@ -22,17 +22,6 @@ export const useUsersStore = defineStore('users', () => {
     }
   };
 
-  const fetchNewUser = async (data) => {
-    try {
-      await useFetch(API_ROUTES.SignUp, {
-        method: 'POST',
-        body: data,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   const changeCurrentPage = (page) => {
     currentPage.value = page;
   };
@@ -43,7 +32,6 @@ export const useUsersStore = defineStore('users', () => {
     currentPage,
     fetchUsers,
     fetchPromoUsers,
-    fetchNewUser,
     changeCurrentPage,
   }
 });

@@ -9,7 +9,7 @@ export default async () => {
     const users = generateUsers(50, countriesIds);
     const countries = generateCountries(users, countriesIds);
 
-    await User.deleteMany();
+    await User.deleteMany({fake: true});
     await PromoUser.deleteMany();
     await Country.deleteMany();
 

@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 
 const UserSchema = new Schema({
-  _id: Schema.Types.ObjectId,
   name: String,
   age: Number,
   avatarUrl: String,
@@ -12,21 +11,19 @@ const UserSchema = new Schema({
   likes: [Number],
   purpose: String,
   music: [String],
-  authData: {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      lowercase: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      length: [8, 'Password must be at least 8 characters long'],
-
-    }
-  }
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    length: [8, 'Password must be at least 8 characters long'],
+  },
+  fake: Boolean
 }, {versionKey: false});
 
 export const User = model('User', UserSchema);
