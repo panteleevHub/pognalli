@@ -8,17 +8,32 @@
         <NuxtLink :to="APP_ROUTES.Main"></NuxtLink>
       </li>
     </ul>
-    <NuxtLink class="user-nav__authorization user-nav__authorization--full" :to="APP_ROUTES.Login">Авторизация</NuxtLink>
+    <NuxtLink
+      v-if="status === 'unauthenticated'"
+      class="user-nav__authorization user-nav__authorization--full"
+      :to="APP_ROUTES.Login"
+    >
+      Авторизация
+    </NuxtLink>
+    <div v-if="status === 'authenticated'">
+      <button @click="onLogout">Выйти</button>
+    </div>
   </div>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   isFull: {
     type: Boolean,
     required: true
   }
 });
+
+const { status, signOut } = useAuth();
+
+const onLogout = async () => {
+  await signOut();
+}
 </script>
 
 <style lang="scss" scoped>

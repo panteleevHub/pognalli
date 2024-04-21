@@ -21,8 +21,6 @@ definePageMeta({
   layout: 'blank'
 });
 
-const usersStore = useUsersStore();
-
 const isLoading = ref(false);
 
 const formData = ref({

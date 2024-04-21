@@ -1,10 +1,10 @@
 <template>
   <section class="login container">
     <h1 class="login__title title">Авторизация</h1>
-    <form @submit.prevent="" class="login__form">
+    <form @submit.prevent="onFormSubmit" class="login__form">
       <div class="login__inputs">
-        <input type="email" placeholder="E-mail">
-        <input class="login__input" type="password" placeholder="Пароль">
+        <input v-model="formData.email" type="email" placeholder="Email">
+        <input v-model="formData.password" class="login__input" type="password" placeholder="Пароль">
       </div>
       <button class="login__submit button" type="submit">
         <span>Войти</span>
@@ -19,8 +19,25 @@
 
 <script setup>
 definePageMeta({
-  layout: 'blank'
+  layout: 'blank',
+  middleware: 'guest'
 });
+
+const { signIn } = useAuth();
+
+const formData = ref({
+  email: '',
+  password: '',
+});
+
+const onFormSubmit = async () => {
+  try {
+    await signIn('credentials', formData.value);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 </script>
 
 <style lang="scss" scoped>

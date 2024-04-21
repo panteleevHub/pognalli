@@ -1,6 +1,8 @@
 import { NuxtAuthHandler } from '#auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { APP_ROUTES } from '@/utils/const';
+import { User } from '@/server/models/user';
+import bcrypt from 'bcrypt';
 
 export default NuxtAuthHandler({
   secret: useRuntimeConfig().authSecret,
@@ -18,9 +20,25 @@ export default NuxtAuthHandler({
         email: string,
         password: string
       }) {
-        // TODO: fetch user from database
+        const user = await User.findOne({email: credentials.email});
 
-        return {};
+        if (!user) {
+          throw createError({
+            statusCode: 401,
+            statusMessage: 'Unauthorized',
+          });
+        }
+
+        const isValid = await bcrypt.compare(credentials.password, user.password);
+
+        if (!isValid) {
+          throw createError({
+            statusCode: 401,
+            statusMessage: 'Unauthorized',
+          });
+        }
+
+        return {...user.toObject(), password: undefined};
       }
     })
   ],
@@ -29,13 +47,13 @@ export default NuxtAuthHandler({
     strategy: 'jwt'
   },
 
-  callbacks: {
-    async jwt({token, user, account}) {
-      return token;
-    },
+  // callbacks: {
+  //   async jwt({token, user, account}) {
+  //     return token;
+  //   },
 
-    async session({session, token}) {
-      return session;
-    }
-  }
+  //   async session({session, token}) {
+  //     return session;
+  //   }
+  // }
 });
