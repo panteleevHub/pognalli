@@ -18,7 +18,8 @@
 
 <script setup>
 definePageMeta({
-  layout: 'blank'
+  layout: 'blank',
+  middleware: 'guest',
 });
 
 const isLoading = ref(false);

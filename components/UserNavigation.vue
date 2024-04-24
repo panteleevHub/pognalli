@@ -15,9 +15,13 @@
     >
       Авторизация
     </NuxtLink>
-    <div v-if="status === 'authenticated'">
-      <button @click="onLogout">Выйти</button>
-    </div>
+    <NuxtLink
+      v-if="status === 'authenticated'"
+      :to="APP_ROUTES.MyPage"
+      class="user-nav__user user-nav__user--full"
+    >
+      {{ getUserName() }}
+    </NuxtLink>
   </div>
 </template>
 
@@ -29,11 +33,13 @@ const props = defineProps({
   }
 });
 
-const { status, signOut } = useAuth();
+const { data, status } = useAuth();
 
-const onLogout = async () => {
-  await signOut();
-}
+const getUserName = () => {
+  if (!data.value.user) return 'Unknown';
+
+  return data.value.user.name.split(' ')[0];
+};
 </script>
 
 <style lang="scss" scoped>
@@ -88,7 +94,8 @@ const onLogout = async () => {
   }
 }
 
-.user-nav__authorization {
+.user-nav__authorization,
+.user-nav__user {
   display: block;
   max-width: 300px;
   margin: 0 auto;
@@ -117,7 +124,13 @@ const onLogout = async () => {
   }
 }
 
-.user-nav__authorization--full {
+.user-nav__user {
+  text-transform: capitalize;
+  letter-spacing: 0.1vw;
+}
+
+.user-nav__authorization--full,
+.user-nav__user--full {
   @media (max-width: $pre-tablet-width) {
     min-width: 190px;
     padding: 10px;

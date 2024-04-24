@@ -13,4 +13,5 @@ export const APP_ROUTES = {
   SignUp: '/register',
   Directions: '/directions',
   Companion: '/companions/:id',
+  MyPage: '/my-page',
 };
