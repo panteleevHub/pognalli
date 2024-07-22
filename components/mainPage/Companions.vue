@@ -8,90 +8,39 @@
           <p class="companions__excerpt">Теперь можно легко<br class="companions__excerpt-break"> найти единомышленников!</p>
         </div>
         <ul class="companions__list">
-          <li v-for="{id, name, avatarUrl, countries, tags, transport, level} in companions" class="companions__item">
+          <li v-for="user in promoUsers" class="companions__item">
             <img
-              :src="avatarUrl"
+              :src="user.avatarUrl"
               class="companions__avatar"
               width="270"
               height="270"
               alt="Аватар пользователя"
             >
             <UserLevel
-              :level="level"
+              :level="user.level"
               place="promo"
               color="#444"
               class="companions__level"
             />
-            <UserCountries :countries="countries" place="promo" class="companions__countries" />
+            <UserCountries :countriesIds="user.countries" place="promo" class="companions__countries" />
             <div class="companions__user-info">
-              <NuxtLink :to="'companions/' + id" class="companions__user-name">
-                {{ name }}
+              <NuxtLink :to="APP_ROUTES.Companion.replace(':id', user._id)" class="companions__user-name">
+                {{ user.name }}
               </NuxtLink>
-              <p class="companions__tags">{{ tags.join(' ') }}</p>
-              <TransportIcons :transport="transport" place="promo" />
+              <p class="companions__tags">{{ user.tags.join(' ') }}</p>
+              <TransportIcons :transport="user.transport" place="promo" />
             </div>
           </li>
         </ul>
-        <NuxtLink class="companions__more button" to="/companions">Показать всех</NuxtLink>
+        <NuxtLink class="companions__more button" :to="APP_ROUTES.Companions">Показать всех</NuxtLink>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import flagCzech from '@/assets/img/flag-czech-mobile.png';
-import flagSeychelles from '@/assets/img/flag-seychelles-mobile.png';
-import flagSriLanka from '@/assets/img/flag-sri-lanka-mobile.png';
-import flagThailand from '@/assets/img/flag-thailand-mobile.png';
-import flagBelgium from '@/assets/img/flag-belgium-mobile.png';
-
-const companions = [
-  {
-    id: 1,
-    name: 'Таня Фирсова',
-    avatarUrl: 'https://i.postimg.cc/8PgtmdNg/christopher-campbell-unsplash.jpg',
-    countries: [
-      {
-        name: 'Шри-Ланка',
-        src: flagSriLanka,
-        alt: 'Флаг Шри-Ланки'
-      },
-      {
-        name: 'Таиланд',
-        src: flagThailand,
-        alt: 'Флаг Таиланда'
-      },
-      {
-        name: 'Сейшелы',
-        src: flagSeychelles,
-        alt: 'Флаг Сейшел'
-      },
-    ],
-    tags: ['#ЗОЖ', '#ПП', '#Фитнес', '#пляж', '#авокадо', '#смузи'],
-    transport: ['plane'],
-    level: 99,
-  },
-  {
-    id: 2,
-    name: 'Петя Демин',
-    avatarUrl: 'https://i.postimg.cc/HxKWKnjy/harps-joseph-unsplash.jpg',
-    countries: [
-      {
-        name: 'Бельгия',
-        src: flagBelgium,
-        alt: 'Флаг Бельгии'
-      },
-      {
-        name: 'Чехия',
-        src: flagCzech,
-        alt: 'Флаг Чехии'
-      },
-    ],
-    tags: ['#бургер', '#бар', '#футбол', '#концерт', '#крафт'],
-    transport: ['plane', 'auto', 'walk'],
-    level: 80,
-  },
-];
+const usersStore = useUsersStore();
+const { promoUsers } = storeToRefs(usersStore);
 </script>
 
 <style lang="scss" scoped>
@@ -145,7 +94,7 @@ const companions = [
 
 .companions__container {
   @include flex-column-center;
-  padding-top: 68px;
+  padding-top: 40px;
   padding-bottom: 30px;
 
   @media (min-width: $tablet-width) {

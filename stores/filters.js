@@ -34,6 +34,7 @@ export const useFiltersStore = defineStore('filters', () => {
   const selectedUserData = ref(getDeepObjectCopy(initialUserData.value));
 
   const setUserData = (payload) => {
+    console.log(payload)
     selectedUserData.value = payload;
   };
 

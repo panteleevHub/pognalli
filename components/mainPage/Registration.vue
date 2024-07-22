@@ -5,14 +5,8 @@
         <h2 class="visually-hidden">Регистрация на сайте</h2>
         <p class="registration__caption section-title">Заинтересовались?</p>
         <p class="registration__desc">
-          Зарегистрируйтесь, <span>это быстро и бесплатно!</span> <span>Уже зарегистрированы?</span>
-          Тогда скорее <NuxtLink to="/login">авторизуйтесь</NuxtLink>.</p>
-        <form class="registration__form" method="post" action="#">
-          <input class="registration__input" type="email" placeholder="E-mail">
-          <button class="registration__submit button" type="submit">
-            <span>Регистрация</span>
-          </button>
-        </form>
+          <NuxtLink :to="APP_ROUTES.SignUp">Зарегистрируйтесь</NuxtLink>, <span>это быстро и бесплатно!</span> <span>Уже зарегистрированы?</span>
+          Тогда скорее <NuxtLink :to="APP_ROUTES.Login">авторизуйтесь</NuxtLink>.</p>
         <div class="feedback">
           <p class="feedback__desc">Остались вопросы? <span>Мы с радостью на них ответим!</span></p>
           <Contacts place="registration" class="registration__contacts" />
@@ -38,7 +32,7 @@
 
 .registration__container {
   @include flex-column-center;
-  padding-top: 72px;
+  padding-top: 40px;
   padding-bottom: 30px;
 
   @media (min-width: $tablet-width) {
@@ -92,97 +86,6 @@
 
   &:active {
     opacity: 0.3;
-  }
-}
-
-.registration__form {
-  position: relative;
-  display: flex;
-  width: 100%;
-  margin-bottom: 30px;
-
-  @media (min-width: $tablet-width) {
-    margin-bottom: 60px;
-  }
-
-  @media (min-width: $desktop-width) {
-    margin-bottom: 70px;
-  }
-}
-
-.registration__input {
-  width: 100%;
-  height: 62px;
-  font-size: 18px;
-  line-height: 18px;
-  font-weight: 700;
-  color: $special-grey;
-  background-color: $white;
-  padding: 22px 25px;
-  padding-right: 85px;
-  border: 0;
-  border-radius: 10px;
-  outline: none;
-
-  @media (min-width: $tablet-width) {
-    height: 80px;
-    font-size: 24px;
-    line-height: 24px;
-    padding: 28px 35px;
-    padding-right: 115px;
-    border-radius: 20px;
-  }
-
-  @media (min-width: $desktop-width) {
-    width: 100%;
-    padding-right: 360px;
-  }
-
-  &::placeholder {
-    color: rgba($special-grey, 0.3);
-  }
-
-  &:hover::placeholder {
-    color: rgba($special-grey, 0.6);
-  }
-
-  &:focus {
-    color: $white;
-    background-color: transparent;
-    outline: 4px solid $white;
-    outline-offset: -4px;
-  }
-
-  &:focus::placeholder {
-    color: $white;
-  }
-}
-
-.registration__submit {
-  position: absolute;
-  right: 0;
-  width: 60px;
-  height: 62px;
-  padding: 0;
-
-  @media (min-width: $tablet-width) {
-    width: 80px;
-    height: 80px;
-    border-radius: 0 20px 20px 0;
-  }
-
-  @media (min-width: $desktop-width) {
-    width: 325px;
-    padding: 28px 35px;
-    padding-right: 65px;
-  }
-}
-
-.registration__submit span {
-  display: none;
-
-  @media (min-width: $desktop-width) {
-    display: flex;
   }
 }
 

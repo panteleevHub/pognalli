@@ -6,7 +6,7 @@
       <ul class="users__list">
         <li
           v-for="user in slicedUsers"
-          :key="user.id"
+          :key="user._id"
           class="users__item user"
         >
           <div class="user__avatar">
@@ -17,7 +17,7 @@
               alt="Аватар пользователя"
             >
           </div>
-          <NuxtLink :to="'/companions/' + user.id" class="user__name">{{ user.name }}</NuxtLink>
+          <NuxtLink :to="APP_ROUTES.Companion.replace(':id', user._id)" class="user__name">{{ user.name }}</NuxtLink>
           <div class="user__likes">
             <button
               @click="onLikeClick(user)"
@@ -31,7 +31,7 @@
           <p class="user__tags">{{ user.tags.join(' ') }}</p>
           <div class="user__countries">
             <span class="user__caption user__caption--countries">Хочет посетить:</span>
-            <UserCountries :countries="user.countries" place="catalog" />
+            <UserCountries :countriesIds="user.countries" place="catalog" />
           </div>
           <div class="user__transport">
             <span class="user__caption user__caption--transport">Транспорт:</span>
@@ -56,9 +56,9 @@
 import UserPagination from '@/components/companionsPage/UserPagination.vue';
 
 const filtersStore = useFiltersStore();
-const { selectedCountries, selectedUserData, initialUserData } = storeToRefs(filtersStore);
-
 const usersStore = useUsersStore();
+
+const { selectedCountries, selectedUserData, initialUserData } = storeToRefs(filtersStore);
 const { users, currentPage } = storeToRefs(usersStore);
 
 const USERS_ON_PAGE = 8;
@@ -67,9 +67,11 @@ const userId = 21; // Временно
 const filteredUsersByCountries = computed(() => {
   if (selectedCountries.value.length === 0) return users.value;
 
-  return users.value.filter(user => {
-    return selectedCountries.value.some((country) => user.countries.find(({name}) => country === name));
-  });
+  return users.value.filter(user => (
+    selectedCountries.value.some((country) => (
+      user.countries.find((countryId) => countryId === country.id)
+    ))
+  ))
 });
 
 const filteredUsers = computed(() => {
@@ -156,7 +158,7 @@ watch(filteredUsers, () => usersStore.changeCurrentPage(1));
 
 .user {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 85px repeat(2, 1fr);
   row-gap: 14px;
   background-color: $white;
   padding: 15px 20px 23px;
@@ -170,9 +172,9 @@ watch(filteredUsers, () => usersStore.changeCurrentPage(1));
   @media (min-width: $desktop-width) {
     position: relative;
     width: 950px;
-    grid-template-columns: 340px repeat(2, 1fr) repeat(2, auto);
+    grid-template-columns: 265px repeat(4, 1fr);
+    column-gap: 10px;
     padding: 43px;
-    padding-left: 0;
   }
 }
 
@@ -186,8 +188,7 @@ watch(filteredUsers, () => usersStore.changeCurrentPage(1));
   }
 
   @media (min-width: $desktop-width) {
-    position: absolute;
-    padding-right: 55px;
+    padding-right: 45px;
   }
 }
 
@@ -201,15 +202,15 @@ watch(filteredUsers, () => usersStore.changeCurrentPage(1));
   }
 
   @media (min-width: $desktop-width) {
-    width: 285px;
-    height: 285px;
-    border-radius: 20px 0 0 20px;
+    width: 220px;
+    height: 220px;
   }
 }
 
 .user__name {
+  grid-column: 2 / -1;
   position: relative;
-  left: -45px;
+  // left: -45px;
   font-size: 20px;
   line-height: 20px;
   font-weight: 700;
@@ -228,7 +229,7 @@ watch(filteredUsers, () => usersStore.changeCurrentPage(1));
 
 .user__likes {
   position: relative;
-  left: -80px;
+  left: -33px;
   display: flex;
   align-items: center;
   column-gap: 5px;
@@ -242,13 +243,14 @@ watch(filteredUsers, () => usersStore.changeCurrentPage(1));
     left: -15px;
     grid-row: 3 / 4;
     grid-column: 3 / 4;
+    column-gap: 7px;
     align-self: center;
     font-size: 20px;
     line-height: 20px;
   }
 
   @media (min-width: $desktop-width) {
-    left: -10px;
+    left: 0;
   }
 }
 
@@ -307,6 +309,8 @@ watch(filteredUsers, () => usersStore.changeCurrentPage(1));
 }
 
 .user__transport {
+  grid-column: 1 / 3;
+
   @media (min-width: $tablet-width) {
     grid-column: 4 / -1;
     grid-row: 1 / 3;

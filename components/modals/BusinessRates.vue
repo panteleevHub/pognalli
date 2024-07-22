@@ -5,13 +5,13 @@
       <dl class="business-rates__list">
         <div v-for="rate in businessRates" class="business-rates__item">
           <dt>
-            <NuxtLink to="/">{{ rate.rate }}</NuxtLink>
+            <NuxtLink :to="APP_ROUTES.Main">{{ rate.rate }}</NuxtLink>
           </dt>
           <dd>{{ rate.price }} {{ rate.currency }}./{{ rate.unit }}</dd>
         </div>
         <div class="business-rates__item">
           <dt>
-            <NuxtLink to="/">Ваш продакт-плейсмент</NuxtLink>
+            <NuxtLink :to="APP_ROUTES.Main">Ваш продакт-плейсмент</NuxtLink>
           </dt>
           <dd>Индивидуально</dd>
         </div>

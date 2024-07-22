@@ -2,23 +2,44 @@
   <div class="user-nav">
     <ul v-if="isFull" class="user-nav__contacts">
       <li class="user-nav__item user-nav__item--phone">
-        <NuxtLink to="/"></NuxtLink>
+        <NuxtLink :to="APP_ROUTES.Main"></NuxtLink>
       </li>
       <li class="user-nav__item user-nav__item--email">
-        <NuxtLink to="/"></NuxtLink>
+        <NuxtLink :to="APP_ROUTES.Main"></NuxtLink>
       </li>
     </ul>
-    <NuxtLink class="user-nav__authorization user-nav__authorization--full" to="/login">Авторизация</NuxtLink>
+    <NuxtLink
+      v-if="status === 'unauthenticated'"
+      class="user-nav__authorization user-nav__authorization--full"
+      :to="APP_ROUTES.Login"
+    >
+      Авторизация
+    </NuxtLink>
+    <NuxtLink
+      v-if="status === 'authenticated'"
+      :to="APP_ROUTES.MyPage"
+      class="user-nav__user user-nav__user--full"
+    >
+      {{ getUserName() }}
+    </NuxtLink>
   </div>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   isFull: {
     type: Boolean,
     required: true
   }
 });
+
+const { data, status } = useAuth();
+
+const getUserName = () => {
+  if (!data.value.user) return 'Unknown';
+
+  return data.value.user.name.split(' ')[0];
+};
 </script>
 
 <style lang="scss" scoped>
@@ -73,7 +94,8 @@ defineProps({
   }
 }
 
-.user-nav__authorization {
+.user-nav__authorization,
+.user-nav__user {
   display: block;
   max-width: 300px;
   margin: 0 auto;
@@ -102,7 +124,13 @@ defineProps({
   }
 }
 
-.user-nav__authorization--full {
+.user-nav__user {
+  text-transform: capitalize;
+  letter-spacing: 0.1vw;
+}
+
+.user-nav__authorization--full,
+.user-nav__user--full {
   @media (max-width: $pre-tablet-width) {
     min-width: 190px;
     padding: 10px;

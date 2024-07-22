@@ -6,36 +6,30 @@ export const useCountriesStore = defineStore('countries', () => {
 
     const arr = [];
   
-    const sortedCountries = [...countries.value.sort()];
+    countries.value.forEach((el) => {
+      const objId = arr.findIndex(item => item.letter === el.name[0]);
   
-    sortedCountries.forEach((el) => {
-      const obj = arr.findIndex(item => item.letter === el[0]);
-  
-      if (obj === -1) {
+      if (objId === -1) {
         arr.push({
-          letter: el[0],
-          countries: [el]
+          letter: el.name[0],
+          countries: [{id: el._id, name: el.name}]
         });
       } else {
-        arr[obj].countries.push(el);
+        arr[objId].countries.push({id: el._id, name: el.name});
       }
     });
   
     return arr;
   });
 
-  const setCountries = (payload) => {
-    countries.value = payload;
+  const fetchCountries = async () => {
+    const { data } = await useFetch(API_ROUTES.Countries);
+    countries.value = data.value;
   };
-
-  // const fetchCountries = async () => {
-  //   countries.value = await 'api';
-  // };
 
   return {
     countries,
     countriesList,
-    setCountries,
-    // fetchCountries,
+    fetchCountries,
   };
 });

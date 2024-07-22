@@ -6,14 +6,14 @@
         <p class="rates__caption section-title">Добавьте свой профиль</p>
         <ul class="rates__list">
           <li v-for="{id, rate, price, currency, unit} in rates" class="rates__item">
-            <NuxtLink class="rates__name" to="/">
+            <NuxtLink class="rates__name" :to="APP_ROUTES.Main">
               {{ rate }}
               <span class="rates__count">{{ id }}</span>
             </NuxtLink>
             <span>{{ price === 0 ? 'Бесплатно': `${price} ${currency}./${unit}`}}</span>
           </li>
         </ul>
-        <NuxtLink @click="isModalOpened = true" class="rates__link" to="/">
+        <NuxtLink @click="isModalOpened = true" class="rates__link" :to="APP_ROUTES.Main">
           <span class="rates__link-icon"></span>
           Показать тарифы для бизнеса
         </NuxtLink>

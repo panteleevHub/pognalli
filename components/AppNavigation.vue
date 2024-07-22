@@ -19,15 +19,15 @@ const emit = defineEmits(['update:close']);
 
 const links = [
   {
-    ref: '/',
+    ref: APP_ROUTES.Main,
     title: 'О сервисе'
   },
   {
-    ref: '/directions',
+    ref: APP_ROUTES.Directions,
     title: 'Направления'
   },
   {
-    ref: '/companions',
+    ref: APP_ROUTES.Companions,
     title: 'Попутчики'
   },
 ];

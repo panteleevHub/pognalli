@@ -1,12 +1,13 @@
 <template>
   <ul class="countries" :class="'countries--' + place">
     <li
-      v-for="{name, src, alt} in countries"
+      v-for="{name, _id, flag} in countries"
       @mouseenter="activeTooltip = name"
       @mouseleave="activeTooltip = ''"
       class="countries__item"
+      :id="_id"
     >
-      <img :src="src" width="35" height="24" :alt="alt">
+      <img :src="flag.src" width="35" height="24" :alt="flag.alt">
       <span class="countries__name">{{ name }}</span>
       <Transition>
         <Tooltip v-if="activeTooltip === name" class="countries__tooltip">{{ name }}</Tooltip>
@@ -16,8 +17,8 @@
 </template>
 
 <script setup>
-defineProps({
-  countries: {
+const props = defineProps({
+  countriesIds: {
     type: Array,
     required: true
   },
@@ -27,7 +28,13 @@ defineProps({
   }
 });
 
+const countriesStore = useCountriesStore();
+
 const activeTooltip = ref('');
+
+const countries = computed(() => {
+  return countriesStore.countries.filter((country) => props.countriesIds.find((id) => id === country._id));
+});
 </script>
 
 <style lang="scss" scoped>
@@ -35,6 +42,10 @@ const activeTooltip = ref('');
   @include reset-list;
   display: flex;
   flex-wrap: wrap;
+}
+
+.countries img {
+  border-radius: 4px;
 }
 
 .countries__item {
@@ -48,6 +59,7 @@ const activeTooltip = ref('');
 .countries--promo {
   gap: 10px 20px;
 }
+
 
 .countries--catalog {
   flex-direction: column;
@@ -81,7 +93,8 @@ const activeTooltip = ref('');
 .countries--catalog img {
   @media (max-width: $pre-tablet-width) {
     width: 26px;
-    height: 18px; 
+    height: 18px;
+    border-radius: 3px;
   }
 }
 

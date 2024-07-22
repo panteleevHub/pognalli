@@ -15,17 +15,17 @@
     <div class="slider__slide">
       <div
         v-for="country in activeSlide.countries"
-        :key="country"
+        :key="country.id"
         class="slider__country"
       >
         <input
-          @click="onCountryClick"
-          :value="country"
-          :id="country"
-          :checked="selectedCountries.includes(country)"
+          @click="onCountryClick(country, $event)"
+          :value="country.name"
+          :id="country.id"
+          :checked="selectedCountries.find(({id}) => id === country.id)"
           type="checkbox"
         />
-        <label :for="country">{{ country }}</label>
+        <label :for="country.id">{{ country.name }}</label>
       </div>
     </div>
   </div>
@@ -43,17 +43,18 @@ const props = defineProps({
 const countriesStore = useCountriesStore();
 const filtersStore = useFiltersStore();
 
-const activeButton = ref('А');
-const countriesList = reactive(countriesStore.countriesList);
-const selectedCountries = reactive(filtersStore.selectedCountries);
+const { countriesList } = storeToRefs(countriesStore);
+const { selectedCountries } = storeToRefs(filtersStore);
 
-const activeSlide = computed(() => countriesList.find(slide => slide.letter === activeButton.value));
+const activeButton = ref('A');
 
-const onCountryClick = (evt) => {
-  if (evt.target.checked) {
-    filtersStore.setCountry(evt.target.value);
+const activeSlide = computed(() => countriesList.value.find(slide => slide.letter === activeButton.value));
+
+const onCountryClick = (country, {target}) => {
+  if (target.checked) {
+    filtersStore.setCountry(country);
   } else {
-    filtersStore.removeCountry(evt.target.value);
+    filtersStore.removeCountry(country);
   }
 };
 </script>

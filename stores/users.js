@@ -1,14 +1,26 @@
 export const useUsersStore = defineStore('users', () => {
   const users = ref([]);
+  const promoUsers = ref([]);
+
   const currentPage = ref(1);
 
-  const setUsers = (payload) => {
-    users.value = payload;
+  const fetchUsers = async () => {
+    try {
+      const { data } = await useFetch(API_ROUTES.Users);
+      users.value = data.value;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  // const fetchUsers = async () => {
-  //   users.value = await 'api';
-  // };
+  const fetchPromoUsers = async () => {
+    try {
+      const { data } = await useFetch(API_ROUTES.PromoUsers);
+      promoUsers.value = data.value;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const changeCurrentPage = (page) => {
     currentPage.value = page;
@@ -16,9 +28,10 @@ export const useUsersStore = defineStore('users', () => {
 
   return {
     users,
+    promoUsers,
     currentPage,
-    setUsers,
-    // fetchUsers,
+    fetchUsers,
+    fetchPromoUsers,
     changeCurrentPage,
   }
 });
