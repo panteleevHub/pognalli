@@ -1,10 +1,18 @@
 <template>
   <section class="login container">
     <h1 class="login__title title">Авторизация</h1>
-    <form @submit.prevent="onFormSubmit" class="login__form">
+    <form @submit.prevent="onFormSubmit" class="login__form" novalidate>
       <div class="login__inputs">
-        <input v-model="formData.email" type="email" placeholder="Email">
-        <input v-model="formData.password" class="login__input" type="password" placeholder="Пароль">
+        <div>
+          <input v-model="formData.email" type="email" placeholder="Email">
+          <span v-if="v$.email.$error" class="login__error">Неверный формат email</span>
+          <span v-if="!isDataValid" class="login__error">Неверный email или пароль</span>
+        </div>
+        <div>
+          <input v-model="formData.password" class="login__input" type="password" placeholder="Пароль">
+          <span v-if="v$.password.$error" class="login__error">Введите пароль</span>
+          <span v-if="!isDataValid" class="login__error">Неверный email или пароль</span>
+        </div>
       </div>
       <button class="login__submit button" type="submit">
         <span>Войти</span>
@@ -18,10 +26,15 @@
 </template>
 
 <script setup>
+import { useVuelidate } from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
+
 definePageMeta({
   layout: 'blank',
   middleware: 'guest'
 });
+
+const isDataValid = ref(true);
 
 const { signIn } = useAuth();
 
@@ -30,11 +43,29 @@ const formData = ref({
   password: '',
 });
 
+const validationRules = computed(() => ({
+  email: { required, email },
+  password: { required }
+}));
+
+const v$ = useVuelidate(validationRules.value, formData.value);
+
 const onFormSubmit = async () => {
+  const isFormValid = await v$.value.$validate();
+
+  if (!isFormValid) return;
+
   try {
-    await signIn('credentials', formData.value);
+    const res = await signIn('credentials', {...formData.value, redirect: false});
+    
+    if (res.error) {
+      isDataValid.value = false;
+    } else {
+      isDataValid.value = true;
+      navigateTo(APP_ROUTES.Main);
+    }
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 };
 
@@ -115,6 +146,12 @@ const onFormSubmit = async () => {
   &:focus::placeholder {
     color: $white;
   }
+}
+
+.login__error {
+  display: inline-block;
+  padding: 5px;
+  color: $red;
 }
 
 .login__submit {
