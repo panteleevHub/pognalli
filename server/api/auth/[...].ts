@@ -23,19 +23,13 @@ export default NuxtAuthHandler({
         const user = await User.findOne({email: credentials.email});
 
         if (!user) {
-          throw createError({
-            statusCode: 401,
-            statusMessage: 'Unauthorized',
-          });
+          return null;
         }
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
+        const isValid = await bcrypt.compare(credentials.password, user?.password);
 
         if (!isValid) {
-          throw createError({
-            statusCode: 401,
-            statusMessage: 'Unauthorized',
-          });
+          return null;
         }
 
         return {...user.toObject(), password: undefined};
