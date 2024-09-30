@@ -1,12 +1,32 @@
 <template>
   <section class="registration container">
     <h1 class="registration__title title">Регистрация</h1>
-    <form @submit.prevent="onFormSubmit" class="registration__form">
+    <form @submit.prevent="onFormSubmit" class="registration__form" novalidate>
       <div class="registration__inputs">
-        <input v-model="formData.firstName" type="text" placeholder="Имя">
-        <input v-model="formData.lastName" type="text" placeholder="Фамилия">
-        <input v-model="formData.email"  type="email" placeholder="Email">
-        <input v-model="formData.password" type="password" placeholder="Пароль">
+        <div>
+          <input v-model="formData.firstName" type="text" placeholder="Имя">
+          <div v-for="error of v$.firstName.$errors">
+            <span class="registration__error">{{ error.$message }}</span>
+          </div>
+        </div>
+        <div>
+          <input v-model="formData.lastName" type="text" placeholder="Фамилия">
+          <div v-for="error of v$.lastName.$errors">
+            <span class="registration__error">{{ error.$message }}</span>
+          </div>
+        </div>
+        <div>
+          <input v-model="formData.email" type="email" placeholder="Email">
+          <div v-for="error of v$.email.$errors">
+            <span class="registration__error">{{ error.$message }}</span>
+          </div>
+        </div>
+        <div>
+          <input v-model="formData.password" type="password" placeholder="Пароль">
+          <div v-for="error of v$.password.$errors">
+            <span class="registration__error">{{ error.$message }}</span>
+          </div>
+        </div>
       </div>
       <button :disabled="isLoading" class="registration__submit button" type="submit">
         <span>Создать аккаунт</span>
@@ -17,6 +37,9 @@
 </template>
 
 <script setup>
+import { useVuelidate } from '@vuelidate/core';
+import { required, email, minLength, helpers } from '@vuelidate/validators';
+
 definePageMeta({
   layout: 'blank',
   middleware: 'guest',
@@ -31,16 +54,54 @@ const formData = ref({
   password: '',
 });
 
+const passwordLength = ref(8);
+
+const isEmailUnique = async (value) => {
+  if (value === '') return true;
+
+  const { data } = await useFetch(API_ROUTES.UniqueUser, {
+    method: 'POST',
+    body: { email: value },
+  });
+
+  return !data.value.email ? true : false;
+};
+
+const validationRules = computed(() => ({
+  firstName: { required: helpers.withMessage('Заполните это поле', required) },
+  lastName: { required: helpers.withMessage('Заполните это поле', required) },
+  email: {
+    required: helpers.withMessage('Заполните это поле', required),
+    email: helpers.withMessage('Неверный формат email', email),
+    isUnique: helpers.withMessage('Этот email уже занят', helpers.withAsync(isEmailUnique))
+  },
+  password: {
+    required: helpers.withMessage('Заполните это поле', required),
+    minLength: helpers.withMessage('Пароль должен состоять минимум из 8 символов', minLength(passwordLength.value)),
+  },
+}));
+
+const v$ = useVuelidate(validationRules.value, formData.value);
+
 const onFormSubmit = async () => {
+  const isFormValid = await v$.value.$validate();
+
+  if (!isFormValid) return;
+
   try {
     isLoading.value = true;
 
-    await useFetch(API_ROUTES.SignUp, {
+    const { error } = await useFetch(API_ROUTES.SignUp, {
       method: 'POST',
       body: formData.value,
     });
 
-    useRouter().push(APP_ROUTES.Login)
+    if (error.value) {
+      console.log(error.value.status)
+      return;
+    }
+
+    navigateTo(APP_ROUTES.Login)
 
   } catch (err) {
     console.log(err);
@@ -124,6 +185,12 @@ const onFormSubmit = async () => {
   &:focus::placeholder {
     color: $white;
   }
+}
+
+.registration__error {
+  display: inline-block;
+  padding: 5px;
+  color: $red;
 }
 
 .registration__submit {

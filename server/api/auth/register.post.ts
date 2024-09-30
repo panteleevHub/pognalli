@@ -5,17 +5,25 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   if (!body.email || !body.firstName || !body.lastName || !body.password) {
+   throw createError({
+      statusCode: 400,
+      statusMessage: 'Bad Request',
+    });
+  }
+
+  const user = await User.find({email: body.email});
+
+  if (user.length !== 0) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Bad Request',
-      message: 'Missing required fields',
     });
   }
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(body.password, salt);
 
-  const user = await User.create({
+  const newUser = await User.create({
     name: `${body.firstName} ${body.lastName}`,
     age: undefined,
     avatarUrl: undefined,
@@ -30,5 +38,5 @@ export default defineEventHandler(async (event) => {
     password: hashedPassword,
   });
 
-  return {...user.toObject(), password: undefined};
+  return {...newUser.toObject(), password: undefined};
 });
