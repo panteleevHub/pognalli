@@ -11,7 +11,7 @@
         >
           <div class="user__avatar">
             <img
-              :src="user.avatarUrl"
+              :src="user.avatarUrl ? user.avatarUrl : profilePlaceholder"
               width="70"
               height="70"
               alt="Аватар пользователя"
@@ -29,7 +29,7 @@
             <span>{{ user.likes.length }}</span>
           </div>
           <p class="user__tags">{{ user.tags.join(' ') }}</p>
-          <div class="user__countries">
+          <div v-if="user.countries.length !== 0" class="user__countries">
             <span class="user__caption user__caption--countries">Хочет посетить:</span>
             <UserCountries :countriesIds="user.countries" place="catalog" />
           </div>
@@ -54,6 +54,7 @@
 
 <script setup>
 import UserPagination from '@/components/companionsPage/UserPagination.vue';
+import profilePlaceholder from '@/assets/img/profile-placeholder.png';
 
 const filtersStore = useFiltersStore();
 const usersStore = useUsersStore();
@@ -83,7 +84,7 @@ const filteredUsers = computed(() => {
     return (
       user.level >= selectedUserData.value.level.min &&
       user.level <= selectedUserData.value.level.max &&
-      user.age >= selectedUserData.value.age.min &&
+      (user.age >= selectedUserData.value.age.min || user.age === 0) &&
       user.age <= selectedUserData.value.age.max &&
       (selectedUserData.value.purpose.length === 0 || selectedUserData.value.purpose.includes(user.purpose)) &&
       (selectedUserData.value.music.length === 0 || selectedUserData.value.music.some(genre => user.music.includes(genre))) &&
