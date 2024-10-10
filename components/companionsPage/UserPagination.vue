@@ -2,13 +2,13 @@
   <div class="pagination">
     <div class="pagination__page-buttons">
       <button
-        v-for="number in pages"
-        @click="usersStore.changeCurrentPage(number)"
+        v-for="page in hiddenPages"
+        @click="usersStore.changeCurrentPage(page.number)"
         class="pagination__page-button"
-        :class="currentPage === number && 'pagination__page-button--active'"
+        :class="currentPage === page.number && 'pagination__page-button--active'"
         type="button"
       >
-        {{ number }}
+        {{ page.value }}
       </button>
     </div>
     <div class="pagination__arrow-buttons">
@@ -41,6 +41,22 @@ const props = defineProps({
 
 const usersStore = useUsersStore();
 const { currentPage } = storeToRefs(usersStore);
+
+const hiddenPages = computed(() => {
+  const pageList = Array.from({length: props.pages}, (_, i) => ({ value: String(i + 1), number: i + 1 }));
+  const firstPart = pageList.slice(0, currentPage.value - 1);
+  const lastPart = pageList.slice(currentPage.value, props.pages);
+
+  if (firstPart.length - 2 > 2) {
+    firstPart.splice(1, firstPart.length - 3, { value: '...', number: firstPart.length - 2 });
+  }
+
+  if (lastPart.length - 2 > 2) {
+    lastPart.splice(2, lastPart.length - 3, { value: '...', number: lastPart[2].number });
+  }
+
+  return [...firstPart, { value: String(currentPage.value), number: currentPage.value } , ...lastPart];
+});
 
 </script>
 
