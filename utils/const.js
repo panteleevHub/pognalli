@@ -16,3 +16,9 @@ export const APP_ROUTES = {
   Companion: '/companions/:id',
   MyPage: '/my-page',
 };
+
+export const SCREEN_WIDTH = {
+  Mobile: 320,
+  Tablet: 768,
+  Desktop: 1440,
+};

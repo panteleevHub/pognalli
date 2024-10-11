@@ -42,20 +42,37 @@ const props = defineProps({
 const usersStore = useUsersStore();
 const { currentPage } = storeToRefs(usersStore);
 
+const windowWidth = ref(0);
+
 const hiddenPages = computed(() => {
   const pageList = Array.from({length: props.pages}, (_, i) => ({ value: String(i + 1), number: i + 1 }));
   const firstPart = pageList.slice(0, currentPage.value - 1);
   const lastPart = pageList.slice(currentPage.value, props.pages);
 
-  if (firstPart.length - 2 > 2) {
-    firstPart.splice(1, firstPart.length - 3, { value: '...', number: firstPart.length - 2 });
+  const visiblePages = windowWidth.value < SCREEN_WIDTH.Tablet ? 2 : 3;
+
+  if (firstPart.length - visiblePages > 1) {
+    firstPart.splice(1, firstPart.length - visiblePages, { value: '...', number: firstPart.length - (visiblePages - 1) });
   }
 
-  if (lastPart.length - 2 > 2) {
-    lastPart.splice(2, lastPart.length - 3, { value: '...', number: lastPart[2].number });
+  if (lastPart.length - visiblePages > 1) {
+    lastPart.splice(visiblePages - 1, lastPart.length - visiblePages, { value: '...', number: lastPart[visiblePages - 1].number });
   }
 
   return [...firstPart, { value: String(currentPage.value), number: currentPage.value } , ...lastPart];
+});
+
+const onWindowWidthChange = () => {
+  windowWidth.value = window.innerWidth;
+};
+
+onMounted(() => {
+  windowWidth.value = window.innerWidth;
+  window.addEventListener('resize', onWindowWidthChange);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onWindowWidthChange);
 });
 
 </script>
