@@ -2,8 +2,6 @@ export const useUsersStore = defineStore('users', () => {
   const users = ref([]);
   const promoUsers = ref([]);
 
-  const currentPage = ref(1);
-
   const fetchUsers = async () => {
     try {
       const { data } = await useFetch(API_ROUTES.Users);
@@ -22,16 +20,10 @@ export const useUsersStore = defineStore('users', () => {
     }
   };
 
-  const changeCurrentPage = (page) => {
-    currentPage.value = page;
-  };
-
   return {
     users,
     promoUsers,
-    currentPage,
     fetchUsers,
     fetchPromoUsers,
-    changeCurrentPage,
   }
 });

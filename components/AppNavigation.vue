@@ -27,7 +27,7 @@ const links = [
     title: 'Направления'
   },
   {
-    ref: APP_ROUTES.Companions,
+    ref: APP_ROUTES.Companions.replace(':id', 1),
     title: 'Попутчики'
   },
 ];

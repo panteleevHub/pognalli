@@ -9,7 +9,7 @@ export const API_ROUTES = {
 
 export const APP_ROUTES = {
   Main: '/',
-  Companions: '/companions',
+  Companions: '/companions/page/:id',
   Login: '/login',
   SignUp: '/register',
   Directions: '/directions',

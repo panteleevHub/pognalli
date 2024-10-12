@@ -1,31 +1,31 @@
 <template>
   <div class="pagination">
     <div class="pagination__page-buttons">
-      <button
+      <NuxtLink
         v-for="page in hiddenPages"
-        @click="usersStore.changeCurrentPage(page.number)"
         class="pagination__page-button"
         :class="currentPage === page.number && 'pagination__page-button--active'"
+        :to="APP_ROUTES.Companions.replace(':id', page.number)"
         type="button"
       >
         {{ page.value }}
-      </button>
+      </NuxtLink>
     </div>
     <div class="pagination__arrow-buttons">
-      <button
-        @click="usersStore.changeCurrentPage(currentPage - 1)"
+      <NuxtLink
         class="pagination__arrow-button pagination__arrow-button--prev"
+        :class="currentPage === 1 && 'pagination__arrow-button--disabled'"
         type="button"
-        :disabled="currentPage === 1"
+        :to="APP_ROUTES.Companions.replace(':id', currentPage - 1)"
       >
-      </button>
-      <button
-        @click="usersStore.changeCurrentPage(currentPage + 1)"
+      </NuxtLink>
+      <NuxtLink
         class="pagination__arrow-button pagination__arrow-button--next"
+        :class="currentPage === pages && 'pagination__arrow-button--disabled'"
         type="button"
-        :disabled="currentPage === pages"
+        :to="APP_ROUTES.Companions.replace(':id', currentPage + 1)"
       >
-      </button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -39,8 +39,8 @@ const props = defineProps({
   }
 });
 
-const usersStore = useUsersStore();
-const { currentPage } = storeToRefs(usersStore);
+const { params } = useRoute();
+const currentPage = ref(parseInt(params.id));
 
 const windowWidth = ref(0);
 
@@ -79,20 +79,16 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .pagination {
-  margin-top: 30px;
-
   @media (min-width: $tablet-width) {
     @include flex-base;
     column-gap: 50px;
     background-color: $white;
-    margin-top: 50px;
     padding: 25px 28px;
     border-radius: 20px;
   }
 
   @media (min-width: $desktop-width) {
     width: 950px;
-    margin-top: 70px;
   }
 }
 
@@ -112,6 +108,7 @@ onUnmounted(() => {
   font-size: 17px;
   line-height: 17px;
   font-weight: 700;
+  text-align: center;
   background-color: transparent;
   color: $basic-blue-light;
   padding: 9px 0;
@@ -176,11 +173,12 @@ onUnmounted(() => {
     height: 20px;
     background-size: 13px 20px;
   }
+}
 
-  &:disabled {
-    opacity: 0.1;
-    cursor: auto;
-  }
+.pagination__arrow-button--disabled {
+  opacity: 0.1;
+  cursor: auto;
+  pointer-events: none;
 }
 
 .pagination__arrow-button--next {
