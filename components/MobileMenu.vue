@@ -15,7 +15,7 @@
     </div>
     <div v-if="isMenuOpened" class="mobile-menu__bottom">
       <AppNavigation v-model:close="isMenuOpened" />
-      <UserNavigation :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--bottom" />
+      <UserNavigation v-model:close="isMenuOpened" :isFull="false" class="mobile-menu__authorization mobile-menu__authorization--bottom" />
       <Contacts place="header" class="mobile-menu__contacts" />
       <Socials place="header" class="mobile-menu__socials" />
     </div>

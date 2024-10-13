@@ -1,17 +1,17 @@
 <template>
   <section class="users">
     <h2 class="visually-hidden">Список попутчиков</h2>
-    <p v-if="filteredUsers.length === 0" class="users__empty">Попутчики не найдены</p>
+    <p v-if="isEmpty" class="users__empty">Попутчики не найдены</p>
     <div v-else>
       <ul class="users__list">
         <li
-          v-for="user in slicedUsers"
+          v-for="user in users"
           :key="user._id"
           class="users__item user"
         >
           <div class="user__avatar">
             <img
-              :src="user.avatarUrl"
+              :src="user.avatarUrl ? user.avatarUrl : profilePlaceholder"
               width="70"
               height="70"
               alt="Аватар пользователя"
@@ -29,7 +29,7 @@
             <span>{{ user.likes.length }}</span>
           </div>
           <p class="user__tags">{{ user.tags.join(' ') }}</p>
-          <div class="user__countries">
+          <div v-if="user.countries.length !== 0" class="user__countries">
             <span class="user__caption user__caption--countries">Хочет посетить:</span>
             <UserCountries :countriesIds="user.countries" place="catalog" />
           </div>
@@ -44,65 +44,28 @@
           <button class="user__invite" type="button">Позвать!</button>
         </li>
       </ul>
-      <UserPagination
-        v-if="isPaginationShow"
-        :pages="pageCount"
-      />
     </div>
   </section>
 </template>
 
 <script setup>
-import UserPagination from '@/components/companionsPage/UserPagination.vue';
+import profilePlaceholder from '@/assets/img/profile-placeholder.png';
 
-const filtersStore = useFiltersStore();
-const usersStore = useUsersStore();
+const props = defineProps({
+  users: {
+    type: Array,
+    default: [],
+    required: true,
+  },
 
-const { selectedCountries, selectedUserData, initialUserData } = storeToRefs(filtersStore);
-const { users, currentPage } = storeToRefs(usersStore);
-
-const USERS_ON_PAGE = 8;
-const userId = 21; // Временно
-
-const filteredUsersByCountries = computed(() => {
-  if (selectedCountries.value.length === 0) return users.value;
-
-  return users.value.filter(user => (
-    selectedCountries.value.some((country) => (
-      user.countries.find((countryId) => countryId === country.id)
-    ))
-  ))
-});
-
-const filteredUsers = computed(() => {
-  if (JSON.stringify(selectedUserData.value) === JSON.stringify(initialUserData.value)) {
-    return filteredUsersByCountries.value;
+  isEmpty: {
+    type: Boolean,
+    default: true,
+    required: true,
   }
-
-  return filteredUsersByCountries.value.filter(user => {
-    return (
-      user.level >= selectedUserData.value.level.min &&
-      user.level <= selectedUserData.value.level.max &&
-      user.age >= selectedUserData.value.age.min &&
-      user.age <= selectedUserData.value.age.max &&
-      (selectedUserData.value.purpose.length === 0 || selectedUserData.value.purpose.includes(user.purpose)) &&
-      (selectedUserData.value.music.length === 0 || selectedUserData.value.music.some(genre => user.music.includes(genre))) &&
-      (selectedUserData.value.transport.length === 0 ||
-        selectedUserData.value.transport.some(transport => user.transport.includes(transport)))
-    );
-  });
 });
 
-const pageCount = computed(() => Math.ceil(filteredUsers.value.length / USERS_ON_PAGE));
-
-const slicedUsers = computed(() => {
-  const startOfSlice = (currentPage.value - 1) * USERS_ON_PAGE;
-  const endOfSlice = Math.min(filteredUsers.value.length, currentPage.value * USERS_ON_PAGE);
-
-  return filteredUsers.value.slice(startOfSlice, endOfSlice);
-});
-
-const isPaginationShow = computed(() => filteredUsers.value.length > USERS_ON_PAGE);
+const userId = 21; // Временно
 
 const onLikeClick = (user) => {
   // Запрос на сервер
@@ -111,9 +74,6 @@ const onLikeClick = (user) => {
 
   userIdIndex === -1 ? user.likes.push(userId) : user.likes.splice(userIdIndex, 1);
 };
-
-watch(currentPage, () => window.scrollTo(0, 0));
-watch(filteredUsers, () => usersStore.changeCurrentPage(1));
 </script>
 
 <style lang="scss" scoped>

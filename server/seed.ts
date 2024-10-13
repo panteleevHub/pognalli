@@ -6,7 +6,7 @@ import { PromoUser } from './models/user/promo';
 export default async () => {
   try {
     const countriesIds = generateCountriesIds();
-    const users = generateUsers(50, countriesIds);
+    const users = generateUsers(100, countriesIds);
     const countries = generateCountries(users, countriesIds);
 
     await User.deleteMany({fake: true});

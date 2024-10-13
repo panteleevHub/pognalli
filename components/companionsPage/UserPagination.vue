@@ -1,31 +1,31 @@
 <template>
   <div class="pagination">
     <div class="pagination__page-buttons">
-      <button
-        v-for="number in pages"
-        @click="usersStore.changeCurrentPage(number)"
+      <NuxtLink
+        v-for="page in hiddenPages"
         class="pagination__page-button"
-        :class="currentPage === number && 'pagination__page-button--active'"
+        :class="currentPage === page.number && 'pagination__page-button--active'"
+        :to="APP_ROUTES.Companions.replace(':id', page.number)"
         type="button"
       >
-        {{ number }}
-      </button>
+        {{ page.value }}
+      </NuxtLink>
     </div>
     <div class="pagination__arrow-buttons">
-      <button
-        @click="usersStore.changeCurrentPage(currentPage - 1)"
+      <NuxtLink
         class="pagination__arrow-button pagination__arrow-button--prev"
+        :class="currentPage === 1 && 'pagination__arrow-button--disabled'"
         type="button"
-        :disabled="currentPage === 1"
+        :to="APP_ROUTES.Companions.replace(':id', currentPage - 1)"
       >
-      </button>
-      <button
-        @click="usersStore.changeCurrentPage(currentPage + 1)"
+      </NuxtLink>
+      <NuxtLink
         class="pagination__arrow-button pagination__arrow-button--next"
+        :class="currentPage === pages && 'pagination__arrow-button--disabled'"
         type="button"
-        :disabled="currentPage === pages"
+        :to="APP_ROUTES.Companions.replace(':id', currentPage + 1)"
       >
-      </button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -39,27 +39,56 @@ const props = defineProps({
   }
 });
 
-const usersStore = useUsersStore();
-const { currentPage } = storeToRefs(usersStore);
+const { params } = useRoute();
+const currentPage = ref(parseInt(params.id));
+
+const windowWidth = ref(0);
+
+const hiddenPages = computed(() => {
+  const pageList = Array.from({length: props.pages}, (_, i) => ({ value: String(i + 1), number: i + 1 }));
+  const firstPart = pageList.slice(0, currentPage.value - 1);
+  const lastPart = pageList.slice(currentPage.value, props.pages);
+
+  const visiblePages = windowWidth.value < SCREEN_WIDTH.Tablet ? 2 : 3;
+
+  if (firstPart.length - visiblePages > 1) {
+    firstPart.splice(1, firstPart.length - visiblePages, { value: '...', number: firstPart.length - (visiblePages - 1) });
+  }
+
+  if (lastPart.length - visiblePages > 1) {
+    lastPart.splice(visiblePages - 1, lastPart.length - visiblePages, { value: '...', number: lastPart[visiblePages - 1].number });
+  }
+
+  return [...firstPart, { value: String(currentPage.value), number: currentPage.value } , ...lastPart];
+});
+
+const onWindowWidthChange = () => {
+  windowWidth.value = window.innerWidth;
+};
+
+onMounted(() => {
+  windowWidth.value = window.innerWidth;
+  window.addEventListener('resize', onWindowWidthChange);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onWindowWidthChange);
+});
 
 </script>
 
 <style lang="scss" scoped>
 .pagination {
-  margin-top: 30px;
-
   @media (min-width: $tablet-width) {
     @include flex-base;
     column-gap: 50px;
     background-color: $white;
-    margin-top: 50px;
     padding: 25px 28px;
     border-radius: 20px;
   }
 
   @media (min-width: $desktop-width) {
     width: 950px;
-    margin-top: 70px;
   }
 }
 
@@ -79,6 +108,7 @@ const { currentPage } = storeToRefs(usersStore);
   font-size: 17px;
   line-height: 17px;
   font-weight: 700;
+  text-align: center;
   background-color: transparent;
   color: $basic-blue-light;
   padding: 9px 0;
@@ -143,11 +173,12 @@ const { currentPage } = storeToRefs(usersStore);
     height: 20px;
     background-size: 13px 20px;
   }
+}
 
-  &:disabled {
-    opacity: 0.1;
-    cursor: auto;
-  }
+.pagination__arrow-button--disabled {
+  opacity: 0.1;
+  cursor: auto;
+  pointer-events: none;
 }
 
 .pagination__arrow-button--next {

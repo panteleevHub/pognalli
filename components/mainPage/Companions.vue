@@ -32,7 +32,7 @@
             </div>
           </li>
         </ul>
-        <NuxtLink class="companions__more button" :to="APP_ROUTES.Companions">Показать всех</NuxtLink>
+        <NuxtLink class="companions__more button" :to="APP_ROUTES.Companions.replace(':id', 1)">Показать всех</NuxtLink>
       </div>
     </div>
   </section>

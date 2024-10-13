@@ -25,14 +25,14 @@ export default defineEventHandler(async (event) => {
 
   const newUser = await User.create({
     name: `${body.firstName} ${body.lastName}`,
-    age: undefined,
-    avatarUrl: undefined,
+    age: 0,
+    avatarUrl: '',
     countries: [],
     tags: [],
     transport: [],
     level: 1,
     likes: [],
-    purpose: undefined,
+    purpose: '',
     music: [],
     email: body.email,
     password: hashedPassword,
