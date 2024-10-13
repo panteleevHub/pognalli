@@ -68,6 +68,13 @@ const filteredUsers = computed(() => {
 
 const pageCount = computed(() => Math.ceil(filteredUsers.value.length / USERS_ON_PAGE));
 
+if (isNaN(currentPage.value) || currentPage.value < 1 || currentPage.value > pageCount.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page not found',
+  });
+}
+
 const slicedUsers = computed(() => {
   const startOfSlice = (currentPage.value - 1) * USERS_ON_PAGE;
   const endOfSlice = Math.min(filteredUsers.value.length, currentPage.value * USERS_ON_PAGE);

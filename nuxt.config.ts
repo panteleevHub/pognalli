@@ -39,5 +39,11 @@ export default defineNuxtConfig({
     ],
   },
 
+  app: {
+    head: {
+      title: 'Погнали'
+    }
+  },
+
   devtools: { enabled: true }
 })

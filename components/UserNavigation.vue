@@ -10,6 +10,7 @@
     </ul>
     <NuxtLink
       v-if="status === 'unauthenticated'"
+      @click="emit('update:close', false)"
       class="user-nav__authorization user-nav__authorization--full"
       :to="APP_ROUTES.Login"
     >
@@ -17,6 +18,7 @@
     </NuxtLink>
     <NuxtLink
       v-if="status === 'authenticated'"
+      @click="emit('update:close', false)"
       :to="APP_ROUTES.MyPage"
       class="user-nav__user user-nav__user--full"
     >
@@ -32,6 +34,8 @@ const props = defineProps({
     required: true
   }
 });
+
+const emit = defineEmits(['update:close']);
 
 const { data, status } = useAuth();
 
