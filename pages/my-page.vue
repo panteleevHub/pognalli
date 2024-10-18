@@ -1,20 +1,20 @@
 <template>
-  <section>
-    <h1 class="visually-hidden">Моя страница</h1>
-    <button @click="onLogout">Выйти</button>
-  </section>
+  <main class="my-page">
+    <PageHeader class="my-page__header">{{ userName }}</PageHeader>
+    <UserData />
+  </main>
 </template>
 
 <script setup>
+import UserData from '@/components/myPage/UserData.vue';
+
 definePageMeta({
   middleware: 'auth',
 });
 
-const { signOut } = useAuth();
+const { data } = useAuth();
 
-const onLogout = async () => {
-  await signOut();
-};
+const userName = computed(() => data.value.user.name);
 </script>
 
 <style lang="scss" scoped>

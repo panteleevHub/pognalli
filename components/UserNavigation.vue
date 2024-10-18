@@ -22,7 +22,7 @@
       :to="APP_ROUTES.MyPage"
       class="user-nav__user user-nav__user--full"
     >
-      {{ getUserName() }}
+      {{ userName }}
     </NuxtLink>
   </div>
 </template>
@@ -39,11 +39,11 @@ const emit = defineEmits(['update:close']);
 
 const { data, status } = useAuth();
 
-const getUserName = () => {
+const userName = computed(() => {
   if (!data.value.user) return 'Unknown';
 
   return data.value.user.name.split(' ')[0];
-};
+});
 </script>
 
 <style lang="scss" scoped>
