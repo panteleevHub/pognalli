@@ -11,9 +11,9 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const user = await User.find({email: body.email});
+  const user = await User.findOne({email: body.email});
 
-  if (user.length !== 0) {
+  if (!user) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Bad Request',

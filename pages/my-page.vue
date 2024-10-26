@@ -1,12 +1,12 @@
 <template>
   <main class="my-page">
     <PageHeader class="my-page__header">{{ userName }}</PageHeader>
-    <UserData />
+    <UserProfile />
   </main>
 </template>
 
 <script setup>
-import UserData from '@/components/myPage/UserData.vue';
+import UserProfile from '@/components/myPage/UserProfile.vue';
 
 definePageMeta({
   middleware: 'auth',
